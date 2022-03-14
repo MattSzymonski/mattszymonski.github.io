@@ -51,7 +51,7 @@ I am an enthusiast of Computer Science, especially fields related to game develo
 Moreover, I am a self-thought 3D Artist specializing in prop modeling and environment art.
 I have graduated from Warsaw University of Technology with a Bachelor&rsquo;s degree in Computer Science, with the highest degree for my thesis: &ldquo;Design and Implementation of a Computer Game Engine&rdquo;."><meta itemprop="datePublished" content="2022-03-10T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-03-10T00:00:00+00:00" />
-<meta itemprop="wordCount" content="760">
+<meta itemprop="wordCount" content="780">
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="About Me"/>
@@ -92,9 +92,9 @@ I have graduated from Warsaw University of Technology with a Bachelor&rsquo;s de
         
             <span class="logo__mark">></span>
             <span class="logo__text">MattSzymonski</span>
-            <span class="logo__cursor" style=
+            <span class="logo__cursor" id="logoCursor" style=
                   "
-                   background-color:#e6f2ff;
+                   background-color: white;
                    animation-duration:1.2s;">
             </span>
         
@@ -155,69 +155,113 @@ I work as a <strong>Junior Technical Artist at CD PROJEKT RED</strong>.</p>
 <p>I am an enthusiast of Computer Science, especially fields related to game development: <strong>Technical Art, Computer Graphics and Engine Programming</strong>.<br>
 Moreover, I am a self-thought <strong>3D Artist</strong> specializing in prop modeling and environment art.</p>
 <p>I have graduated from Warsaw University of Technology with a <strong>Bachelor&rsquo;s degree in Computer Science</strong>, with the highest degree for my thesis: <em>&ldquo;Design and Implementation of a Computer Game Engine&rdquo;</em>.</p>
-<p>Not secretly, I am a huge fan of game jams and Rust programming language.<br>
-I enjoy hanging out, meeting new people, working out, and playing RTS and simulation games, especially economic strategies.</p>
+<p>Not secretly, I am a huge fan of game jams and Rust programming language.</p>
 <p>You can find my <strong>resume</strong> here: <a href="https://mattszymonski.com/media/documents/Mateusz_Szymonski_Resume.pdf">Resume</a>
 <br/><br/><br/></p>
 </div>
 <h1 id="skills">Skills</h1>
 <div style="padding-left: 30px;">
-<table style="width:100%">
-<thead>
-    <tr style="font-size: 18px">
-        <th>Game Engines</th>
-        <th>Languages</th>
-        <th>Tools</th>
-        <th>Other</th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-        <td>Unity</td>
-        <td>C#</td>
-        <td>Blender</td>
-        <td>HTML</td>
-    </tr>
-    <tr>
-        <td>Unreal Engine</td>
-        <td>Rust</td>
-        <td>Photoshop</td>
-        <td>CSS</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>C++</td>
-        <td>Substance Painter</td>
-        <td>LaTeX</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>Python</td>
-        <td>Git</td>
-        <td>Linux</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>SQL</td>
-        <td>Helix Core</td>
-        <td>ASP.NET</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>R</td>
-        <td>Docker</td>
-        <td>React</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Agile</td>
-    </tr>
-</tbody>
-</table>
-<br/>
+<style>
+   td {
+    width: 178px;
+    padding: 5px;
+    border: 0px solid black; 
+    font-size: 15px; 
+  }
+
+  tr {    
+    font-size: 18px; 
+    text-align: left;
+  }
+  
+  .skills_table_container {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    justify-content: center;
+  }
+  
+  .skills_table_item {
+    display: block;
+    margin-bottom: 20px;
+  }
+</style>
+<div class="skills_table_container">
+  <table class="skills_table_item">
+  <thead>
+      <tr>
+          <th>Game Engines</th>
+          <th>Languages</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Unity</td>
+          <td>C#</td>
+      </tr>
+      <tr>
+          <td>Unreal Engine</td>
+          <td>Rust</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>C++</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Python</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>SQL</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>R</td>
+      </tr>
+  </tbody>
+  </table>
+  <table class="skills_table_item">
+  <thead>
+      <tr>
+          <th>Tools</th>
+          <th>Other</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Blender</td>
+          <td>HTML</td>
+      </tr>
+      <tr>
+          <td>Photoshop</td>
+          <td>CSS</td>
+      </tr>
+      <tr>
+          <td>Substance Painter</td>
+          <td>LaTeX</td>
+      </tr>
+      <tr>
+          <td>Git</td>
+          <td>Linux</td>
+      </tr>
+      <tr>
+          <td>Helix Core</td>
+          <td>ASP.NET</td>
+      </tr>
+      <tr>
+          <td>Docker</td>
+          <td>React</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Agile</td>
+      </tr>
+  </tbody>
+  </table>
 </div>
+</div>
+<br/>
 <h1 id="projects">Projects</h1>
 <div style="padding-left: 30px;">
 <h3 id="gwent-the-witcher-card-game">GWENT: The Witcher Card Game</h3>
@@ -460,7 +504,7 @@ PolyJam 2018/2019, Slavic Game Jam 2018/2019, 0h Game Jam 2018/2019/2020, HoloLe
 
 
 
-<script type="text/javascript" src="https://mattszymonski.com/bundle.min.c0e5325d1b3fa80bf2144639e4ddc0aca3712118965a706ea5db48340e7a0282a52b59f90618bdacbf44fb57596d1f3567a6aedd2d68e70741ebc94fc954c21a.js" integrity="sha512-wOUyXRs/qAvyFEY55N3ArKNxIRiWWnBupdtINA56AoKlK1n5Bhi9rL9E&#43;1dZbR81Z6au3S1o5wdB68lPyVTCGg=="></script>
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.a37911305d54242cae60187a90bd3ad4017fcd9d3038385bdfef60fd13360d8690de84062dfd98e96d65ac3a0af7e5c787bfc8011297c729f960b423665d5531.js" integrity="sha512-o3kRMF1UJCyuYBh6kL061AF/zZ0wODhb3&#43;9g/RM2DYaQ3oQGLf2Y6W1lrDoK9&#43;XHh7/IARKXxyn5YLQjZl1VMQ=="></script>
     
 <script type="application/javascript">
 var doNotTrack = false;
