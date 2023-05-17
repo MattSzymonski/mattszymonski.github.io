@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-	<meta name="generator" content="Hugo 0.92.2" />
+	<meta name="generator" content="Hugo 0.111.3">
         <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,7 +26,7 @@
 
 
 
-<link rel="stylesheet" href="https://mattszymonski.com/main.min.a6b5b1f39c7a9a0725a7883d97e67529ccb6d5ad14035a4f07c895cef527f48e.css">
+<link rel="stylesheet" href="https://mattszymonski.com/main.min.9502fea01ee302992748b13a23089653c283bf9cbfd74e173478424719e26a80.css">
 
 
 
@@ -101,7 +101,7 @@
             <span class="header__right">
                 
                     <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://mattszymonski.com/about_me/">About Me</a></li><li><a href="https://mattszymonski.com/support/">Support</a></li>
+    <ul class="menu__inner"><li><a href="https://mattszymonski.com/about_me/">About Me</a></li><li><a href="https://mattszymonski.com/posts/">Posts</a></li><li><a href="https://mattszymonski.com/support/">Support</a></li>
     </ul>
 </nav>
 
@@ -147,10 +147,17 @@
             <div style="margin-top: 10px;"></div>
                     &nbsp; 
 
+<style>
+    .mail_button {
+        cursor:pointer;
+    } 
+</style>
+
 <SCRIPT LANGUAGE="JavaScript">
     user = 'matt.szymonski';
     site = 'gmail.com';
-    document.write('<a href=\"mailto:' + user + '@' + site + '\" title=\"Mail\">');
+    composed = user + '@' + site;
+    document.write('<a class=\"mail_button\" onclick=\"alert(composed)\">');
     document.write("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">");
     document.write("<path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"></path><polyline points=\"22,6 12,13 2,6\"></polyline></svg>");
     document.write('</a>');
@@ -160,15 +167,10 @@
             </div>
 
             <div style="margin-top: 50px;">
-                
-<style>
-    #action_button:hover {background-color: rgb(82, 82, 82);}
-</style>
-
-<div style="display: flex; justify-content: center; margin-top: 20px;">
-    <button id="action_button" onclick="location.href='https://mattszymonski.com/about_me'" type="submit" style="width: 120px; border-radius: 4px; border: 1px solid;">About Me</button>
+                <div class="action_buttons">
+    <button class="action_button" id="action_button" onclick="location.href='https://mattszymonski.com/about_me'" type="submit">About Me</button>
     &nbsp;&nbsp;
-    <button id="action_button" onclick="location.href='https://mattszymonski.com/media/documents/Mateusz_Szymonski_Resume.pdf'" type="submit" style="width: 120px; border-radius: 4px; border: 1px solid;">Resume</button>
+    <button class="action_button" id="action_button" onclick="location.href='https://mattszymonski.com/media/documents/Mateusz_Szymonski_Resume.pdf'" type="submit">Resume</button>
 </div>
 
 
@@ -186,9 +188,8 @@
         <div class="footer__content">
             <span>&copy; 2023</span>
             
-                <span><a href="https://mattszymonski.com">Mateusz Szymoński</a></span>
+                <span>Mateusz Szymoński</span>
             
-            <span> <a href="https://mattszymonski.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
         </div>
     </div>
 </footer>
@@ -204,7 +205,7 @@
 
 
 
-<script type="text/javascript" src="https://mattszymonski.com/bundle.min.a37911305d54242cae60187a90bd3ad4017fcd9d3038385bdfef60fd13360d8690de84062dfd98e96d65ac3a0af7e5c787bfc8011297c729f960b423665d5531.js" integrity="sha512-o3kRMF1UJCyuYBh6kL061AF/zZ0wODhb3&#43;9g/RM2DYaQ3oQGLf2Y6W1lrDoK9&#43;XHh7/IARKXxyn5YLQjZl1VMQ=="></script>
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.0f9a49fcb018bb818095f0baa263b8499640e7a2b006990a8e48783fb2cb459709fa2c6766ece37c876ae10d2a341b25b6d6c9e9cee9b88621442e156cdfe38d.js" integrity="sha512-D5pJ/LAYu4GAlfC6omO4SZZA56KwBpkKjkh4P7LLRZcJ&#43;ixnZuzjfIdq4Q0qNBslttbJ6c7puIYhRC4VbN/jjQ=="></script>
 
 
 

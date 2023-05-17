@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="map[name:Mateusz Szymoński]">
+<meta name="description" content="This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
+It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
+Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes." />
+<meta name="keywords" content=", Technical Art, Tools, Houdini, AI, OpenAI, Python" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/" />
+
+
+    <title>
+        
+            Building AI tools in Houdini :: Mateusz Matt Szymoński 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://mattszymonski.com/main.min.9502fea01ee302992748b13a23089653c283bf9cbfd74e173478424719e26a80.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://mattszymonski.com/media/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://mattszymonski.com/media/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://mattszymonski.com/media/favicons/favicon-16x16.png">
+    <link rel="manifest" href="https://mattszymonski.com/media/favicons/site.webmanifest">
+    <link rel="mask-icon" href="https://mattszymonski.com/media/favicons/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://mattszymonski.com/media/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+    <meta name="theme-color" content="">
+
+
+<meta itemprop="name" content="Building AI tools in Houdini">
+<meta itemprop="description" content="This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
+It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
+Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes."><meta itemprop="datePublished" content="2023-05-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-05-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1608">
+<meta itemprop="keywords" content="Technical Art,Tools,Houdini,AI,OpenAI,Python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Building AI tools in Houdini"/>
+<meta name="twitter:description" content="This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
+It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
+Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes."/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2023-05-16 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+<!-- Global Site Tag (gtag.js) - Google Tag Manager -->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYYC2BRP5S"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', "G-BYYC2BRP5S");
+    </script>
+
+
+
+<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
+
+    </head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <body class="dark-theme">
+        <div class="container">
+            <div id="navbar">
+    <header class="header">
+        <span class="header__inner">
+            <a href="https://mattszymonski.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">MattSzymonski</span>
+            <span class="logo__cursor" id="logoCursor" style=
+                  "
+                   background-color: white;
+                   animation-duration:1.2s;">
+            </span>
+        
+    </div>
+</a>
+
+
+            <span class="header__right">
+                
+                    <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://mattszymonski.com/about_me/">About Me</a></li><li><a href="https://mattszymonski.com/posts/">Posts</a></li><li><a href="https://mattszymonski.com/support/">Support</a></li>
+    </ul>
+</nav>
+
+                    <span class="menu-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                        </svg>
+                    </span>
+                
+
+                <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+            </span>
+        </span>
+    </header>
+    <body>
+        <progress value="0">
+            <div class="progress-container">
+                <span class="progress-bar"></span>
+            </div>
+        </progress>
+    </body>
+</div>
+
+
+            <div class="content">
+                
+    <div class="post-wrapper">
+        <main class="post">
+
+                <div class="post-info">
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://mattszymonski.com/tags/technical-art">Technical Art</a></span><span class="tag"><a href="https://mattszymonski.com/tags/tools">Tools</a></span><span class="tag"><a href="https://mattszymonski.com/tags/houdini">Houdini</a></span><span class="tag"><a href="https://mattszymonski.com/tags/ai">AI</a></span><span class="tag"><a href="https://mattszymonski.com/tags/openai">OpenAI</a></span><span class="tag"><a href="https://mattszymonski.com/tags/python">Python</a></span>
+                        </p>
+
+                    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1608 Words</p>
+
+                    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2023-05-16</p>
+
+                    
+
+                    
+
+                    </p>
+                </div>
+
+                <article>
+                    <h1 class="post-title">
+                        <span>Building AI tools in Houdini</span>
+                    </h1>
+
+                    
+
+                    <div class="post-content">
+                        <p>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.</p>
+<p>It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.</p>
+<h2 id="tool-description">Tool description</h2>
+<p>We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)</p>
+<p>The plan is to have 3 buttons:</p>
+<ul>
+<li>Print simple text to the console, just for testing</li>
+<li>Analyse and comment the code</li>
+<li>Generate code from prompt</li>
+</ul>
+<gif>
+<h2 id="1-creating-a-houdini-package-for-our-tool">1. Creating a Houdini package for our tool</h2>
+<p>A package in Houdini is simply a plugin that can consist of various components such as HDAs, scripts, shelves, Python panels, environment
+variables, etc. These packages can be loaded into Houdini as a single entity and enable easy sharing of customized functionality along with
+all its dependencies with others, without the need to share individual files.</p>
+<p>The most important parts of the packages are:</p>
+<ul>
+<li>JSON file that defines a tool and points Houdini to the location in which the tool&rsquo;s files are stored.</li>
+<li>Tool&rsquo;s files of course.</li>
+</ul>
+<p><strong>⚡️ So we need to create such JSON file for our tool - Name it “AI_Tool.json” for example and save it in one of the following locations:</strong></p>
+<ul>
+<li><code>$HOUDINI_USER_PREF_DIR/packages</code><br>
+  (eg. C:\Users\&lt;USER&gt;\Documents\houdini19.5\packages)</li>
+<li><code>$HSITE/houdinimajor.minor/packages</code></li>
+<li><code>$HOUDINI_PACKAGE_DIR</code><br>
+  (eg. C:\Program Files\Side Effects Software\Houdini 19.5.368)</li>
+<li><code>$HFS/packages</code></li>
+</ul>
+<p>These are the places that are scanned by Houdini to load the packages on start.</p>
+<p><strong>⚡️ Finally fill the file with a code below:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;$AI_TOOL_PATH&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;load_package_once&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;enable&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;19.5&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;env&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;AI_TOOL_PATH&#34;</span>: <span style="color:#e6db74">&#34;C:\Users\&lt;USER&gt;\Documents\AI_Tool&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>❗ Adjust the path so it points to the location in which you plan to locate the tool&rsquo;s files.</p>
+<h2 id="2-extending-houdini-context-menus">2. Extending Houdini context menus</h2>
+<p>Ok, let&rsquo;s create our two buttons (the third one we will add later on)</p>
+<p><strong>⚡️ To extend the context menu, go to the location of your tool&rsquo;s files and create there a PARMmenu.xml file with the following contents:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;menuDocument&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;menu&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;subMenu</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;aitools&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;label&gt;</span>AI Tools<span style="color:#f92672">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;scriptItem</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;h.aitool_1&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;label&gt;</span>Print debug text<span style="color:#f92672">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">&lt;!-- CODE OF FIRST TOOL GOES HERE! --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;scriptItem</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;h.aitool_2&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;label&gt;</span>Comment code<span style="color:#f92672">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">&lt;!-- CODE OF THE SECOND TOOL GOES HERE! --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/subMenu&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/menu&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/menuDocument&gt;</span>
+</span></span></code></pre></div><p>This is an XML structure that defines a submenu with buttons that will be added to the context menu.
+<code>&lt;scriptItem&gt;</code> tags specify buttons themselves. You can add as many as you want here.</p>
+<p>The last step is to finally implement logic that will call functions in our package on button click.</p>
+<p><strong>⚡️ What we need to do is to replace comments between <code>&lt;scriptCode&gt;</code> with Python script wrapped with
+<code>&lt;![CDATA&gt;[ ... ]]&gt;</code>. Simple as that!</strong></p>
+<p>The code should look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;scriptItem</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;h.aitool_1&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;label&gt;</span>Print debug text<span style="color:#f92672">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;![CDATA[
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">import AITool
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">result = AITool.print_debug_text()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        ]]&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;scriptItem</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;h.aitool_2&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;label&gt;</span>Comment code<span style="color:#f92672">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;![CDATA[
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">import AITool
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">parm = kwargs[&#34;parms&#34;][0]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">code_field_contents = parm.rawValue()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">result = AITool.read_code_from_parameter_and_comment_it(code_field_contents)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">parm.set(result)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        ]]&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>⚠️ Python code should be aligned to the left side in order to avoid indentation problems.</p>
+<h2 id="3-talking-with-artificial-intelligence-">3. Talking with Artificial Intelligence 🤖</h2>
+<p>Let&rsquo;s jump back to our package folder and implement functions that will communicate with the model.</p>
+<p><strong>⚡️ In the package folder create a new folder called “scripts”, then inside it, a folder called “python”, and finally create Python script “AITool.py”
+inside it.</strong></p>
+<p>The folder structure should look as follows:</p>
+
+    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/folder_structure.png"  class="center"  style="border-radius: 8px;"  />
+
+
+<p>Houdini automatically loads Python modules if they are located in the following paths:</p>
+<ul>
+<li><code>$HOUDINI_PATH/pythonX.Ylibs</code></li>
+<li><code>$HOUDINI_PATH/scripts/python</code></li>
+<li><code>$HOUDINI_USER_PREF_DIR/pythonX.Ylibs</code></li>
+<li><code>$HOUDINI_USER_PREF_DIR/scripts/python</code></li>
+<li><code>$PYTHONPATH</code></li>
+</ul>
+<p>Additionally, it loads Python modules for every package if they are located in the path like this:
+…/MyPackage/scripts/python/my_python_module_file.py</p>
+<h3 id="some-basic-stuff">Some basic stuff</h3>
+<p><strong>⚡️ Since we have a button that will just print some text to the Houdini console, add a logic for it to the AITool.py file:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_debug_text</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Hello from AI Tool!&#34;</span>)
+</span></span></code></pre></div><h3 id="calling-openai-chatgpt">Calling OpenAI ChatGPT</h3>
+<p><strong>⚡️ Now add logic that will call the OpenAI endpoint to communicate with the model:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> openai
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_code_from_parameter_and_comment_it</span>(code_field_contents):
+</span></span><span style="display:flex;"><span>    openai<span style="color:#f92672">.</span>api_key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;OPENAI_API_KEY&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Analyze the following VEX code from SideFX Houdini and add comments to explain it.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Don&#39;t change the code, return the same code with comments above.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    I only need the script body, do NOT explain the code body.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    The code: </span><span style="color:#e6db74">{0}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    prompt <span style="color:#f92672">=</span> prompt<span style="color:#f92672">.</span>format(code_field_contents)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    completion <span style="color:#f92672">=</span> openai<span style="color:#f92672">.</span>ChatCompletion<span style="color:#f92672">.</span>create(
+</span></span><span style="display:flex;"><span>        model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gpt-3.5-turbo&#34;</span>,
+</span></span><span style="display:flex;"><span>        messages<span style="color:#f92672">=</span>[ {<span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;user&#34;</span>, <span style="color:#e6db74">&#34;content&#34;</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{prompt}</span><span style="color:#e6db74">&#34;</span>} ],
+</span></span><span style="display:flex;"><span>        temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>        n<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> completion<span style="color:#f92672">.</span>choices[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>message<span style="color:#f92672">.</span>content
+</span></span></code></pre></div><p>⚠️ To use ChatGPT you need an account and paid access to its API.<br>
+You can grab it here: <a href="https://platform.openai.com/login">OpenAI Platform</a></p>
+<h3 id="calling-generic-model-using-html-cors-requests">Calling generic model using HTML CORS requests</h3>
+<p>Another way to communicate with the models it to use classic HTML requests.</p>
+<p>BTW: OpenAI Python library uses the same code internally but wraps it with functions that are more convenient to use.</p>
+<p><strong>⚡️ For this method use the code below:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_code_from_parameter_and_comment_it</span>(code_field_contents):
+</span></span><span style="display:flex;"><span>    prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Analyze the following VEX code from SideFX Houdini and add comments to explain it.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Don&#39;t change the code, return the same code with comments above.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    I only need the script body, do NOT explain the code body.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    The code: </span><span style="color:#e6db74">{0}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    prompt <span style="color:#f92672">=</span> prompt<span style="color:#f92672">.</span>format(code_field_contents)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Creating HTML request components</span>
+</span></span><span style="display:flex;"><span>    request_body <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;prompt&#34;</span>: prompt,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    request_headers <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Content-type&#34;</span>: <span style="color:#e6db74">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;API-KEY&#34;</span>: <span style="color:#e6db74">&#34;&lt;API_KEY&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Sending HTML POST request to the endpoint</span>
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(
+</span></span><span style="display:flex;"><span>        url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;URL&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>        headers<span style="color:#f92672">=</span>request_headers,
+</span></span><span style="display:flex;"><span>        json<span style="color:#f92672">=</span>request_body,
+</span></span><span style="display:flex;"><span>        timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Analysing the response</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>status_code <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>json()[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Success&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> response<span style="color:#f92672">.</span>json()[<span style="color:#e6db74">&#34;answer&#34;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Request failed with &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span>json()[<span style="color:#e6db74">&#39;status&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Request failed with status code: &#34;</span> <span style="color:#f92672">+</span> response<span style="color:#f92672">.</span>status_code
+</span></span></code></pre></div><p>⚠️ This is just a sample code. It may not work with all endpoints/models because they may require different headers and request/response body schema (DTOs).<br>
+You may need to adjust request_body, request_headers, and response parsing.<br>
+Everything except that should be more or less universal and work with every model backend.</p>
+<h3 id="code-generation">Code generation</h3>
+<p>Implementation of the code generation logic is almost the same, you just need to add another function like those above and change the prompt 😃.</p>
+<p><strong>⚡️ In PARMmenu.xml, duplicate <code>&lt;scriptItem&gt;</code> with “h.aitool_2” and make it call your new function.</strong></p>
+<p>I would suggest something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Write VEX code from SideFX Houdini that will: </span><span style="color:#e6db74">{0}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Additionally add comments explaining it.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Give me just the code and the comments, nothing else.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">I only need the script body, do NOT explain the code body.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> prompt<span style="color:#f92672">.</span>format(code_field_contents)
+</span></span></code></pre></div><h2 id="4-lets-try-it-its-showtime">4. Let’s try it. It&rsquo;s showtime!</h2>
+
+    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/showtime.jpg"  class="center"  style="border-radius: 8px;"  />
+
+
+<p><strong>⚡️ Restart Houdini if you have it opened.</strong>
+This is required because packages are loaded on the program start.</p>
+<p>You can check if the package has been detected correctly. To do this click the “Help” button in the navmenu at the top, then “About”, tick the “Show Details” checkbox, and scroll down to the “Loaded Packages” section. The tool should appear there.</p>
+
+    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/help.gif"  class="center"  style="border-radius: 8px;"  />
+
+
+<br />
+<hr>
+<p>First test the basic functionality which is debug message printing.<br>
+<strong>⚡️ In network view create a geometry node and then attribute wrangle node in it.</strong></p>
+
+    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/first.gif"  class="center"  style="border-radius: 8px;"  />
+
+
+<p>Yey!</p>
+<hr>
+<p>Now time to try our bleeding-edge functionality!<br>
+<strong>⚡️ Inside of attribute wrangle node type your VEX code.</strong></p>
+<p>For example something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>vector color <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>(<span style="color:#960050;background-color:#1e0010">@</span>ptnum);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">@</span>ptnum <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    color.x <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>(<span style="color:#960050;background-color:#1e0010">@</span>ptnum);
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">@</span>Cd <span style="color:#f92672">=</span> color;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">@</span>Cd <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%f&#34;</span>, <span style="color:#960050;background-color:#1e0010">@</span>Cd.x);
+</span></span></code></pre></div><p><strong>⚡️ Ok, so let&rsquo;s click the button and wait for a few seconds.</strong></p>
+
+    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/comment.gif"  class="center"  style="border-radius: 8px;"  />
+
+
+<p>… and there you have it! The same code as before but analyzed and commented for you.<br>
+Crazy, right?</p>
+<h2 id="bonus-houdini-joke-as-mesh-generator">Bonus: “Houdini joke-as-mesh generator”</h2>
+<p>Let’s create a simple node graph that will ask AI to tell some random joke, and then convert this joke into a mesh using font node.</p>
+<p><strong>⚡️ All you need to do is to create a Python node and place the same code that we use in our tool package inside it with some modifications.</strong></p>
+<p>It should look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>node <span style="color:#f92672">=</span> hou<span style="color:#f92672">.</span>pwd()
+</span></span><span style="display:flex;"><span>geo <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>geometry()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Creating HTML request components</span>
+</span></span><span style="display:flex;"><span>request_body <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;prompt&#34;</span>: <span style="color:#e6db74">&#34;Tell me a good joke about birds&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>request_headers <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Content-type&#34;</span>: <span style="color:#e6db74">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;API-KEY&#34;</span>: <span style="color:#e6db74">&#34;&lt;API_KEY&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sending HTML POST request to the endpoint</span>
+</span></span><span style="display:flex;"><span>response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(
+</span></span><span style="display:flex;"><span>    url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;URL&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>    headers<span style="color:#f92672">=</span>request_headers,
+</span></span><span style="display:flex;"><span>    json<span style="color:#f92672">=</span>request_body,
+</span></span><span style="display:flex;"><span>    timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Analysing the response and adding detail attribute with the joke</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>status_code <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">and</span> response<span style="color:#f92672">.</span>json()[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Success&#34;</span>:
+</span></span><span style="display:flex;"><span>    geo<span style="color:#f92672">.</span>addAttrib(hou<span style="color:#f92672">.</span>attribType<span style="color:#f92672">.</span>Global, <span style="color:#e6db74">&#34;joke&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#75715e"># Add detail attribute</span>
+</span></span><span style="display:flex;"><span>    geo<span style="color:#f92672">.</span>setGlobalAttribValue(<span style="color:#e6db74">&#34;joke&#34;</span>, response<span style="color:#f92672">.</span>json()[<span style="color:#e6db74">&#34;answer&#34;</span>]) <span style="color:#75715e"># Set its value</span>
+</span></span></code></pre></div><p>You can use OpenAI module for this too</p>
+<p>The rest of the node tree should look like this:</p>
+<p>
+    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/jokes.png"  class="center"  style="border-radius: 8px;"  />
+
+
+(Font node is referencing Python node using spare input. It has to be added to the font node by clicking the cog button next to its name and choosing &ldquo;Add spare input&rdquo;. Then it will appear in the parameters below. Just drag and drop Python node to assign it)</p>
+<p>Of course, you can add some personal twist to it if you want.</p>
+<p>💡 Idea: You can create a PDG network that will generate a huge number of random jokes as meshes and save each one as a separate FBX on the drive so you can use them to … well I don’t really know but it is cool.</p>
+<p>💡 Perhaps a more useful idea: Create parameterized NPC creator for the video game and ask AI to “play” with different parameters, as well as come up with some personal details and character descriptions. In this way, we can generate an army of meaningful characters. (Then we can print them on 3D printers, equip them with AI models, and deploy to the streets)</p>
+
+    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/units.jpg"  class="center"  style="border-radius: 8px;"  />
+
+
+<br />
+<br />
+<br />
+<p>That&rsquo;s it! Thanks for reading 😃</p>
+
+                    </div>
+
+                </article>
+
+                <hr />
+
+                
+                <div id="comments" class="thin">
+                    <script src="https://utteranc.es/client.js"
+                            repo="MattSzymonski/website-hugo"
+                            issue-term="pathname"
+                            label="documentation"
+                            theme="github-dark"
+                            crossorigin="anonymous"
+                            async>
+                    </script>
+                </div>
+        </main>
+        
+    <aside class="lg:block toc" id="toc">
+        <h3 style="padding-left: 10px;">TL;DR</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tool-description">Tool description</a></li>
+    <li><a href="#1-creating-a-houdini-package-for-our-tool">1. Creating a Houdini package for our tool</a></li>
+    <li><a href="#2-extending-houdini-context-menus">2. Extending Houdini context menus</a></li>
+    <li><a href="#3-talking-with-artificial-intelligence-">3. Talking with Artificial Intelligence 🤖</a>
+      <ul>
+        <li><a href="#some-basic-stuff">Some basic stuff</a></li>
+        <li><a href="#calling-openai-chatgpt">Calling OpenAI ChatGPT</a></li>
+        <li><a href="#calling-generic-model-using-html-cors-requests">Calling generic model using HTML CORS requests</a></li>
+        <li><a href="#code-generation">Code generation</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-lets-try-it-its-showtime">4. Let’s try it. It&rsquo;s showtime!</a></li>
+    <li><a href="#bonus-houdini-joke-as-mesh-generator">Bonus: “Houdini joke-as-mesh generator”</a></li>
+  </ul>
+</nav>
+    </aside>
+
+    </div>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2023</span>
+            
+                <span>Mateusz Szymoński</span>
+            
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.0f9a49fcb018bb818095f0baa263b8499640e7a2b006990a8e48783fb2cb459709fa2c6766ece37c876ae10d2a341b25b6d6c9e9cee9b88621442e156cdfe38d.js" integrity="sha512-D5pJ/LAYu4GAlfC6omO4SZZA56KwBpkKjkh4P7LLRZcJ&#43;ixnZuzjfIdq4Q0qNBslttbJ6c7puIYhRC4VbN/jjQ=="></script>
+
+
+
+    </body>
+</html>
