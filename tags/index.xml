@@ -5,7 +5,79 @@
     <link>https://mattszymonski.com/tags/</link>
     <description>Recent content in Tags on Mateusz Matt Szymoński</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://mattszymonski.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://mattszymonski.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET</title>
+      <link>https://mattszymonski.com/tags/asp.net/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/asp.net/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Backend</title>
+      <link>https://mattszymonski.com/tags/backend/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/backend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://mattszymonski.com/tags/docker/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Frontend</title>
+      <link>https://mattszymonski.com/tags/frontend/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/frontend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fullstack</title>
+      <link>https://mattszymonski.com/tags/fullstack/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/fullstack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>React</title>
+      <link>https://mattszymonski.com/tags/react/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tailwind</title>
+      <link>https://mattszymonski.com/tags/tailwind/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/tailwind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web App Development</title>
+      <link>https://mattszymonski.com/tags/web-app-development/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/tags/web-app-development/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>AI</title>
       <link>https://mattszymonski.com/tags/ai/</link>
@@ -21,42 +93,6 @@
       <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://mattszymonski.com/tags/houdini/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenAI</title>
-      <link>https://mattszymonski.com/tags/openai/</link>
-      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://mattszymonski.com/tags/openai/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://mattszymonski.com/tags/python/</link>
-      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://mattszymonski.com/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Technical Art</title>
-      <link>https://mattszymonski.com/tags/technical-art/</link>
-      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://mattszymonski.com/tags/technical-art/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tools</title>
-      <link>https://mattszymonski.com/tags/tools/</link>
-      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://mattszymonski.com/tags/tools/</guid>
       <description></description>
     </item>
     
