@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://mattszymonski.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Building AI tools in Houdini</title>
+      <title>Building AI Tools in Houdini</title>
       <link>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</link>
       <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
       
@@ -38,7 +38,7 @@ I have graduated from Warsaw University of Technology with a Bachelor&amp;rsquo;
       <guid>https://mattszymonski.com/support/</guid>
       <description>This is support page for the assets and tools I develop and distribute.
 In case of any problems or questions feel free to reach me via mail:
-Tools • Rapid PBR Material Creator
+user = &#39;matt.szymonski&#39;; site = &#39;gmail.com&#39;; document.write(&#39;&#39;); document.write(user + &#39;@&#39; + site + &#39;&#39;);  Tools • Rapid PBR Material Creator
 Assets • Ultimate Sprite Mask
 • Temple of Ylnir
 • Wind Trails Effect</description>
