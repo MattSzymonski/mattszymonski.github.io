@@ -27,7 +27,7 @@ Tool description We will create and add custom context menu buttons that will ap
 
 
 
-<link rel="stylesheet" href="https://mattszymonski.com/main.min.f7f1b3634c4e5d66fd6ca4493816a3a5cea0c186d5dc03590a7defd22d938c48.css">
+<link rel="stylesheet" href="https://mattszymonski.com/main.min.ab6266ea835053bd5050d901d4a7727e3c2087c1269096f2926b1a57894abee0.css">
 
 
 
@@ -47,7 +47,7 @@ Tool description We will create and add custom context menu buttons that will ap
 It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
 Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes."><meta itemprop="datePublished" content="2023-05-16T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1742">
+<meta itemprop="wordCount" content="1832">
 <meta itemprop="keywords" content="Technical Art,Tools,Houdini,AI,OpenAI,Python," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Building AI Tools in Houdini"/>
@@ -151,7 +151,7 @@ Tool description We will create and add custom context menu buttons that will ap
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://mattszymonski.com/tags/technical-art">Technical Art</a></span><span class="tag"><a href="https://mattszymonski.com/tags/tools">Tools</a></span><span class="tag"><a href="https://mattszymonski.com/tags/houdini">Houdini</a></span><span class="tag"><a href="https://mattszymonski.com/tags/ai">AI</a></span><span class="tag"><a href="https://mattszymonski.com/tags/openai">OpenAI</a></span><span class="tag"><a href="https://mattszymonski.com/tags/python">Python</a></span>
                     </p>
 
-                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1742 Words</p>
+                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1832 Words</p>
 
                 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2023-05-16</p>
 
@@ -221,7 +221,10 @@ all its dependencies with others, without the need to share individual files.</p
         "> AI_Tool.json </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -280,7 +283,10 @@ all its dependencies with others, without the need to share individual files.</p
         "> PARMmenu.xml </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -365,7 +371,10 @@ all its dependencies with others, without the need to share individual files.</p
         "> PARMmenu.xml </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -472,7 +481,10 @@ inside it.</strong></p>
         "> AITool.py </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -511,7 +523,10 @@ inside it.</strong></p>
         "> AITool.py </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">openai</span>
 
@@ -542,7 +557,7 @@ inside it.</strong></p>
 
 
 <p>⚠️ To use ChatGPT you need an account and paid access to its API.<br>
-You can grab it here: <a href="https://platform.openai.com/login">OpenAI Platform</a></p>
+You can grab it here: <a href="https://platform.openai.com/login" target="_blank" rel="noopener">OpenAI Platform</a></p>
 <h3 id="calling-generic-model-using-html-cors-requests">Calling generic model using HTML CORS requests</h3>
 <p>Another way to communicate with the models it to use classic HTML requests.</p>
 <p>BTW: OpenAI Python library uses the same code internally but wraps it with functions that are more convenient to use.</p>
@@ -567,7 +582,10 @@ You can grab it here: <a href="https://platform.openai.com/login">OpenAI Platfor
         "> AITool.py </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
 
@@ -626,7 +644,10 @@ Everything except that should be more or less universal and work with every mode
 
 <div style="margin-bottom: 15px;">
    
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
 </span><span style="color:#ed9d13">Write VEX code from SideFX Houdini that will: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
@@ -685,7 +706,10 @@ This is required because packages are loaded on the program start.</p>
         "> Attribute Wrangle node </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">vector color = rand(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum);
 <span style="color:#6ab825;font-weight:bold">if</span>(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum % <span style="color:#3677a9">2</span> == <span style="color:#3677a9">0</span>)
@@ -733,7 +757,10 @@ printf(<span style="color:#ed9d13">&#34;%f&#34;</span>, <span style="color:#a617
         "> Python node </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
 
@@ -807,19 +834,23 @@ response = requests.post(
         <h3 style="padding-left: 10px;">TL;DR</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#tool-description">Tool description</a></li>
-    <li><a href="#1-creating-a-houdini-package-for-our-tool">1. Creating a Houdini package for our tool</a></li>
-    <li><a href="#2-extending-houdini-context-menus">2. Extending Houdini context menus</a></li>
-    <li><a href="#3-talking-with-artificial-intelligence-">3. Talking with Artificial Intelligence 🤖</a>
+    <li>
       <ul>
-        <li><a href="#some-basic-stuff">Some basic stuff</a></li>
-        <li><a href="#calling-openai-chatgpt">Calling OpenAI ChatGPT</a></li>
-        <li><a href="#calling-generic-model-using-html-cors-requests">Calling generic model using HTML CORS requests</a></li>
-        <li><a href="#code-generation">Code generation</a></li>
+        <li><a href="#tool-description">Tool description</a></li>
+        <li><a href="#1-creating-a-houdini-package-for-our-tool">1. Creating a Houdini package for our tool</a></li>
+        <li><a href="#2-extending-houdini-context-menus">2. Extending Houdini context menus</a></li>
+        <li><a href="#3-talking-with-artificial-intelligence-">3. Talking with Artificial Intelligence 🤖</a>
+          <ul>
+            <li><a href="#some-basic-stuff">Some basic stuff</a></li>
+            <li><a href="#calling-openai-chatgpt">Calling OpenAI ChatGPT</a></li>
+            <li><a href="#calling-generic-model-using-html-cors-requests">Calling generic model using HTML CORS requests</a></li>
+            <li><a href="#code-generation">Code generation</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-lets-try-it-its-showtime">4. Let’s try it. It&rsquo;s showtime!</a></li>
+        <li><a href="#bonus-houdini-joke-as-mesh-generator">Bonus: “Houdini joke-as-mesh generator”</a></li>
       </ul>
     </li>
-    <li><a href="#4-lets-try-it-its-showtime">4. Let’s try it. It&rsquo;s showtime!</a></li>
-    <li><a href="#bonus-houdini-joke-as-mesh-generator">Bonus: “Houdini joke-as-mesh generator”</a></li>
   </ul>
 </nav>
     </aside>
@@ -851,7 +882,7 @@ response = requests.post(
 
 
 
-<script type="text/javascript" src="https://mattszymonski.com/bundle.min.9a96f473e0356a557b6a5a0467bc3ec6084190258e0193c08f2b011a74343e617000889c58376a074cbae87a14040aed2cf29956f2fbacc811f4fd35ccd89fff.js" integrity="sha512-mpb0c&#43;A1alV7aloEZ7w&#43;xghBkCWOAZPAjysBGnQ0PmFwAIicWDdqB0y66HoUBArtLPKZVvL7rMgR9P01zNif/w=="></script>
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.a37911305d54242cae60187a90bd3ad4017fcd9d3038385bdfef60fd13360d8690de84062dfd98e96d65ac3a0af7e5c787bfc8011297c729f960b423665d5531.js" integrity="sha512-o3kRMF1UJCyuYBh6kL061AF/zZ0wODhb3&#43;9g/RM2DYaQ3oQGLf2Y6W1lrDoK9&#43;XHh7/IARKXxyn5YLQjZl1VMQ=="></script>
 
 
 

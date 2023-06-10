@@ -67,7 +67,10 @@ all its dependencies with others, without the need to share individual files.</p
         "> AI_Tool.json </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -126,7 +129,10 @@ all its dependencies with others, without the need to share individual files.</p
         "> PARMmenu.xml </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -211,7 +217,10 @@ all its dependencies with others, without the need to share individual files.</p
         "> PARMmenu.xml </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -318,7 +327,10 @@ inside it.</strong></p>
         "> AITool.py </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -357,7 +369,10 @@ inside it.</strong></p>
         "> AITool.py </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">openai</span>
 
@@ -388,7 +403,7 @@ inside it.</strong></p>
 
 
 <p>⚠️ To use ChatGPT you need an account and paid access to its API.<br>
-You can grab it here: <a href="https://platform.openai.com/login">OpenAI Platform</a></p>
+You can grab it here: <a href="https://platform.openai.com/login" target="_blank" rel="noopener">OpenAI Platform</a></p>
 <h3 id="calling-generic-model-using-html-cors-requests">Calling generic model using HTML CORS requests</h3>
 <p>Another way to communicate with the models it to use classic HTML requests.</p>
 <p>BTW: OpenAI Python library uses the same code internally but wraps it with functions that are more convenient to use.</p>
@@ -413,7 +428,10 @@ You can grab it here: <a href="https://platform.openai.com/login">OpenAI Platfor
         "> AITool.py </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
 
@@ -472,7 +490,10 @@ Everything except that should be more or less universal and work with every mode
 
 <div style="margin-bottom: 15px;">
    
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
 </span><span style="color:#ed9d13">Write VEX code from SideFX Houdini that will: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
@@ -531,7 +552,10 @@ This is required because packages are loaded on the program start.</p>
         "> Attribute Wrangle node </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">vector color = rand(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum);
 <span style="color:#6ab825;font-weight:bold">if</span>(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum % <span style="color:#3677a9">2</span> == <span style="color:#3677a9">0</span>)
@@ -579,7 +603,10 @@ printf(<span style="color:#ed9d13">&#34;%f&#34;</span>, <span style="color:#a617
         "> Python node </p>
         
     
-    <style> .code div { border-radius: 8px; }</style>
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
     <div class="code">
         <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
 
