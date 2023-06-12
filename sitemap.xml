@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mattszymonski.com/tags/asp.net/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/backend/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/docker/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/frontend/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/fullstack/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_1/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_2/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/react/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/tailwind/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/web-app-development/</loc>
+    <lastmod>2023-06-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mattszymonski.com/tags/ai/</loc>
     <lastmod>2023-05-16T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,9 +47,6 @@
     <loc>https://mattszymonski.com/tags/houdini/</loc>
     <lastmod>2023-05-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mattszymonski.com/</loc>
-    <lastmod>2023-05-16T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://mattszymonski.com/tags/openai/</loc>
     <lastmod>2023-05-16T00:00:00+00:00</lastmod>
   </url><url>
@@ -21,9 +54,6 @@
     <lastmod>2023-05-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/tags/python/</loc>
-    <lastmod>2023-05-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mattszymonski.com/tags/</loc>
     <lastmod>2023-05-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/tags/technical-art/</loc>

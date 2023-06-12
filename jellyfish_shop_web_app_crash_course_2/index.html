@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="map[name:Mateusz Szymoński]">
+<meta name="description" content=".notice{ --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd; --warning-title:#800;--warning-content:#400; --info-title:#698496;--info-content:#8ba0ad; --note-title:#069;--note-content:#023; --tip-title:#363;--tip-content:#121; .dark-theme &amp; { --root-color:#ddd; --info-title:#445a69; --info-content:#668091; } padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background); } .notice p:last-child{margin-bottom:0} .notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)} .notice.warning .notice-title{background:var(--warning-title)} .notice.warning{background:var(--warning-content)} .notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)} .notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)} .notice.tip .notice-title{background:var(--tip-title)} .notice.tip{background:var(--tip-content)} .icon-notice{display:inline-flex;align-self:center;margin-right:8px} .icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor} .icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}       
+This article links to many amazing tutorials from FireShip YouTube channel. Without doing so it will be 4 times longer." />
+<meta name="keywords" content=", Web App Development, Frontend, Fullstack, React, Tailwind, Docker" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://mattszymonski.com/jellyfish_shop_web_app_crash_course_2/" />
+
+
+    <title>
+        
+            Jellyfish Shop - Web App Crash Course - 2. Frontend :: Mateusz Matt Szymoński 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://mattszymonski.com/main.min.ab6266ea835053bd5050d901d4a7727e3c2087c1269096f2926b1a57894abee0.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://mattszymonski.com/media/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://mattszymonski.com/media/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://mattszymonski.com/media/favicons/favicon-16x16.png">
+    <link rel="manifest" href="https://mattszymonski.com/media/favicons/site.webmanifest">
+    <link rel="mask-icon" href="https://mattszymonski.com/media/favicons/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://mattszymonski.com/media/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+    <meta name="theme-color" content="">
+
+
+<meta itemprop="name" content="Jellyfish Shop - Web App Crash Course - 2. Frontend">
+<meta itemprop="description" content=".notice{ --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd; --warning-title:#800;--warning-content:#400; --info-title:#698496;--info-content:#8ba0ad; --note-title:#069;--note-content:#023; --tip-title:#363;--tip-content:#121; .dark-theme & { --root-color:#ddd; --info-title:#445a69; --info-content:#668091; } padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background); } .notice p:last-child{margin-bottom:0} .notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)} .notice.warning .notice-title{background:var(--warning-title)} .notice.warning{background:var(--warning-content)} .notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)} .notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)} .notice.tip .notice-title{background:var(--tip-title)} .notice.tip{background:var(--tip-content)} .icon-notice{display:inline-flex;align-self:center;margin-right:8px} .icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor} .icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}       
+This article links to many amazing tutorials from FireShip YouTube channel. Without doing so it will be 4 times longer."><meta itemprop="datePublished" content="2023-06-08T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-06-08T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3702">
+<meta itemprop="keywords" content="Web App Development,Frontend,Fullstack,React,Tailwind,Docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jellyfish Shop - Web App Crash Course - 2. Frontend"/>
+<meta name="twitter:description" content=".notice{ --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd; --warning-title:#800;--warning-content:#400; --info-title:#698496;--info-content:#8ba0ad; --note-title:#069;--note-content:#023; --tip-title:#363;--tip-content:#121; .dark-theme & { --root-color:#ddd; --info-title:#445a69; --info-content:#668091; } padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background); } .notice p:last-child{margin-bottom:0} .notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)} .notice.warning .notice-title{background:var(--warning-title)} .notice.warning{background:var(--warning-content)} .notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)} .notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)} .notice.tip .notice-title{background:var(--tip-title)} .notice.tip{background:var(--tip-content)} .icon-notice{display:inline-flex;align-self:center;margin-right:8px} .icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor} .icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}       
+This article links to many amazing tutorials from FireShip YouTube channel. Without doing so it will be 4 times longer."/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2023-06-08 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+<!-- Global Site Tag (gtag.js) - Google Tag Manager -->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYYC2BRP5S"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', "G-BYYC2BRP5S");
+    </script>
+
+
+
+<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
+
+    </head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <body class="dark-theme">
+        <div class="container">
+            <div id="navbar">
+    <header class="header">
+        <span class="header__inner">
+            <a href="https://mattszymonski.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">MattSzymonski</span>
+            <span class="logo__cursor" id="logoCursor" style=
+                  "
+                   background-color: white;
+                   animation-duration:1.2s;">
+            </span>
+        
+    </div>
+</a>
+
+
+            <span class="header__right">
+                
+                    <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://mattszymonski.com/about_me/">About Me</a></li><li><a href="https://mattszymonski.com/posts/">Posts</a></li><li><a href="https://mattszymonski.com/support/">Support</a></li>
+    </ul>
+</nav>
+
+                    <span class="menu-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                        </svg>
+                    </span>
+                
+
+                <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+            </span>
+        </span>
+    </header>
+    <body>
+        <progress value="0">
+            <div class="progress-container">
+                <span class="progress-bar"></span>
+            </div>
+        </progress>
+    </body>
+</div>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><span>Jellyfish Shop - Web App Crash Course - 2. Frontend</span></h2>
+            
+            
+    <aside class="lg:block toc" id="toc">
+        <h3 style="padding-left: 10px;">TL;DR</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#task-description">Task description</a></li>
+        <li><a href="#setup">Setup</a>
+          <ul>
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#initial-project-creation">Initial project creation</a></li>
+            <li><a href="#routes-endpoints">Routes (endpoints)</a>
+              <ul>
+                <li><a href="#subpage">Subpage</a></li>
+                <li><a href="#dynamic-subpages">Dynamic subpages</a></li>
+                <li><a href="#public-static-data">Public static data</a></li>
+                <li><a href="#api-routes">API routes</a></li>
+              </ul>
+            </li>
+            <li><a href="#data-fetching">Data fetching</a>
+              <ul>
+                <li><a href="#server-side-generation-ssg">Server-Side Generation (SSG)</a></li>
+                <li><a href="#server-side-rendering-ssr">Server-Side Rendering (SSR)</a></li>
+              </ul>
+            </li>
+            <li><a href="#components">Components</a>
+              <ul>
+                <li><a href="#icons">Icons</a></li>
+              </ul>
+            </li>
+            <li><a href="#hooks">Hooks</a></li>
+            <li><a href="#styling">Styling</a>
+              <ul>
+                <li><a href="#color-palette">Color palette</a></li>
+                <li><a href="#global-styles">Global styles</a></li>
+              </ul>
+            </li>
+            <li><a href="#ready-ui-building-blocks">Ready UI building blocks</a></li>
+            <li><a href="#visual-editor">Visual editor</a></li>
+          </ul>
+        </li>
+        <li><a href="#closing-words">Closing words</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </aside>
+
+
+            
+
+            <div class="post-content">
+                <style type="text/css">
+    .notice{
+        --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;
+        --warning-title:#800;--warning-content:#400;
+        --info-title:#698496;--info-content:#8ba0ad;
+        --note-title:#069;--note-content:#023;
+        --tip-title:#363;--tip-content:#121;
+
+        .dark-theme & {
+            --root-color:#ddd; --info-title:#445a69; --info-content:#668091; 
+        }
+        
+        padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);
+    }
+
+    .notice p:last-child{margin-bottom:0}
+    .notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}
+    .notice.warning .notice-title{background:var(--warning-title)}
+    .notice.warning{background:var(--warning-content)}
+    .notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}
+    .notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}
+    .notice.tip .notice-title{background:var(--tip-title)}
+    .notice.tip{background:var(--tip-content)}
+    .icon-notice{display:inline-flex;align-self:center;margin-right:8px}
+    .icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}
+    .icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}
+</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol>
+    <symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol>
+    <symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol>
+    <symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol>
+</svg></div><div class="notice info" >
+<p class="first notice-title">
+    <span class="icon-notice baseline">
+        <svg><use href="#info-notice"></use></svg>
+    </span></p>
+    <p>This article links to many amazing tutorials from <a href="https://www.youtube.com/@Fireship">FireShip</a> YouTube channel. Without doing so it will be 4 times longer. Huge kudos for creating all of them!</p>
+</div>
+</br>
+<p><em><center>Add more lore here</center></em></p>
+<p></br></br></p>
+<p><strong>Welcome back, the shopfront and selling chamber look a bit old. Let&rsquo;s rebuild to its old glory, the glory it deserives!</strong></p>
+<p>In this article, we&rsquo;ll explore the essential steps and techniques required to build a compelling frontend for your web application.
+When it comes to the graphical part of the app, tweaking its look make eat enormous amount of your time. Keep that in mind.
+And we have just one life to do everything (at least this is what we think so)
+Here we won&rsquo;t focus on some sophisticated styling tehniques.
+Contrarny we will try to save the time (a lot of time) by using ready buidling blocks. But yet well looking page.
+(remeber using kitbashing your visual layer is not cheeting, actuallt there is not cheeting when it comes to )</p>
+<h2 id="task-description">Task description</h2>
+<p>The plan is to create frontend consisting:</p>
+<ul>
+<li>Landing page - A landing page is a single web page designed to achieve a specific goal, such as capturing leads or promoting a product or service. It serves as a focused entry point where visitors are directed to take a desired action, increasing the chances of conversion and achieving marketing objectives. It will have all usuall landing page elements:
+<ul>
+<li>Navbar with buttons leading to sections below, as well as buttons that will take users to jellyfish trading platform</li>
+<li>Hero sections with some customer hook text</li>
+<li>Features section presenting most important aspects of the shop</li>
+<li>Call to action section that will have a link inviting the user to register a new account</li>
+<li>Statistics section with some numbers</li>
+<li>Testimonials with some cool reviews of the shop</li>
+<li>Contact form allowing users to send us an email</li>
+<li>And finally footer with page map</li>
+</ul>
+</li>
+<li>Shop counter aka Jellyfish trading platform - Separate page on which logged users will be able to check store inventory, buy or sell some jellyfishes. Also we will put there some graphs and user profile settings.</li>
+<li>Web app - Jellyfish trading platform but in form of the mobile app that can be installed on the smartphones.</li>
+</ul>
+<p>Looks like a lot of work, right?
+Let&rsquo;s start then!</p>
+<h2 id="setup">Setup</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol>
+<li>Download and install <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">Node.js</a></li>
+<li>If you are using Visual Studio Code as your code editor I recommend to install these extensions:</li>
+</ol>
+<ul>
+<li>Tailwind CSS IntelliSense</li>
+<li>vscode-icons</li>
+</ul>
+<h3 id="initial-project-creation">Initial project creation</h3>
+<p>Good practice is to start every new project by creating version controlled directory that will hold all project files.
+I will use GIT but you choose what you like of course.</p>
+<p>Go to your GIT provider system (GitHub. GitLab, etc) and create new repository. Then clone it to the folder of your choice.</p>
+<ol>
+<li>
+<p>Open command line</p>
+</li>
+<li>
+<p><code>cd &lt;PATH_TO_FOLDER_WITH_YOUR_PROJECTS&gt;</code></p>
+</li>
+<li>
+<p>Clone repository <code>git clone &lt;LINK_TO_YOUR_REPOSITORY&gt;</code></p>
+</li>
+<li>
+<p><code>cd &lt;YOUR_REPOSITORY_NAME&gt;</code></p>
+</li>
+<li>
+<p>Create folder for frontend project <code>mkdir frontend</code></p>
+</li>
+<li>
+<p><code>cd frontend</code></p>
+</li>
+<li>
+<p>Create new Next.js app <code>npx create-next-app .</code><br>
+You will be asked to set some settings. I suggest to use these:</p>
+</li>
+</ol>
+
+    <img src="https://mattszymonski.com/media/images/posts/jellyfish_shop_web_app_crash_course/2/next_setup.png"  class="center"  style="border-radius: 8px;"  />
+
+
+<p>Run locally to check if it works <code>npm run dev</code> and open <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a> in your internet browser.</p>
+<p>What is amazing in frontend development is that most of the frameworks have lightning-fast code hot reload. You can introduce change to the code and it will be reflected in the browser imediately, no need to close it and rebuild!</p>
+<p>&lt;Describe project files and directories here <a href="https://www.youtube.com/watch?v=Sklc_fQBmcs&amp;t=211s&amp;ab_channel=Fireship%3e" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Sklc_fQBmcs&t=211s&ab_channel=Fireship></a></p>
+<p>_app.js - main entry point into the app. By default it points to index.js file.</p>
+<p>Every file or page in the application has to have one default export function.
+Only in this way next.js will know how to construct the page from these individual blocks.</p>
+<h3 id="routes-endpoints">Routes (endpoints)</h3>
+<What it is>
+<pages folder>
+<h4 id="subpage">Subpage</h4>
+<p>Let&rsquo;s create our first subpage.
+In <code>pages</code> folder create <code>jelly.js</code> file and fill it:
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> Jelly.js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">default</span> <span style="color:#6ab825;font-weight:bold">function</span> Home() {
+  <span style="color:#6ab825;font-weight:bold">return</span> &lt;h1&gt;Jelly Jelly Jelly&lt;<span style="color:#a61717;background-color:#e3d2d2">/h1&gt;</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+Now in the browser go to <a href="http://localhost:3000/jelly" target="_blank" rel="noopener">http://localhost:3000/jelly</a></p>
+<h4 id="dynamic-subpages">Dynamic subpages</h4>
+<p>Next.js can &ldquo;read&rdquo; the url as it contains parameters and use them to adjust rendered component.
+To explain it let&rsquo;s create 📓 Jellyfish-onomicon 📓.</p>
+<ol>
+<li>In <code>pages</code> folder add another folder called <code>jellyfish_onomicon</code> with two files.</li>
+<li>Create <code>index.js</code> with:
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> index.js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">default</span> <span style="color:#6ab825;font-weight:bold">function</span> JellyfishOnomicon() {
+  <span style="color:#6ab825;font-weight:bold">return</span> &lt;h1&gt;Welcome to the infiniteness <span style="color:#6ab825;font-weight:bold">of</span> 
+  the Jellyfish-onomicon, where the realms 
+  <span style="color:#6ab825;font-weight:bold">of</span> dark magic intertwine <span style="color:#6ab825;font-weight:bold">with</span> the captivating 
+  elegance <span style="color:#6ab825;font-weight:bold">of</span> jellyfish&lt;<span style="color:#a61717;background-color:#e3d2d2">/h1&gt;</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</li>
+<li>Create <code>[name].js</code> with:
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> [name].js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">import</span> { useRouter } from <span style="color:#ed9d13">&#39;next/router&#39;</span>
+
+<span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">default</span> <span style="color:#6ab825;font-weight:bold">function</span> Jellyfish() {
+  <span style="color:#6ab825;font-weight:bold">const</span> router = useRouter()
+  <span style="color:#6ab825;font-weight:bold">const</span> { name } = router.query
+
+  <span style="color:#6ab825;font-weight:bold">return</span> &lt;h1&gt;Jellyfish: { name }&lt;<span style="color:#a61717;background-color:#e3d2d2">/h1&gt;</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</li>
+</ol>
+<p>Thanks to this setup a single dynamic component is used to display different subpages.</p>
+<p>Go to browser and check:</p>
+<ul>
+<li><a href="http://localhost:3000/jellyfish_onomicon" target="_blank" rel="noopener">http://localhost:3000/jellyfish_onomicon</a></li>
+<li><a href="http://localhost:3000/jellyfish_onomicon/MoonGlow" target="_blank" rel="noopener">http://localhost:3000/jellyfish_onomicon/MoonGlow</a></li>
+<li><a href="http://localhost:3000/jellyfish_onomicon/PinkPuff" target="_blank" rel="noopener">http://localhost:3000/jellyfish_onomicon/PinkPuff</a></li>
+<li><a href="http://localhost:3000/jellyfish_onomicon/WHATEVER" target="_blank" rel="noopener">http://localhost:3000/jellyfish_onomicon/WHATEVER</a></li>
+</ul>
+<p>💡 You can add code that calls ChatGPT and asks to generate random description from the jellyfish name, in this way creating really infinite compendium imaginary jellyfish. You can even ask AI to generate their images, fetch them and display.</p>
+<h4 id="public-static-data">Public static data</h4>
+<what it is>
+<p>Next.js has a <code>public</code> folder. Everything put there is accessible directly after domain name, eg. <code>http://localhost:3000/MyFile.png</code>.</p>
+<p>However, it is recommended to put a <code>static</code> folder inside <code>public</code> to keep the assets in it with all assets bundling and compressing benefits.</p>
+<p>Let&rsquo;s prepare some data. Create <code>static</code> folder and <code>jellyfish_onomicon_data</code> folder with two json files there. This will be useful in the next section of this course.</p>
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> MoonGlow.json </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#6ab825;font-weight:bold">&#34;name&#34;</span>: <span style="color:#ed9d13">&#34;Moon Glow&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;color&#34;</span>: <span style="color:#ed9d13">&#34;Celestial Gray&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;image&#34;</span>: <span style="color:#ed9d13">&#34;https://c4.wallpaperflare.com/wallpaper/734/273/196/jellyfish-dark-wallpaper-preview.jpg&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;A luminescent jellyfish species that radiates a captivating celestial glow, reminiscent of moonlight reflecting on calm waters&#34;</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> PinkPuff.json </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#6ab825;font-weight:bold">&#34;name&#34;</span>: <span style="color:#ed9d13">&#34;Pink Puff&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;color&#34;</span>: <span style="color:#ed9d13">&#34;Blushing Orchid&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;image&#34;</span>: <span style="color:#ed9d13">&#34;https://c4.wallpaperflare.com/wallpaper/287/588/863/jellyfish-underwater-world-phosphorus-glow-wallpaper-thumb.jpg&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;A charming and delightful jellyfish species with a fluffy, pink-hued bell that evokes a sense of whimsy and joy as it gracefully moves through the water.&#34;</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+<p>Now you can get contents of these files just by going to:</p>
+<ul>
+<li><a href="http://localhost:3000/static/jellyfish_onomicon_data/MoonGlow.json" target="_blank" rel="noopener">http://localhost:3000/static/jellyfish_onomicon_data/MoonGlow.json</a></li>
+<li><a href="http://localhost:3000/static/jellyfish_onomicon_data/PinkPuff.json" target="_blank" rel="noopener">http://localhost:3000/static/jellyfish_onomicon_data/PinkPuff.json</a></li>
+</ul>
+<h4 id="api-routes">API routes</h4>
+<what it is>
+<p>Let&rsquo;s test it by creating some data that will be returned from the frontend.
+This will be useful in the next section of this course.</p>
+<ol>
+<li>In <code>api</code> folder create folder <code>jellyfish_onomicon_data</code></li>
+<li>Inside it create two json files:</li>
+</ol>
+<p>These files can be accessed simply by going to:</p>
+<h3 id="data-fetching">Data fetching</h3>
+<p>Generally there are two types of web pages (and apps)</p>
+<ul>
+<li>Static - they display content that is not changing. Eg. landing page, portfolio or blog.</li>
+<li>Dynamic - they are building the page in real time by adding to the static elements fetched from the server. Eg. Social media pages, Banking portals, e-commerce stores, Stock exchange monitoring websites or apps, and many more. So in example of e-commerce stores static element is the table in which items are listed, but item data has to be fetched from backend server.</li>
+</ul>
+<p>In classic approach server is sending frontend whole source to the client&rsquo;s (user&rsquo;s) browser, and the browser is responsible for executing javascript code to fetches the data and then converting everything to html code (rendering), and finally displaying in the window.</p>
+<p>This has several drawbacks <what></p>
+<p>Alternatives that next.js provides are Server Side Generation (SSG) and Server-Side Rendering (SSR). Let&rsquo;s extend Jellyfish-onomikon to show how they work.</p>
+<h4 id="server-side-generation-ssg">Server-Side Generation (SSG)</h4>
+<p>In this approach server generates (prerenders) HTML code during build time and then sends the same code to all users. Note that makes sense only for static pages and is an ideal solution for those that have to be constructed using some external data, but only from time to time.</p>
+<p>Let&rsquo;s implement SSG in our Jellyfish-onomicon. For this our json files in the static folder will be useful. Basically we will fetch them in the dynamic <code>[name].js</code> component using <code>getStaticProps</code> function.</p>
+<p>When site is built, this function will be called by Next.js and send the result as props to the component itself. Then we will be able do display this data.</p>
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> [name].js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">41
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">import</span> { useRouter } from <span style="color:#ed9d13">&#39;next/router&#39;</span>
+
+<span style="color:#999;font-style:italic">// Head allows to easily add HTML code to &lt;head&gt; tag of the page
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">import</span> Head from <span style="color:#ed9d13">&#39;next/head&#39;</span>
+
+<span style="color:#999;font-style:italic">// &#34;jellyfish&#34; object is passed from getStaticProps automatically
+</span><span style="color:#999;font-style:italic">// We can retrieve data from it and use it in HTML code here
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">default</span> <span style="color:#6ab825;font-weight:bold">function</span> Jellyfish({ jellyfish }) {
+    <span style="color:#6ab825;font-weight:bold">const</span> router = useRouter()
+    <span style="color:#6ab825;font-weight:bold">const</span> { name } = router.query
+
+    <span style="color:#6ab825;font-weight:bold">return</span> (&lt;&gt;
+        &lt;Head&gt;
+            &lt;title&gt;Jellyfish - { name }&lt;<span style="color:#a61717;background-color:#e3d2d2">/title&gt;</span>
+        &lt;<span style="color:#a61717;background-color:#e3d2d2">/Head&gt;</span>
+
+        &lt;h1&gt;Jellyfish: { name }&lt;<span style="color:#a61717;background-color:#e3d2d2">/h1&gt;</span>
+        &lt;p&gt;Color: { jellyfish.color }&lt;<span style="color:#a61717;background-color:#e3d2d2">/p&gt;</span>
+        &lt;p&gt;Description: { jellyfish.description }&lt;<span style="color:#a61717;background-color:#e3d2d2">/p&gt;</span>
+
+        &lt;img src = { jellyfish.image } /&gt;
+    &lt;<span style="color:#a61717;background-color:#e3d2d2">/&gt;)</span>
+    
+}
+
+<span style="color:#999;font-style:italic">// This function is automatically called by Next.js before the component is rendered
+</span><span style="color:#999;font-style:italic">// &#34;params&#34; object contains the route parameters 
+</span><span style="color:#999;font-style:italic">// (eg. if page is [name].js, params will be { name: &lt;SOMETHING&gt; })
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">async</span> <span style="color:#6ab825;font-weight:bold">function</span> getStaticProps({ params }) {
+
+    <span style="color:#999;font-style:italic">// Fetch data from given URL
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">const</span> request = <span style="color:#6ab825;font-weight:bold">await</span> fetch(<span style="color:#ed9d13">`http://localhost:3000/static/jellyfish_onomicon_data/</span><span style="color:#ed9d13">${</span>params.name<span style="color:#ed9d13">}</span><span style="color:#ed9d13">.json`</span>);
+  
+    <span style="color:#999;font-style:italic">// Parses request result JSON to JavaScript object
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">const</span> data = <span style="color:#6ab825;font-weight:bold">await</span> request.json();
+  
+    <span style="color:#999;font-style:italic">// This is sent to the component. In this case jellyfish object containig fetched data
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">return</span> {
+      props: { jellyfish: data }    
+    }
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+<p>There is one crucial thing to keep in mind. Since in SSG everything is pregenerated we need to inform Next.js how many pages will be associated to the dynamic route. Otherwise it simply won&rsquo;t know how many of them to be generate.
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> [name].js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">55
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">...
+
+<span style="color:#999;font-style:italic">// This function has to return &#34;paths&#34; object with all possible paths for this dynamic route
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">async</span> <span style="color:#6ab825;font-weight:bold">function</span> getStaticPaths() {
+
+    <span style="color:#999;font-style:italic">// Hardcoded values! 
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#999;font-style:italic">// Better approach would be to create another JSON file to store this data and fetch it
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">const</span> paths = [{ params: { name: <span style="color:#ed9d13">&#34;MoonGlow&#34;</span> } }, { params: { name: <span style="color:#ed9d13">&#34;PinkPuff&#34;</span> } }]
+
+    <span style="color:#999;font-style:italic">// Return paths with some additional options
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">return</span> {
+        paths, 
+        fallback: <span style="color:#6ab825;font-weight:bold">false</span>
+    }
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</p>
+<p>To fix this issue we need to provide that information using <code>getStaticPaths</code> function. It should return array of every route that has to be generated for this dynamic URL.</p>
+<p>Check:<br>
+<a href="http://localhost:3000/jellyfish_onomicon/MoonGlow" target="_blank" rel="noopener">http://localhost:3000/jellyfish_onomicon/MoonGlow</a></p>
+<p>And this should return 404 page:
+<a href="http://localhost:3000/jellyfish_onomicon/NonExistingJelly" target="_blank" rel="noopener">http://localhost:3000/jellyfish_onomicon/NonExistingJelly</a></p>
+<p>If you load one of the pages of Jellyfish-onomicon and see the source code (F12 for developer options) you can notice that code is plain HTLM, there is no JavaScript.</p>
+<h4 id="server-side-rendering-ssr">Server-Side Rendering (SSR)</h4>
+<p>In this approach not the client&rsquo;s browser but the sever is responsible for constructing the page. When finished, prerendered data is send to the user and the only task of its browser is to display it. In other words, whole page is generated on the server when requested by the user and send back to them.
+There are several benefits <what></p>
+<p>This an ideal solution for dynamic pages.</p>
+<p>To use SSR we just need to change the name of function <code>getStaticProps</code> with <code>getServerSideProps</code>. Contents stay the same!<br>
+The only difference is that instead on build this function will be run on each client request (and of course when using SSR <code>getStaticPaths</code> function is not needed anymore).</p>
+<h3 id="components">Components</h3>
+<p>Ok we just escaped the realm of Next.js with the precious knowledge. Now let&rsquo;s talk about everything React.</p>
+<p>Watch this great overview:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/Tn6-PIqc4UM" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<p>As you have seen,React is here to provide a convinient way to build frontend out of ready or custom reusable components that combine HTML and JavaScript, as well as simplify the way those componetnes can share state between each other and respond to its changes using so called hooks.</p>
+<p>It is important that page is also a component that is built from multiple component that can be build out of multiple components and so on. So components can be embed inside other components.</p>
+<p>This is done using JSX, React version of HTML
+Each component is just a function that returns JSX code, which looks identically as HTML but additionally it allows to add other components in it.
+This function can return only one element. So it you want to return mulitple you have to wrap them into <code>fragment</code> like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">return</span> (&lt;&gt;
+    &lt;p&gt;Jelly&lt;<span style="color:#a61717;background-color:#e3d2d2">/p&gt;</span>
+    &lt;p&gt;Fish&lt;<span style="color:#a61717;background-color:#e3d2d2">/p&gt;</span>
+&lt;<span style="color:#a61717;background-color:#e3d2d2">/&gt;)</span>
+</code></pre></div><p><a href="https://youtu.be/hQAHSlTtcmY" target="_blank" rel="noopener">https://youtu.be/hQAHSlTtcmY</a>
+<a href="https://github.com/WebDevSimplified/Learn-React-In-30-Minutes" target="_blank" rel="noopener">https://github.com/WebDevSimplified/Learn-React-In-30-Minutes</a>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/TNhaISOUy6Q" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<what it is>
+<h4 id="icons">Icons</h4>
+<p>Every moden app needs some icons. Thanks to amazing utility called React Icons those can imported directly from different icons libraries as React components.
+You can browse vast collections of icons to choose from <a href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener">here</a></p>
+<ol>
+<li>Go to frontend project folder <code>cd frontend</code></li>
+<li>Install React Icons library <code>npm install react-icons --save</code></li>
+<li>No need to download any graphic files, just import icons in the code:
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> [name].js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">import</span> { AiFillHeart } from <span style="color:#ed9d13">&#39;react-icons/ai&#39;</span>;
+&lt;AiFillHeart size=<span style="color:#ed9d13">&#34;32&#34;</span> /&gt;</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</li>
+</ol>
+<h3 id="hooks">Hooks</h3>
+<what it is>
+<p>Let&rsquo;s add a possibility to give a like to the jellyfish in the  Jellyfish-onomicon.
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> [name].js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#999;font-style:italic">// Import icons as components
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">import</span> { AiFillHeart } from <span style="color:#ed9d13">&#39;react-icons/ai&#39;</span>;
+
+<span style="color:#999;font-style:italic">// Import state hook
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">import</span> { useState } from <span style="color:#ed9d13">&#39;react&#39;</span>;
+
+...
+
+<span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">default</span> <span style="color:#6ab825;font-weight:bold">function</span> Jellyfish({ jellyfish }) {
+    <span style="color:#6ab825;font-weight:bold">const</span> router = useRouter()
+    <span style="color:#6ab825;font-weight:bold">const</span> { name } = router.query
+
+    <span style="color:#999;font-style:italic">// count is a getter while setCount is a setter
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">const</span> [likesCount, setLikesCount] = useState(<span style="color:#3677a9">0</span>);
+
+    <span style="color:#6ab825;font-weight:bold">return</span> (&lt;&gt;
+        &lt;Head&gt;
+            &lt;title&gt;Jellyfish - { name }&lt;<span style="color:#a61717;background-color:#e3d2d2">/title&gt;</span>
+        &lt;<span style="color:#a61717;background-color:#e3d2d2">/Head&gt;</span>
+        &lt;div className=<span style="color:#ed9d13">&#39;jellyfish-card&#39;</span>&gt;
+            &lt;h1&gt;Jellyfish: { name }&lt;<span style="color:#a61717;background-color:#e3d2d2">/h1&gt;</span>
+            &lt;p&gt;Color: { jellyfish.color }&lt;<span style="color:#a61717;background-color:#e3d2d2">/p&gt;</span>
+            &lt;p&gt;Description: { jellyfish.description }&lt;<span style="color:#a61717;background-color:#e3d2d2">/p&gt;</span>
+
+            {<span style="color:#999;font-style:italic">/* Display likesCount value */</span>}
+            &lt;p&gt;Likes: { likesCount }&lt;<span style="color:#a61717;background-color:#e3d2d2">/p&gt; </span>
+
+            &lt;img src = { jellyfish.image } /&gt;
+
+            {<span style="color:#999;font-style:italic">/* Icon that increment likesCount value */</span>}
+            &lt;AiFillHeart size=<span style="color:#ed9d13">&#34;32px&#34;</span> onClick={ () =&gt; setLikesCount(likesCount + <span style="color:#3677a9">1</span>)} /&gt;
+        &lt;<span style="color:#a61717;background-color:#e3d2d2">/div&gt;</span>
+    &lt;<span style="color:#a61717;background-color:#e3d2d2">/&gt;)</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</p>
+<p>Now try clicking heart icon and see what happens.<br>
+When you refresh the page, data saved in <code>likesCount</code> will be lost.</p>
+<h3 id="styling">Styling</h3>
+<p>The biggest problem of CSS styling is that it is time consuming and not very fast.</p>
+<p>There are two major solution to this problem.</p>
+<ul>
+<li>Use some highlevel UI library (eg. Bootstrap, MUI, Chakra UI) which shipps to you app ready to use and pre stylized components that look nice</li>
+<li>Use Tailwind CSS which is something in between - a huge collection of CSS utility classes that you can apply directly on your HTML tags.
+However it does not provide prebuild components. Thanks to it we can skip assigning a class name to the tag and defining huge style list in spearate CSS file. Main idea is to stylize the UI directly in HTML.
+The ulitmate tandem here is Tailwind with component-based JavaScript libraries (in our case React)</li>
+</ul>
+<p>Make sure to watch this great overview:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/mr15Xzb1Ook" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<p>And to get even better understanding watch this:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/pfaSUYaSgRo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<p>If you were following the course precisely, Tailwind should be already installed in the project. In case you skipped its installation during Next.js project creation, or you are using some other library than React, you would need to install manually. Instructions can be found <a href="https://tailwindcss.com/docs/installation" target="_blank" rel="noopener">here</a></p>
+<p>When it comes to styling we can use 4 strategies (you can mix them however you like):</p>
+<ul>
+<li>
+<style></style>
+</li>
+<li>class=&ldquo;myButtonStyle&rdquo; + CSS</li>
+<li>style=&quot;&mdash;&quot;</li>
+<li>className=&ldquo;tailwind shit&rdquo;</li>
+</ul>
+<h4 id="color-palette">Color palette</h4>
+<p>It is very handy to define colors used throughout whole application in one place and make all component reference it. This concept is called &ldquo;color palette&rdquo;.</p>
+<p>To create it go <code>tailwind.config.js</code>:
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> tailwind.config.js </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">...
+
+  theme: {
+    extend: {
+      colors: {
+        primary: <span style="color:#ed9d13">&#39;#5e5e5e&#39;</span>,
+        secondary: <span style="color:#ed9d13">&#39;#b5b5b5&#39;</span>,
+        accent: <span style="color:#ed9d13">&#39;#4962c9&#39;</span>
+      },
+
+      ...</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</p>
+<div style="border 1px #0000ff">
+use
+<div className="border-blue-600">  
+<h4 id="global-styles">Global styles</h4>
+<p>In tailwind we can also create and use our custom global classes using not plain CSS but Tailwind utilities.</p>
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> globals.css </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div class="code">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a61717;background-color:#e3d2d2">@</span>tailwind base;
+<span style="color:#a61717;background-color:#e3d2d2">@</span>tailwind components;
+<span style="color:#a61717;background-color:#e3d2d2">@</span>tailwind utilities;
+
+<span style="color:#a61717;background-color:#e3d2d2">@</span>layer components {
+  <span style="color:#999;font-style:italic">/* Style applied to all elements of jellyfish-card class */</span>
+  .jellyfish-card {
+    <span style="color:#a61717;background-color:#e3d2d2">@</span>apply 
+    w-[<span style="color:#3677a9">400</span>px] p-<span style="color:#3677a9">4</span> m-<span style="color:#3677a9">4</span> bg-neutral-<span style="color:#3677a9">700</span>
+    text-secondary border-[<span style="color:#3677a9">0.25</span>rem] border-accent
+    <span style="color:#999;font-style:italic">/* Rounded corners animation on hover */</span>
+    rounded-lg hover:rounded-[<span style="color:#3677a9">2</span>rem] transition-all duration-<span style="color:#3677a9">75</span>
+    ;
+  }
+
+  <span style="color:#999;font-style:italic">/* Style applied to all img elements being */</span> 
+  <span style="color:#999;font-style:italic">/* children of jellyfish-card class element  */</span>
+  .jellyfish-card img{
+    <span style="color:#a61717;background-color:#e3d2d2">@</span>apply 
+    rounded-lg my-<span style="color:#3677a9">6</span> m-auto
+    ;
+  }
+}
+
+...</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+<p>Now you can use this class as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">&lt;div className=<span style="color:#ed9d13">&#39;jellyfish-card&#39;</span>&gt;
+</code></pre></div><h3 id="ready-ui-building-blocks">Ready UI building blocks</h3>
+<p>Here you can find completely <strong>free</strong> and <strong>open-source</strong> components, page sections, templates, icons packs, and other frontend assets I gathered and consider good.</p>
+<div class="notice info" >
+<p class="first notice-title">
+    <span class="icon-notice baseline">
+        <svg><use href="#info-notice"></use></svg>
+    </span></p>
+    <p>Value in the square brackets shows the number of stars there kits have on GitHub.<br>
+Heart is a special recognition award given by one-person jury consisting of myself.<br>
+Remeber that you can mix all of them freely.</p>
+</div>
+<p><strong>Tailwind libraries with components, page sections, templates</strong></p>
+<ul>
+<li><a href="https://daisyui.com/" target="_blank" rel="noopener"><strong>daisyUI</strong></a> [22k+] - The most popular Tailwind component library. Missing page sections</li>
+<li>❤️ <a href="https://www.hyperui.dev/" target="_blank" rel="noopener"><strong>HyperUI</strong></a> [5k+] - Great collection of various components and page sections</li>
+<li>❤️ <a href="https://tailwind-elements.com/" target="_blank" rel="noopener"><strong>Tailwind Elements</strong></a> [11k+] - Vast collection of fine components, sections and templates</li>
+<li><a href="https://tailblocks.cc/" target="_blank" rel="noopener"><strong>Tailblocks</strong></a> [8k+] - Extensive set of basic page sections</li>
+<li><a href="https://github.com/themesberg/flowbite" target="_blank" rel="noopener"><strong>Flowbite</strong></a> [5k+] - Popular and rich library of components and page sections (some paid)</li>
+<li>❤️ <a href="https://merakiui.com/" target="_blank" rel="noopener"><strong>Merakiui</strong></a> [2k+] - Collection of great page sections. Missing some components</li>
+<li>❤️ <a href="https://kitwind.io/products/kometa" target="_blank" rel="noopener"><strong>Kometa UI Kit</strong></a> [??] - Collection of great page sections. Missing some components</li>
+<li><a href="https://treact.owaiskhan.me/" target="_blank" rel="noopener"><strong>Treact</strong></a> [??] - Collection of premade landing pages and their page sections</li>
+<li><a href="https://www.floatui.com/" target="_blank" rel="noopener"><strong>FloatUI</strong></a> [1.7k+] - Professionally looking components, page sections and templates</li>
+<li><a href="https://kutty.netlify.app/" target="_blank" rel="noopener"><strong>kutty</strong></a> [0.7k+] - Large and ready library of appealing components and page sections</li>
+<li><a href="https://headlessui.com/" target="_blank" rel="noopener"><strong>headlessUI</strong></a> [21k+] - Limited set of completely unstyled components</li>
+<li><a href="https://tailwindui.com/components" target="_blank" rel="noopener"><strong>Tailwind UI</strong></a> [??] - Ready components and page sections (some paid)</li>
+<li><a href="https://mambaui.com/" target="_blank" rel="noopener"><strong>Mamba UI</strong></a> [0.5k+] - Basic-style, ready components, page sections, and few page templates</li>
+</ul>
+<p><strong>Tailwind templates (without additional components)</strong></p>
+<ul>
+<li><a href="https://github.com/creativetimofficial/tailwind-starter-kit" target="_blank" rel="noopener"><strong>Tailwind starter kit</strong></a> [5k+] -</li>
+<li><a href="https://github.com/themesberg/landwind" target="_blank" rel="noopener"><strong>Landwind landing page</strong></a> [0.3k+] - Landing template page built for SaaS and product websites</li>
+<li><a href="https://github.com/TailAdmin/tailadmin-free-tailwind-dashboard-template" target="_blank" rel="noopener"><strong>TailAdmin</strong></a> [0.5k+] -</li>
+<li><a href="https://github.com/themesberg/tailwind-dashboard-windster" target="_blank" rel="noopener"><strong>Windster dashboard</strong></a> [0.7k+] - Admin dashboard layout with responsive sidebar layouts</li>
+<li><a href="https://github.com/cruip/open-react-template" target="_blank" rel="noopener"><strong>Open landing page</strong></a> [2.7k+] - Ready to deploy landing page</li>
+<li><a href="https://github.com/cruip/tailwind-dashboard-template" target="_blank" rel="noopener"><strong>Mosaic dashboard template</strong></a> [1.7k+] - Ready to deploy dashboard page</li>
+<li><a href="https://templates.digizu.co.uk/" target="_blank" rel="noopener"><strong>Ross Topping templates</strong></a> [0.3K+] - Collection of simple templates</li>
+</ul>
+<p><strong>Icons</strong></p>
+<ul>
+<li>❤️ <a href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener"><strong>React Icons</strong></a> [10k+] - Aggregator of ~30 high quality icons pack that allows to import them as React components. If you are not doing any crazy styling that requires some ununusal icons, React Icons will serve all your needs</li>
+<li><a href="https://freeicons.io/iconset/free-icons-set" target="_blank" rel="noopener"><strong>freeicons.io</strong></a> [??] - +16k icon packs, in every style you can imagine</li>
+</ul>
+<p><strong>Miscellaneous</strong></p>
+<ul>
+<li><a href="https://apexcharts.com/react-chart-demos/" target="_blank" rel="noopener"><strong>ApexCharts</strong></a> [12k+] - Modern charting library used to create beautiful and interactive visualizations for web pages</li>
+<li>❤️ <a href="https://airbnb.io/visx/docs" target="_blank" rel="noopener"><strong>visx</strong></a> [17k+] - Pack of exceptional, next-level widgets</li>
+<li><a href="https://github.com/aniftyco/awesome-tailwindcss" target="_blank" rel="noopener"><strong>Awesome Tailwind</strong></a> - Huge list of even more Tailwind resources and more</li>
+<li><a href="https://tailwindcomponents.com/cheatsheet/" target="_blank" rel="noopener"><strong>Tailwind Cheat Sheet</strong></a> - List of all Tailwind keywords</li>
+</ul>
+<h3 id="visual-editor">Visual editor</h3>
+<p>Work smarter, not harder! This is what finest jellyfish hunters usually say!<br>
+(I made it up, I have no idea if they say that&hellip;)</p>
+<p>So we are composing user interface by writing code, adding styling properties, changing the order of elements and all of this is done in the text editor! To see what the changes you in introduce do, the project has to be recompiled and displayed in the browser window. Purists will say that this is the only proper way. I would say &ldquo;I don&rsquo;t have time for this XD&rdquo;.</p>
+<p>Alternative is to use a visual editor, a tool in which you can change the layout of the components by dragging and dropping them with a mouse!<br>
+What a genius idea!<br>
+To start I suggest using <a href="https://www.codux.com/" target="_blank" rel="noopener">Codux</a> that will empower your Visual Studio Code with visual editing capabilities.</p>
+<p>For tutorial how to install and use it check this:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/tszI9GrH1u0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<h2 id="closing-words">Closing words</h2>
+<!-- 
+
+<style>
+    input[type='checkbox'] { display: none; } 
+    .wrap-collabsible { margin: 1.2rem 0; } 
+    .collapsible-toggle-header { display: block; font-weight: bold; font-size: 1.0rem; text-align: left; padding: 8px 7px 7px 15px; cursor: pointer; border-radius: 8px; transition: all 0.25s ease-out; } 
+    .collapsible-toggle-header::before { content: ' '; display: inline-block; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 5px solid currentColor; vertical-align: middle; margin-right: .7rem; transform: translateY(-1px); transition: transform .2s ease-out; } 
+    .toggle:checked + .collapsible-toggle-header::before { transform: rotate(90deg) translateX(-3px); } 
+    .collapsible-content { max-height: 0px; overflow: hidden; transition: max-height .25s ease-in-out; } 
+    .toggle:checked + .collapsible-toggle-header + .collapsible-content { max-height: 2000px; } 
+    .toggle:checked + .collapsible-toggle-header { border-bottom-right-radius: 0; border-bottom-left-radius: 0; } 
+    .collapsible-content .content-inner { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; padding: .5rem 1rem; } 
+    .collapsible-content p { margin-bottom: 0; }
+
+    .collapsible-toggle-header {
+        background: #e5e4ec;
+        color:rgb(58, 58, 58);
+        &:hover { color: #707070; } 
+        .dark-theme & {
+            background: #3b3d42;
+            color: #bebebe;
+            &:hover { color: #fff; } 
+        }
+    }
+
+    .collapsible-content {
+        background: rgba(185, 185, 199, 0.2);
+        .content-inner {
+            border-bottom: 4px solid #e5e4ec; 
+        }
+        .dark-theme & {
+            background: rgba(50, 50, 60, .2);
+            .content-inner {
+            border-bottom: 4px solid #3b3d42; 
+        }
+    }
+}
+</style><div class="wrap-collabsible">
+    <input id="collapsible" class="toggle" type="checkbox">
+    <label for="collapsible" class="collapsible-toggle-header">Code</label>
+    <div class="collapsible-content">
+        <div class="content-inner">
+                <p>QUnit is by calling one of the object that are embedded in JavaScript, and faster JavaScript program could also used with
+its elegant, well documented, and functional programming using JS, HTML pages Modernizr is a popular browsers without
+plug-ins. Test-Driven Development.
+QUnit is by calling one of the object that are embedded in JavaScript, and faster JavaScript program could also used with
+its elegant, well documented, and functional programming using JS, HTML pages Modernizr is a popular browsers without
+plug-ins. Test-Driven Development.</p>
+            </div>
+    </div>
+</div>
+ -->
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+  				<p>
+  					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://mattszymonski.com/tags/web-app-development">Web App Development</a></span><span class="tag"><a href="https://mattszymonski.com/tags/frontend">Frontend</a></span><span class="tag"><a href="https://mattszymonski.com/tags/fullstack">Fullstack</a></span><span class="tag"><a href="https://mattszymonski.com/tags/react">React</a></span><span class="tag"><a href="https://mattszymonski.com/tags/tailwind">Tailwind</a></span><span class="tag"><a href="https://mattszymonski.com/tags/docker">Docker</a></span>
+  				</p>
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2023</span>
+            
+                <span>Mateusz Szymoński</span>
+            
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.a37911305d54242cae60187a90bd3ad4017fcd9d3038385bdfef60fd13360d8690de84062dfd98e96d65ac3a0af7e5c787bfc8011297c729f960b423665d5531.js" integrity="sha512-o3kRMF1UJCyuYBh6kL061AF/zZ0wODhb3&#43;9g/RM2DYaQ3oQGLf2Y6W1lrDoK9&#43;XHh7/IARKXxyn5YLQjZl1VMQ=="></script>
+
+
+
+    </body>
+</html>
