@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="map[name:Mateusz Szymoński]">
+<meta name="description" content="In the foggy harbor, nestled amidst the whispering mist, stands an old and mysterious jellyfish shop known simply as &amp;ldquo;The Siren&amp;rsquo;s Glow.&amp;rdquo; Its dilapidated facade, weathered by time and the salty sea air, beckons intrepid explorers to uncover the secrets lurking within its enigmatic depths. As you approach, the air thickens with an eerie ambiance, an ethereal melody carried on the wind. The shop&amp;rsquo;s windows, obscured by layers of fog and the passage of years, give only tantalizing glimpses of the mystical wonders held within." />
+<meta name="keywords" content=", Web App Development, Frontend, Backend, Fullstack, ASP.NET, React, Tailwind, Docker" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://mattszymonski.com/jellyfish_shop_web_app_crash_course_1/" />
+
+
+    <title>
+        
+            Jellyfish Shop - Web App Crash Course - 1. Introduction :: Mateusz Matt Szymoński 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://mattszymonski.com/main.min.ab6266ea835053bd5050d901d4a7727e3c2087c1269096f2926b1a57894abee0.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://mattszymonski.com/media/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://mattszymonski.com/media/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://mattszymonski.com/media/favicons/favicon-16x16.png">
+    <link rel="manifest" href="https://mattszymonski.com/media/favicons/site.webmanifest">
+    <link rel="mask-icon" href="https://mattszymonski.com/media/favicons/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://mattszymonski.com/media/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+    <meta name="theme-color" content="">
+
+
+<meta itemprop="name" content="Jellyfish Shop - Web App Crash Course - 1. Introduction">
+<meta itemprop="description" content="In the foggy harbor, nestled amidst the whispering mist, stands an old and mysterious jellyfish shop known simply as &ldquo;The Siren&rsquo;s Glow.&rdquo; Its dilapidated facade, weathered by time and the salty sea air, beckons intrepid explorers to uncover the secrets lurking within its enigmatic depths. As you approach, the air thickens with an eerie ambiance, an ethereal melody carried on the wind. The shop&rsquo;s windows, obscured by layers of fog and the passage of years, give only tantalizing glimpses of the mystical wonders held within."><meta itemprop="datePublished" content="2023-06-08T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-06-08T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2165">
+<meta itemprop="keywords" content="Web App Development,Frontend,Backend,Fullstack,ASP.NET,React,Tailwind,Docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jellyfish Shop - Web App Crash Course - 1. Introduction"/>
+<meta name="twitter:description" content="In the foggy harbor, nestled amidst the whispering mist, stands an old and mysterious jellyfish shop known simply as &ldquo;The Siren&rsquo;s Glow.&rdquo; Its dilapidated facade, weathered by time and the salty sea air, beckons intrepid explorers to uncover the secrets lurking within its enigmatic depths. As you approach, the air thickens with an eerie ambiance, an ethereal melody carried on the wind. The shop&rsquo;s windows, obscured by layers of fog and the passage of years, give only tantalizing glimpses of the mystical wonders held within."/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2023-06-08 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+<!-- Global Site Tag (gtag.js) - Google Tag Manager -->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYYC2BRP5S"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', "G-BYYC2BRP5S");
+    </script>
+
+
+
+<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
+
+    </head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <body class="dark-theme">
+        <div class="container">
+            <div id="navbar">
+    <header class="header">
+        <span class="header__inner">
+            <a href="https://mattszymonski.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">MattSzymonski</span>
+            <span class="logo__cursor" id="logoCursor" style=
+                  "
+                   background-color: white;
+                   animation-duration:1.2s;">
+            </span>
+        
+    </div>
+</a>
+
+
+            <span class="header__right">
+                
+                    <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://mattszymonski.com/about_me/">About Me</a></li><li><a href="https://mattszymonski.com/posts/">Posts</a></li><li><a href="https://mattszymonski.com/support/">Support</a></li>
+    </ul>
+</nav>
+
+                    <span class="menu-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                        </svg>
+                    </span>
+                
+
+                <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+            </span>
+        </span>
+    </header>
+    <body>
+        <progress value="0">
+            <div class="progress-container">
+                <span class="progress-bar"></span>
+            </div>
+        </progress>
+    </body>
+</div>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><span>Jellyfish Shop - Web App Crash Course - 1. Introduction</span></h2>
+            
+            
+    <aside class="lg:block toc" id="toc">
+        <h3 style="padding-left: 10px;">TL;DR</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#task-description">Task description</a></li>
+        <li><a href="#origins">Origins</a></li>
+      </ul>
+    </li>
+    <li><a href="#project-components">Project components</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#frontend">Frontend</a></li>
+            <li><a href="#backend">Backend</a></li>
+            <li><a href="#database">Database</a></li>
+          </ul>
+        </li>
+        <li><a href="#app-deployment">App deployment</a>
+          <ul>
+            <li><a href="#contenerization">Contenerization</a></li>
+          </ul>
+        </li>
+        <li><a href="#closing-words">Closing words</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </aside>
+
+
+            
+
+            <div class="post-content">
+                </br>
+<p><em><center>In the foggy harbor, nestled amidst the whispering mist, stands an old and mysterious jellyfish shop known simply as &ldquo;The Siren&rsquo;s Glow.&rdquo; Its dilapidated facade, weathered by time and the salty sea air, beckons intrepid explorers to uncover the secrets lurking within its enigmatic depths.
+As you approach, the air thickens with an eerie ambiance, an ethereal melody carried on the wind. The shop&rsquo;s windows, obscured by layers of fog and the passage of years, give only tantalizing glimpses of the mystical wonders held within. An aura of both allure and trepidation surrounds this establishment, as if the very walls hold memories of forgotten tales and unseen dangers.</center></em></p>
+<p></br></br></p>
+<p><strong>Ahoy stranger, Welcome to the Jellyfish shop!</strong></p>
+<p>This crash course presents how to create fully functional web app composed out of frontend, backend and database.
+Remember that this is a fast track course. I meant to give you the foundation, and practical example regarding web app.
+It is meant to be a starting point for those completly new to the topic and want to create very own fully functional web app.</p>
+<p>?? Deploying</p>
+<p>Web app - Uber, Bank websites and apps, Internet shops</p>
+<p>?? What &ldquo;dynamic&rdquo; means</p>
+<p>?? How it differs from static website</p>
+<p>It is designed to equip you with the knowledge and skills necessary to create robust and dynamic web applications.</p>
+<p>Web application programming topic is so complex and broad that including information is simply impossible 
+Thats why this course takes different approach. It focueses on what is important - just meat, no potatos.
+It will show all necessary steps, 1 by 1, provinding just a brief explanations so you can understand what is going on to give you minimal working example and understanding how such projects are composed and working, all the fundmanetal concepts.</p>
+<p>However for those who are seeking even wider the knowlege. I will provide a links to the great articles, tutorials and docs that helped me understand the smallest details.</p>
+<h2 id="task-description">Task description</h2>
+<p>We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)</p>
+<h2 id="origins">Origins</h2>
+<p>Back in times when I was a student, I had a pretty advanced knowledge of programming
+Back then I was already programing multithreaded linux programs and video games, however I had no idea how web app are working. That was an unexplored realm for me.</p>
+<p>Fortunately, at the 3rd year of my Computer Science studies we had one-semester-long course dedicated for creating webapp in the team. We were supposed to create system for reserving a parking spots via mobile application and internet website with backend system handling the requests and database storing all this data.</p>
+<h1 id="project-components">Project components</h1>
+<p>Our project will be composed out of four key elements:</p>
+<ul>
+<li>Proxy server (we will add in later)</li>
+<li>Frontend (web app and mobile app)</li>
+<li>Backend</li>
+<li>Database</li>
+</ul>
+<p>Of course there are tones of useful ready solutions, frameworks, libraries, and kits to streamline the development process, provide reusable components, and enhance the overall developer experience. They were created so you don&rsquo;t need to write everything from scratch (and believe me you really don&rsquo;t want to do this)
+Jellyfish Shop in this course will be based on the tech stack that I was composing throughout the years. I find it the most safe, stable, universal and what is crucial - pleasant to use.</p>
+<p>Here is a system diagram:
+??</p>
+<p>Looks scarry? Don&rsquo;t worry everything will be explained step by step.
+<em>By the way, some jellyfish that brave fisherman bring to the shop from time to time are much more terrifying</em></p>
+<p>You can notice that:</p>
+<ul>
+<li>Every element runs in its own container (What does it mean will be explained later).</li>
+<li>Elements communicate with each other, by exchanging data via requests and responces.</li>
+<li>End users (web apps 🖥️, mobile apps 📱) are linked with the frontend.</li>
+<li>Other internet traffic 🌐 (other programs, bots, etc) is linked directly to backend.</li>
+<li>Frontend does not have access to the database (it is a good practice)</li>
+</ul>
+<h3 id="frontend">Frontend</h3>
+<p>Frontend refers to the client-side of a web application, which is the part that users interact with directly.</p>
+<p>💡 In the case of Uber, the frontend is an application installed on your smartphone where you can order a ride, as well as the application installed on the driver&rsquo;s smartphone.</p>
+<p>Frontend development focuses on ensuring a seamless user experience and effective presentation of data, as well as exchanging this data with the backend.</p>
+<p>For Jellyfish shop frontend we will create both website and mobile app.<br>
+Tech stack we will use in frontend looks as follows:</p>
+<ul>
+<li><strong>HTML</strong> - Markup language that defines the structure and content of web pages. It uses tags to mark different elements of a web page, such as headings, paragraphs, images, links, tables, and forms. It is a foundation of 99% of websites in the internet.</li>
+<li><strong>CSS</strong> - Style sheet language used to describe the presentation and styling of HTML elements. It allows web developers to control the layout, appearance, and visual properties of web pages.</li>
+<li><strong>JavaScript</strong> - High-level, interpreted programming language primarily used for web development in order to create dynamic content, and manage the behavior of web applications. While HTML is serves as a structure, JS is utilized for handling everything what is interactive: user event handling, data fethching from the backend, dynamic content generation or data validation.</li>
+<li><strong>React</strong> - JavaScript framework used to build user interfaces, making it easier to create interactive web pages with reusable building blocks called components. It helps developers efficiently update and manage the display of data, resulting in faster and more responsive web applications.<br>
+<em>Popular alternatives to React would be: Flutter, Angular, Svelte, Vue, Mithril, Vanilla, and more. Great comparision of those can be found <a href="https://youtu.be/cuHDQhDhvPE" target="_blank" rel="noopener">here</a></em></li>
+<li><strong>Next.js</strong> - React extension framework that provides support for server-side rendered and statically generated React applications. 
+It simplifies the development of performant and Search-Engine-Optimizatized applications by offering features like automatic code splitting and client-side routing.<br>
+<em>Popular alternatives to Next.js (designed for alternative frameworks) would be: Gatsby, Nuxt.js, Angular Universal</em></li>
+<li><strong>Tailwind CSS</strong> - UI framework that offers a comprehensive set of pre-defined classes to style elements in a flexible and efficient manner. It offers a highly customizable and rapid development experience by allowing developers to quickly apply styles using intuitive class names without the need for writing custom CSS. What is more, there are planty of UI components and ready page sections kits available for free in the internet.<br>
+<em>Popular alternatives to Tailwind CSS are UI frameworks for React like: Bootstrap, Grommet, MUI, Chakra UI, Ant Design, Blueprint UI, and more.</em></li>
+</ul>
+<h3 id="backend">Backend</h3>
+<p>Backend refers to the server-side of a web application or system. It is the home of all the components, processes, and functionalities that are responsible for handling data storage, data processing, and communication with the frontend. It is responsible for managing the business logic, database operations, user authentication, API integrations, and other server-side operations that enable the functioning of a web application.</p>
+<p>💡 In the case of Uber, the backend is the system running on the server that gets your ride request from the app (frontend) and is responsible for connecting you do the driver, calculating the price, sending request to the frontend of the driver, and tracking your location while you are commuting. Additionaly it handles communication with the database. For example to store users and drivers ratings, trip histories, etc.</p>
+<p>Tech stack we will use in backend looks as follows:</p>
+<ul>
+<li><strong>C#</strong> -</li>
+<li><strong>ASP.NET</strong> -</li>
+<li><strong>Swagger</strong> -</li>
+</ul>
+<h3 id="database">Database</h3>
+<ul>
+<li><strong>MongoDB</strong> -</li>
+</ul>
+<h2 id="app-deployment">App deployment</h2>
+<h3 id="contenerization">Contenerization</h3>
+<p>🐋 Whole system will be deployed as a stack of Docker containers in one container network.</p>
+<p>A container is a lightweight, standalone, and executable software package that includes everything needed to run an application, including the code, runtime, system tools, and libraries. It provides a consistent and isolated environment, making it easier to deploy and manage applications across different systems. Each container is an environment hosting a separate operating system (OS), usually very minimal distribution of Linux, with some storage space with our program loaded, then the only thing this OS does is running and hosting our program.</p>
+<p>The benefits of using Docker containers include enhanced portability, as containers can run consistently across different environments, improved scalability, as containers can be easily replicated and deployed, efficient resource utilization, as containers share the host system&rsquo;s kernel, and simplified application management, as containers encapsulate the application and its dependencies in a self-contained unit. You can run Linux programs in those containers while they are hosted on Windows, everything is system-agnostic.</p>
+<p>💡 Imagine you have a program that uses 50 different dependencies. If you want to run it you would need to download all of them to your local machine what makes it cluttered. However when you have a container - a separate, abstract environement - everything happens there and your machine is clean and intact.</p>
+<p>💡 Also imagine that you are creating a program that handles 1k user requests per second. That&rsquo;s already a lot, but what if your bussiness in one-milion-dolar idea and requests grew to 10k requests in one month!? Well, one machine may be not enough to handle such traffic. Here conteneriazarion shines. You can just spawn more container instances with a copies of your program and split the trafic between them! (Scalling is a sophisticated field with sophisticated tools that won&rsquo;t be covered here. You can read about Kubernetes if you are interested)</p>
+<p>Containers load system using docker image - a file containing whole OS + your program.
+In comparison to running the program locally, in container setup there is one more additional step. 
+You need to prepare a Dockerfile - a special set of instructions defining how the image should be generated: specifying the base image, the dependencies to install, environment variables to set, files to copy, and commands to execute during the image building process.</p>
+
+    <img src="https://mattszymonski.com/media/images/posts/jellyfish_shop_web_app_crash_course/1/containers.png"  class="center"  style="border-radius: 8px;"  />
+
+
+<hr>
+<p>Each of Jellyfish shop elements will be running in its own container, which means that each needs to have its own Dockerfile.
+With specific base image (eg. React uses different one than ASP.NET due to the fact that they have very different dependencies)</p>
+<p>Each container can be run separately with command <code>docker start &lt;IMAGE&gt;</code> and stopped with <code>docker stop &lt;CONTAINER_ID&gt;</code>. Currently running containers can be listed using <code>docker ps</code>.</p>
+<p>Launching each container one by one is not very handy approach, it is rather painful. Luckily we can laverage the power of docker-compose!
+Docker Compose is a tool that allows you to define and manage multi-container applications. It uses another instruction file to define the services, networks, and volumes required for your application, making it easier to orchestrate and deploy complex, interconnected containers.</p>
+<p>When you have your compose file you can start all your containers at once using <code>docker compose up</code> command, and stop using <code>docker compose down</code>.</p>
+<p>If you are hungry for docker knowledge, <del>there is a dead whale storage in the basement of the shop</del> <a href="https://dev.to/softchris/5-part-docker-series-beginner-to-master-3m1b" target="_blank" rel="noopener">here</a> is a nice resource.</p>
+<h2 id="closing-words">Closing words</h2>
+<p>If you reached this very bottom section of the post, you should know what we will be building. Are you ready to delve deeper? Then gather your gear, polish your lanterns. 
+Shopfront building adventure awaits in the depths of this blog.<br>
+Local citizens and fishermen are getting impatient.</p>
+<p>🐡 🐡 🐡</p>
+
+    <img src="https://mattszymonski.com/media/images/posts/jellyfish_shop_web_app_crash_course/1/fullstack.png"  class="center"  style="border-radius: 8px;"  />
+
+
+<!-- 
+
+<style>
+    input[type='checkbox'] { display: none; } 
+    .wrap-collabsible { margin: 1.2rem 0; } 
+    .collapsible-toggle-header { display: block; font-weight: bold; font-size: 1.0rem; text-align: left; padding: 8px 7px 7px 15px; cursor: pointer; border-radius: 8px; transition: all 0.25s ease-out; } 
+    .collapsible-toggle-header::before { content: ' '; display: inline-block; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 5px solid currentColor; vertical-align: middle; margin-right: .7rem; transform: translateY(-1px); transition: transform .2s ease-out; } 
+    .toggle:checked + .collapsible-toggle-header::before { transform: rotate(90deg) translateX(-3px); } 
+    .collapsible-content { max-height: 0px; overflow: hidden; transition: max-height .25s ease-in-out; } 
+    .toggle:checked + .collapsible-toggle-header + .collapsible-content { max-height: 2000px; } 
+    .toggle:checked + .collapsible-toggle-header { border-bottom-right-radius: 0; border-bottom-left-radius: 0; } 
+    .collapsible-content .content-inner { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; padding: .5rem 1rem; } 
+    .collapsible-content p { margin-bottom: 0; }
+
+    .collapsible-toggle-header {
+        background: #e5e4ec;
+        color:rgb(58, 58, 58);
+        &:hover { color: #707070; } 
+        .dark-theme & {
+            background: #3b3d42;
+            color: #bebebe;
+            &:hover { color: #fff; } 
+        }
+    }
+
+    .collapsible-content {
+        background: rgba(185, 185, 199, 0.2);
+        .content-inner {
+            border-bottom: 4px solid #e5e4ec; 
+        }
+        .dark-theme & {
+            background: rgba(50, 50, 60, .2);
+            .content-inner {
+            border-bottom: 4px solid #3b3d42; 
+        }
+    }
+}
+</style><div class="wrap-collabsible">
+    <input id="collapsible" class="toggle" type="checkbox">
+    <label for="collapsible" class="collapsible-toggle-header">Code</label>
+    <div class="collapsible-content">
+        <div class="content-inner">
+                <p>QUnit is by calling one of the object that are embedded in JavaScript, and faster JavaScript program could also used with
+its elegant, well documented, and functional programming using JS, HTML pages Modernizr is a popular browsers without
+plug-ins. Test-Driven Development.
+QUnit is by calling one of the object that are embedded in JavaScript, and faster JavaScript program could also used with
+its elegant, well documented, and functional programming using JS, HTML pages Modernizr is a popular browsers without
+plug-ins. Test-Driven Development.</p>
+            </div>
+    </div>
+</div>
+ -->
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+  				<p>
+  					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://mattszymonski.com/tags/web-app-development">Web App Development</a></span><span class="tag"><a href="https://mattszymonski.com/tags/frontend">Frontend</a></span><span class="tag"><a href="https://mattszymonski.com/tags/backend">Backend</a></span><span class="tag"><a href="https://mattszymonski.com/tags/fullstack">Fullstack</a></span><span class="tag"><a href="https://mattszymonski.com/tags/asp.net">ASP.NET</a></span><span class="tag"><a href="https://mattszymonski.com/tags/react">React</a></span><span class="tag"><a href="https://mattszymonski.com/tags/tailwind">Tailwind</a></span><span class="tag"><a href="https://mattszymonski.com/tags/docker">Docker</a></span>
+  				</p>
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2023</span>
+            
+                <span>Mateusz Szymoński</span>
+            
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.a37911305d54242cae60187a90bd3ad4017fcd9d3038385bdfef60fd13360d8690de84062dfd98e96d65ac3a0af7e5c787bfc8011297c729f960b423665d5531.js" integrity="sha512-o3kRMF1UJCyuYBh6kL061AF/zZ0wODhb3&#43;9g/RM2DYaQ3oQGLf2Y6W1lrDoK9&#43;XHh7/IARKXxyn5YLQjZl1VMQ=="></script>
+
+
+
+    </body>
+</html>

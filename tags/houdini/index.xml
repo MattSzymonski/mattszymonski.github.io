@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Houdini on Mateusz Matt Szymoński</title>
+    <link>https://mattszymonski.com/tags/houdini/</link>
+    <description>Recent content in Houdini on Mateusz Matt Szymoński</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://mattszymonski.com/tags/houdini/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building AI Tools in Houdini</title>
+      <link>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</link>
+      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</guid>
+      <description>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
+It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
+Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes.</description>
+    </item>
+    
+  </channel>
+</rss>

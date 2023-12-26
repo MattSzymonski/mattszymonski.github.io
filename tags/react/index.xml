@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mateusz Matt Szymoński</title>
-    <link>https://mattszymonski.com/</link>
-    <description>Recent content on Mateusz Matt Szymoński</description>
+    <title>React on Mateusz Matt Szymoński</title>
+    <link>https://mattszymonski.com/tags/react/</link>
+    <description>Recent content in React on Mateusz Matt Szymoński</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 08 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://mattszymonski.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://mattszymonski.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Jellyfish Shop - Web App Crash Course - 1. Introduction</title>
       <link>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_1/</link>
@@ -23,45 +23,6 @@
       <guid>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_2/</guid>
       <description>.notice{--root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#698496;--info-content:#8ba0ad;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121;.dark-theme &amp; {--root-color:#ddd; --info-title:#445a69; --info-content:#668091; }padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}
 This article links to many amazing tutorials from FireShip YouTube channel. Without doing so it will be 4 times longer.</description>
-    </item>
-    
-    <item>
-      <title>Building AI Tools in Houdini</title>
-      <link>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</link>
-      <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</guid>
-      <description>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
-It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
-Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes.</description>
-    </item>
-    
-    <item>
-      <title>About Me</title>
-      <link>https://mattszymonski.com/about_me/</link>
-      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://mattszymonski.com/about_me/</guid>
-      <description>My name is Mateusz Szymoński.
-I work as a Technical Artist at CD PROJEKT RED.
-My passion lies in Computer Science, particularly in game development areas such as Technical Art, Computer Graphics and Engine Programming.
-As a self-taught 3D Artist, I specialize in prop modeling and environment art.
-Beyond my gaming pursuits, I actively engage in the development of web applications projects.
-I graduated from Warsaw University of Technology with a Bachelor&amp;rsquo;s degree in Computer Science, earning the highest distinction for my thesis: &amp;ldquo;Design and Implementation of a Computer Game Engine&amp;rdquo;.</description>
-    </item>
-    
-    <item>
-      <title>Support</title>
-      <link>https://mattszymonski.com/support/</link>
-      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://mattszymonski.com/support/</guid>
-      <description>This is support page for the assets and tools I develop and distribute.
-In case of any problems or questions feel free to reach me via mail:
-user = &#39;matt.szymonski&#39;; site = &#39;gmail.com&#39;; document.write(&#39;&#39;); document.write(user + &#39;@&#39; + site + &#39;&#39;);  Tools • Rapid PBR Material Creator
-Assets • Ultimate Sprite Mask
-• Temple of Ylnir
-• Wind Trails Effect</description>
     </item>
     
   </channel>
