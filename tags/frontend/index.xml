@@ -21,7 +21,33 @@
       <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
       
       <guid>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_2/</guid>
-      <description>.notice{--root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#698496;--info-content:#8ba0ad;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121;.dark-theme &amp; {--root-color:#ddd; --info-title:#445a69; --info-content:#668091; }padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}
+      <description>.notice{
+--root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;
+--warning-title:#800;--warning-content:#400;
+--info-title:#698496;--info-content:#8ba0ad;
+--note-title:#069;--note-content:#023;
+--tip-title:#363;--tip-content:#121;
+.dark-theme &amp; {
+--root-color:#ddd; --info-title:#445a69; --info-content:#668091; }
+padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);
+}
+.notice p:last-child{margin-bottom:0}
+.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}
+.notice.warning .notice-title{background:var(--warning-title)}
+.notice.warning{background:var(--warning-content)}
+.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}
+.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}
+.notice.tip .notice-title{background:var(--tip-title)}
+.notice.tip{background:var(--tip-content)}
+.icon-notice{display:inline-flex;align-self:center;margin-right:8px}
+.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}
+.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}
+
+
+
+
+
+
 This article links to many amazing tutorials from FireShip YouTube channel. Without doing so it will be 4 times longer.</description>
     </item>
     
