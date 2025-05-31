@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Mateusz Matt Szymoński</title>
+    <link>https://mattszymonski.com/tags/programming/</link>
+    <description>Recent content in Programming on Mateusz Matt Szymoński</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 31 May 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mattszymonski.com/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Running Rust programs on Raspberry Pi</title>
+      <link>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</link>
+      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</guid>
+      <description>&lt;img src=&#34;https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;&#xA;&#xA;&#xA;&lt;p&gt;Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.&lt;/p&gt;&#xA;&lt;p&gt;And yes, this is possible - but there are two significant problems with this approach:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -4,65 +4,51 @@
     <title>Mateusz Matt Szymoński</title>
     <link>https://mattszymonski.com/</link>
     <description>Recent content on Mateusz Matt Szymoński</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 08 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://mattszymonski.com/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 31 May 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mattszymonski.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Running Rust programs on Raspberry Pi</title>
+      <link>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</link>
+      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</guid>
+      <description>&lt;img src=&#34;https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;&#xA;&#xA;&#xA;&lt;p&gt;Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.&lt;/p&gt;&#xA;&lt;p&gt;And yes, this is possible - but there are two significant problems with this approach:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Jellyfish Shop - Web App Crash Course - 1. Introduction</title>
       <link>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_1/</link>
       <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_1/</guid>
-      <description>In the foggy harbor, nestled amidst the whispering mist, stands an old and mysterious jellyfish shop known simply as &amp;ldquo;The Siren&amp;rsquo;s Glow.&amp;rdquo; Its dilapidated facade, weathered by time and the salty sea air, beckons intrepid explorers to uncover the secrets lurking within its enigmatic depths. As you approach, the air thickens with an eerie ambiance, an ethereal melody carried on the wind. The shop&amp;rsquo;s windows, obscured by layers of fog and the passage of years, give only tantalizing glimpses of the mystical wonders held within.</description>
+      <description>&lt;/br&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;center&gt;In the foggy harbor, nestled amidst the whispering mist, stands an old and mysterious jellyfish shop known simply as &amp;ldquo;The Siren&amp;rsquo;s Glow.&amp;rdquo; Its dilapidated facade, weathered by time and the salty sea air, beckons intrepid explorers to uncover the secrets lurking within its enigmatic depths.&#xA;As you approach, the air thickens with an eerie ambiance, an ethereal melody carried on the wind. The shop&amp;rsquo;s windows, obscured by layers of fog and the passage of years, give only tantalizing glimpses of the mystical wonders held within. An aura of both allure and trepidation surrounds this establishment, as if the very walls hold memories of forgotten tales and unseen dangers.&lt;/center&gt;&lt;/em&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Jellyfish Shop - Web App Crash Course - 2. Frontend</title>
       <link>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_2/</link>
       <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://mattszymonski.com/jellyfish_shop_web_app_crash_course_2/</guid>
-      <description>.notice{--root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#698496;--info-content:#8ba0ad;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121;.dark-theme &amp; {--root-color:#ddd; --info-title:#445a69; --info-content:#668091; }padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}
-This article links to many amazing tutorials from FireShip YouTube channel. Without doing so it will be 4 times longer.</description>
+      <description>&lt;style type=&#34;text/css&#34;&gt;&#xA;    .notice{&#xA;        --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;&#xA;        --warning-title:#800;--warning-content:#400;&#xA;        --info-title:#698496;--info-content:#8ba0ad;&#xA;        --note-title:#069;--note-content:#023;&#xA;        --tip-title:#363;--tip-content:#121;&#xA;&#xA;        .dark-theme &amp; {&#xA;            --root-color:#ddd; --info-title:#445a69; --info-content:#668091; &#xA;        }&#xA;        &#xA;        padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);&#xA;    }&#xA;&#xA;    .notice p:last-child{margin-bottom:0}&#xA;    .notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}&#xA;    .notice.warning .notice-title{background:var(--warning-title)}&#xA;    .notice.warning{background:var(--warning-content)}&#xA;    .notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}&#xA;    .notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}&#xA;    .notice.tip .notice-title{background:var(--tip-title)}&#xA;    .notice.tip{background:var(--tip-content)}&#xA;    .icon-notice{display:inline-flex;align-self:center;margin-right:8px}&#xA;    .icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}&#xA;    .icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&#xA;&lt;/style&gt;&#xA;&lt;div&gt;&lt;svg width=&#34;0&#34; height=&#34;0&#34; display=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&#xA;    &lt;symbol id=&#34;tip-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z&#34;/&gt;&lt;/symbol&gt;&#xA;    &lt;symbol id=&#34;note-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&#xA;    &lt;symbol id=&#34;warning-notice&#34; viewBox=&#34;0 0 576 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&#xA;    &lt;symbol id=&#34;info-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z&#34;/&gt;&lt;/symbol&gt;&#xA;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&#34;notice info&#34; &gt;&#xA;&lt;p class=&#34;first notice-title&#34;&gt;&#xA;    &lt;span class=&#34;icon-notice baseline&#34;&gt;&#xA;        &lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&#xA;    &lt;/span&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Building AI Tools in Houdini</title>
       <link>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</link>
       <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</guid>
-      <description>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
-It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
-Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes.</description>
+      <description>&lt;p&gt;This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.&lt;/p&gt;&#xA;&lt;p&gt;It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.&lt;/p&gt;&#xA;&lt;h2 id=&#34;tool-description&#34;&gt;Tool description&lt;/h2&gt;&#xA;&lt;p&gt;We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&amp;rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>About Me</title>
       <link>https://mattszymonski.com/about_me/</link>
       <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://mattszymonski.com/about_me/</guid>
-      <description>My name is Mateusz Szymoński.
-I work as a Technical Artist at CD PROJEKT RED.
-My passion lies in Computer Science, particularly in game development areas such as Technical Art, Computer Graphics and Engine Programming.
-As a self-taught 3D Artist, I specialize in prop modeling and environment art.
-Beyond my gaming pursuits, I actively engage in the development of web applications projects.
-I graduated from Warsaw University of Technology with a Bachelor&amp;rsquo;s degree in Computer Science, earning the highest distinction for my thesis: &amp;ldquo;Design and Implementation of a Computer Game Engine&amp;rdquo;.</description>
+      <description>&lt;div&gt;&#xA;&lt;p&gt;My name is Mateusz Szymoński.&lt;br&gt;&#xA;I work as a &lt;strong&gt;Technical Artist&lt;/strong&gt; at &lt;a href=&#34;https://www.cdprojektred.com/pl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CD PROJEKT RED&lt;/a&gt; and as a &lt;strong&gt;Software Engineer&lt;/strong&gt; in the startup is co-founded, &lt;a href=&#34;https://stickypistonstudios.com/en&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sticky Piston Studios&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m passionate about Computer Science, with a strong interest in game development - especially in areas like &lt;strong&gt;Technical Art&lt;/strong&gt;, &lt;strong&gt;Computer Graphics&lt;/strong&gt;, and &lt;strong&gt;Engine Programming&lt;/strong&gt; - as well as in &lt;strong&gt;Web Application Development&lt;/strong&gt;.&#xA;As a self-taught &lt;strong&gt;3D Artist&lt;/strong&gt;, I specialize in prop modeling and environment art.&lt;br&gt;&#xA;Beyond my gaming pursuits, I actively engage in the development of web applications projects.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Support</title>
       <link>https://mattszymonski.com/support/</link>
       <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://mattszymonski.com/support/</guid>
-      <description>This is support page for the assets and tools I develop and distribute.
-In case of any problems or questions feel free to reach me via mail:
-user = &#39;matt.szymonski&#39;; site = &#39;gmail.com&#39;; document.write(&#39;&#39;); document.write(user + &#39;@&#39; + site + &#39;&#39;);  Tools • Rapid PBR Material Creator
-Assets • Ultimate Sprite Mask
-• Temple of Ylnir
-• Wind Trails Effect</description>
+      <description>&lt;p&gt;This is support page for the assets and tools I develop and distribute.&lt;/p&gt;&#xA;&lt;p&gt;In case of any problems or questions feel free to reach me via mail:&lt;/p&gt;&#xA;&lt;SCRIPT LANGUAGE=&#34;JavaScript&#34;&gt;&#xA;    user = &#39;matt.szymonski&#39;;&#xA;    site = &#39;gmail.com&#39;;&#xA;    document.write(&#39;&lt;a href=\&#34;mailto:&#39; + user + &#39;@&#39; + site + &#39;\&#34;&gt;&#39;);&#xA;    document.write(user + &#39;@&#39; + site + &#39;&lt;/a&gt;&#39;);&#xA;&lt;/SCRIPT&gt;&#xA;&lt;h3 id=&#34;tools&#34;&gt;Tools&lt;/h3&gt;&#xA;&lt;p&gt;• Rapid PBR Material Creator&lt;/p&gt;&#xA;&lt;h3 id=&#34;assets&#34;&gt;Assets&lt;/h3&gt;&#xA;&lt;p&gt;• Ultimate Sprite Mask&lt;br&gt;&#xA;• Temple of Ylnir&lt;br&gt;&#xA;• Wind Trails Effect&lt;/p&gt;&#xA;&lt;!-- any comment --&gt;</description>
     </item>
-    
   </channel>
 </rss>

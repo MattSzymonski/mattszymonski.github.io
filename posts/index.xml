@@ -4,8 +4,544 @@
         <link>https://mattszymonski.com/posts/</link>
         <description>Recent content in Posts on Mateusz Matt Szymoński</description>
         <generator>Hugo -- gohugo.io</generator>
-        <lastBuildDate>Tue, 16 May 2023 00:00:00 +0000</lastBuildDate>
+        <language>en</language>
+        <lastBuildDate>Sat, 31 May 2025 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://mattszymonski.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Running Rust programs on Raspberry Pi</title>
+            <link>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</link>
+            <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
+            
+            <guid>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</guid>
+            <description>&lt;img src=&#34;https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;
+
+
+&lt;p&gt;Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.&lt;/p&gt;
+&lt;p&gt;And yes, this is possible - but there are two significant problems with this approach:&lt;/p&gt;</description>
+            <content type="html"><![CDATA[
+    <img src="/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png"  class="center"  style="border-radius: 8px;"  />
+
+
+<p>Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.</p>
+<p>And yes, this is possible - but there are two significant problems with this approach:</p>
+<ul>
+<li>
+<p>⚠️ <strong>Performance limitations</strong> - Most Raspberry Pi models (especially the Zero and Zero 2 W) are equipped with low-end hardware. Once you open a few windows or a browser tab, the system can become noticeably laggy. Typing feels delayed, UI becomes unresponsive, and more importantly compiling Rust code - especially large crates - can be painfully slow.</p>
+</li>
+<li>
+<p>⚠️ <strong>Toolchain installation issues</strong> - On some models, like the Raspberry Pi Zero 2 W (which has only 512 MB of RAM), you might not even be able to install the Rust toolchain (<code>rustc</code>, <code>cargo</code>) properly which is required to compile Rust code. The installation process itself is resource-heavy and may fail due to memory constraints. I ran into this exact issue: I was unable to install the Rust toolchain on a Zero 2 W due to insufficient RAM.</p>
+</li>
+</ul>
+<p>So what is the alternative?</p>
+<h2 id="cross-compilation">Cross-compilation</h2>
+<p>A better solution is to write and compile your code on a more powerful development machine (like a modern PC), then simply send the ready-to-run binary (aka. executable) to your Raspberry Pi and execute it there. This approach is called cross-compilation.</p>
+<p>Even better, you can send the executable and run it remotely via SSH - a network protocol that lets you securely connect to and control another computer over the network using the command line.</p>
+<p>To do this, you will first need to find out the local network IP address assigned to your Raspberry Pi board. There are a couple of ways to do that:</p>
+<ul>
+<li>If you have a screen connected to the Pi, open a terminal and run command: <code>hostname -I</code>. It will display the IP address you are looking for.</li>
+<li>Alternatively, log into your Wi-Fi router’s admin page. In the list of connected devices, search for one named &ldquo;raspberrypi&rdquo; - its IP address should be listed there.</li>
+</ul>
+<h3 id="workflow-compile-send-and-run">Workflow: compile, send, and run</h3>
+<p>The typical workflow for developing a Rust program for Raspberry Pi using cross-compilation looks like this:</p>
+<ol>
+<li>
+<p>Write and compile your code on your development machine.<br>
+❗NOTE: Compilation requires some additional configuration, which is explained in the next section.</p>
+</li>
+<li>
+<p>Start Raspberry Pi and make sure it is connected to the same local network as your PC.</p>
+</li>
+<li>
+<p>Copy compiled binary from your PC to Raspberry Pi using <code>scp</code> command:<br>
+<code>scp &lt;MY_PROGRAM_ON_DEV_MACHINE&gt;/&lt;BUILD_DIRECTORY&gt;/&lt;BINARY&gt; &lt;USER&gt;@&lt;RASPBERRY_PI_IP&gt;:/home/&lt;USER&gt;/&lt;DESTINATION_DIRECTORY&gt;/</code></p>
+<p>For example:<br>
+<code>scp /home/mattszymonski/hello_world/target/aarch64-unknown-linux-gnu/release/hello_world mattszymonski@192.168.0.130:/home/mattszymonski/hello_world</code></p>
+</li>
+<li>
+<p>Login to your Raspberry Pi via SSH using <code>ssh</code> command:<br>
+<code>ssh &lt;USER&gt;@&lt;RASPBERRY_PI_IP&gt;</code></p>
+<p>For example:<br>
+<code>ssh mattszymonski@192.168.0.130</code></p>
+</li>
+<li>
+<p>Make copied binary executable using <code>chmod +x</code> command:<br>
+<code>chmod +x /home/&lt;USER&gt;/&lt;DESTINATION_DIRECTORY&gt;/&lt;BINARY&gt;</code></p>
+</li>
+<li>
+<p>Run your program issuing in the console by issuing:<br>
+<code>./&lt;BINARY&gt;</code></p>
+<p>For example:<br>
+<code>./home/mattszymonski/hello_world</code></p>
+</li>
+</ol>
+<h2 id="project-setup">Project setup</h2>
+<p>One crucial thing to understand is that Rust programs are compiled for a specific target system - this includes the CPU architecture and the operating system.</p>
+<p>For example, a Rust program compiled on a Windows PC won’t run on a Linux-based Raspberry Pi, because the binary is built for a different architecture and OS.</p>
+<p>To build a Rust program for a different platform (like the Raspberry Pi), you need to tell the Rust compiler which target platform you want to build for.<br>
+This is typically done by creating an additional configuration file: <code>&lt;MY_PROGRAM&gt;/.cargo/config.toml</code>.</p>
+<p>Inside this file, you define the target architecture and optionally specify which linker to use like:</p>
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> config.toml </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[target.<span style="color:#a61717;background-color:#e3d2d2">&lt;</span>TARGET_TRIPLE<span style="color:#a61717;background-color:#e3d2d2">&gt;</span>]
+</span></span><span style="display:flex;"><span>linker = <span style="color:#ed9d13">&#34;&lt;LINKER_NAME&gt;&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+<p>This configuration block tells Rust:</p>
+<ul>
+<li><code>target.&lt;TARGET_TRIPLE&gt;</code> - Specifies the system you are building for (architecture, OS, and ABI).</li>
+<li><code>linker = &quot;&lt;LINKER_NAME&gt;&quot;</code> - Tells Rust which cross-compiler to use to produce binaries for that target. You need to have it installed on your development machine.</li>
+</ul>
+<p>Once this is set up, you can build the program for your target with command:<br>
+<code>cargo build --target &lt;TARGET_TRIPLE&gt;</code><br>
+Cargo will automatically use the linker assigned to this target in your config file.</p>
+<style type="text/css">
+    .notice{
+        --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;
+        --warning-title:#800;--warning-content:#400;
+        --info-title:#698496;--info-content:#8ba0ad;
+        --note-title:#069;--note-content:#023;
+        --tip-title:#363;--tip-content:#121;
+
+        .dark-theme & {
+            --root-color:#ddd; --info-title:#445a69; --info-content:#668091; 
+        }
+        
+        padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);
+    }
+
+    .notice p:last-child{margin-bottom:0}
+    .notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}
+    .notice.warning .notice-title{background:var(--warning-title)}
+    .notice.warning{background:var(--warning-content)}
+    .notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}
+    .notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}
+    .notice.tip .notice-title{background:var(--tip-title)}
+    .notice.tip{background:var(--tip-content)}
+    .icon-notice{display:inline-flex;align-self:center;margin-right:8px}
+    .icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}
+    .icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}
+</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol>
+    <symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol>
+    <symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol>
+    <symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol>
+</svg></div><div class="notice info" >
+<p class="first notice-title">
+    <span class="icon-notice baseline">
+        <svg><use href="#info-notice"></use></svg>
+    </span></p>
+    <p>This config file is optional. It is possible to pass everything directly in the build command:
+<code>RUSTFLAGS=&quot;-C linker=&lt;LINKER_NAME&gt;&quot; cargo build --target &lt;TARGET_TRIPLE&gt;</code></p>
+</div>
+<h3 id="example-configuration-triples-and-their-linkers">Example configuration triples and their linkers</h3>
+<h4 id="64-bit-raspberry-pi-os">64-bit Raspberry Pi OS</h4>
+<p>Models: Pi 3, 4, 5, Zero 2 W
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> config.toml </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[target.aarch64-unknown-linux-gnu]
+</span></span><span style="display:flex;"><span>linker = <span style="color:#ed9d13">&#34;aarch64-linux-gnu-gcc&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</p>
+<p>To install this linker on Debian/Ubuntu Linux machine issue:<br>
+<code>sudo apt install gcc-aarch64-linux-gnu</code></p>
+<h4 id="32-bit-raspberry-pi-os">32-bit Raspberry Pi OS</h4>
+<p>Models: Pi 2, 3, Zero 2 W
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> config.toml </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[target.armv7-unknown-linux-gnueabihf]
+</span></span><span style="display:flex;"><span>linker = <span style="color:#ed9d13">&#34;arm-linux-gnueabihf-gcc&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</p>
+<p>To install this linker on Debian/Ubuntu Linux machine issue:<br>
+<code>sudo apt install gcc-arm-linux-gnueabihf</code></p>
+<h4 id="older-raspberry-pi-models">Older Raspberry Pi models</h4>
+<p>Models: Pi 1, Pi Zero original
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> config.toml </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[target.arm-unknown-linux-gnueabihf]
+</span></span><span style="display:flex;"><span>linker = <span style="color:#ed9d13">&#34;arm-linux-gnueabihf-gcc&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+</p>
+<p>Same linker as above</p>
+<h2 id="full-process-example">Full process example</h2>
+<p>So how do you do it step by step?<br>
+Below is a minimal example of a Rust program that blinks an LED connected to the Raspberry Pi&rsquo;s GPIO pins I wrote and compiled on my Debian Linux machine for Raspberry Pi Zero 2 W:</p>
+<ol>
+<li>
+<p><a href="https://www.rust-lang.org/tools/install" target="_blank" rel="noopener">Install Rust toolchain</a> on development machine to be able to compile Rust code.</p>
+</li>
+<li>
+<p>Create new Rust project using command:<br>
+<code>cargo new /home/mattszymonski/coding/blinking-diode</code></p>
+</li>
+<li>
+<p>Change folder with:<br>
+<code>cd /home/mattszymonski/coding/blinking-diode</code></p>
+</li>
+<li>
+<p>Setup project files as follows:</p>
+</li>
+</ol>
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> /blinking-diode/.cargo/config.toml </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">//</span> <span style="color:#a61717;background-color:#e3d2d2">!</span> Adjust to meet your target Raspberry Pi requirements
+</span></span><span style="display:flex;"><span>[target.aarch64-unknown-linux-gnu]
+</span></span><span style="display:flex;"><span>linker = <span style="color:#ed9d13">&#34;aarch64-linux-gnu-gcc&#34;</span> </span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> /blinking-diode/Cargo.toml </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[package]
+</span></span><span style="display:flex;"><span>name = <span style="color:#ed9d13">&#34;blinking-diode&#34;</span>
+</span></span><span style="display:flex;"><span>version = <span style="color:#ed9d13">&#34;0.1.0&#34;</span>
+</span></span><span style="display:flex;"><span>edition = <span style="color:#ed9d13">&#34;2021&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[bin]]
+</span></span><span style="display:flex;"><span>name = <span style="color:#ed9d13">&#34;blinking-diode&#34;</span>
+</span></span><span style="display:flex;"><span>path = <span style="color:#ed9d13">&#34;main.rs&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[dependencies]
+</span></span><span style="display:flex;"><span>rppal = <span style="color:#ed9d13">&#34;0.19.0&#34;</span> </span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div style="margin-bottom: 15px;">
+    
+         
+        <p style="
+            margin: 0; 
+            font-size: 14px; 
+            color: #a9a9b3;
+            background: #202020; 
+            padding: 5px 10px 6px 10px; 
+            display:inline-block; 
+            border-radius: 8px 8px 0px 0px;
+            transform: translateY(6px);
+        "> /blinking-diode/main.rs </p>
+        
+    
+    <style> 
+        .code div { border-radius: 8px; }  
+        .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
+    </style>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">use</span><span style="color:#666"> </span>std::error::Error;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use</span><span style="color:#666"> </span>std::thread;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use</span><span style="color:#666"> </span>std::time::Duration;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use</span><span style="color:#666"> </span>rppal::gpio::Gpio;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use</span><span style="color:#666"> </span>rppal::system::DeviceInfo;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666"></span><span style="color:#999;font-style:italic">// GPIO uses BCM pin numbering. BCM GPIO 23 is tied to physical pin 16.
+</span></span></span><span style="display:flex;"><span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">const</span><span style="color:#666"> </span><span style="color:#40ffff">GPIO_LED</span>: <span style="color:#6ab825;font-weight:bold">u8</span> =<span style="color:#666"> </span><span style="color:#3677a9">23</span>;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">fn</span> <span style="color:#447fcf">main</span>()<span style="color:#666"> </span>-&gt; <span style="color:#24909d">Result</span>&lt;(),<span style="color:#666"> </span><span style="color:#24909d">Box</span>&lt;<span style="color:#6ab825;font-weight:bold">dyn</span><span style="color:#666"> </span>Error&gt;&gt;<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span><span style="color:#447fcf">println!</span>(<span style="color:#ed9d13">&#34;Blinking an LED on a </span><span style="color:#ed9d13">{}</span><span style="color:#ed9d13">.&#34;</span>,<span style="color:#666"> </span>DeviceInfo::new()?.model());<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">let</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">mut</span><span style="color:#666"> </span>pin<span style="color:#666"> </span>=<span style="color:#666"> </span>Gpio::new()?.get(<span style="color:#40ffff">GPIO_LED</span>)?.into_output();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span><span style="color:#999;font-style:italic">// Blink the LED by setting the pin&#39;s logic level high for 500 ms.
+</span></span></span><span style="display:flex;"><span><span style="color:#999;font-style:italic"></span><span style="color:#666">    </span>pin.set_high();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>thread::sleep(Duration::from_millis(<span style="color:#3677a9">500</span>));<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>pin.set_low();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>thread::sleep(Duration::from_millis(<span style="color:#3677a9">500</span>));<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>pin.set_high();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>thread::sleep(Duration::from_millis(<span style="color:#3677a9">500</span>));<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>pin.set_low();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>thread::sleep(Duration::from_millis(<span style="color:#3677a9">500</span>));<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>pin.set_high();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>thread::sleep(Duration::from_millis(<span style="color:#3677a9">500</span>));<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span>pin.set_low();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666">    </span><span style="color:#24909d">Ok</span>(())<span style="color:#666">
+</span></span></span><span style="display:flex;"><span><span style="color:#666"></span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+
+
+
+<ol>
+<li>
+<p>Install required linker using command:<br>
+<code>sudo apt install gcc-aarch64-linux-gnu</code></p>
+</li>
+<li>
+<p>Compile program using command:<br>
+<code>cargo build --release --target aarch64-unknown-linux-gnu</code></p>
+<p>The result will be outputed to:<br>
+<code>/home/mattszymonski/coding/blinking-diode/target/aarch64-unknown-linux-gnu/release/blinking-diode</code></p>
+</li>
+<li>
+<p>Copy compiled binary from development machine to Raspberry Pi by executing:<br>
+<code>scp /home/mattszymonski/coding/blinking-diode/target/aarch64-unknown-linux-gnu/release/blinking-diode mattszymonski@192.168.0.130:/home/mattszymonski/programs/blinking-diode</code></p>
+</li>
+<li>
+<p>Make copied binary executable using command:<br>
+<code>chmod +x /home/mattszymonski/programs/blinking-diode</code></p>
+</li>
+<li>
+<p>Run it and enjoy!:<br>
+<code>./home/mateusz/programs/blinking-diode</code></p>
+</li>
+</ol>
+]]></content>
+        </item>
         
         <item>
             <title>Building AI Tools in Houdini</title>
@@ -13,9 +549,10 @@
             <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
             
             <guid>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</guid>
-            <description>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
-It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
-Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes.</description>
+            <description>&lt;p&gt;This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.&lt;/p&gt;
+&lt;p&gt;It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.&lt;/p&gt;
+&lt;h2 id=&#34;tool-description&#34;&gt;Tool description&lt;/h2&gt;
+&lt;p&gt;We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&amp;rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)&lt;/p&gt;</description>
             <content type="html"><![CDATA[<p>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.</p>
 <p>It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.</p>
 <h2 id="tool-description">Tool description</h2>
@@ -71,33 +608,33 @@ all its dependencies with others, without the need to share individual files.</p
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#6ab825;font-weight:bold">&#34;path&#34;</span>: <span style="color:#ed9d13">&#34;$AI_TOOL_PATH&#34;</span>,
-    <span style="color:#6ab825;font-weight:bold">&#34;load_package_once&#34;</span>: <span style="color:#6ab825;font-weight:bold">true</span>,
-    <span style="color:#6ab825;font-weight:bold">&#34;enable&#34;</span>: <span style="color:#6ab825;font-weight:bold">true</span>,
-    <span style="color:#6ab825;font-weight:bold">&#34;version&#34;</span>: <span style="color:#ed9d13">&#34;19.5&#34;</span>,
-    <span style="color:#6ab825;font-weight:bold">&#34;env&#34;</span>: [
-        {
-        <span style="color:#6ab825;font-weight:bold">&#34;AI_TOOL_PATH&#34;</span>: <span style="color:#ed9d13">&#34;C:\Users\&lt;USER&gt;\Documents\AI_Tool&#34;</span>
-        }
-    ]
-}</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&#34;path&#34;</span>: <span style="color:#ed9d13">&#34;$AI_TOOL_PATH&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&#34;load_package_once&#34;</span>: <span style="color:#6ab825;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&#34;enable&#34;</span>: <span style="color:#6ab825;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&#34;version&#34;</span>: <span style="color:#ed9d13">&#34;19.5&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&#34;env&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&#34;AI_TOOL_PATH&#34;</span>: <span style="color:#ed9d13">&#34;C:\Users\&lt;USER&gt;\Documents\AI_Tool&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -133,57 +670,57 @@ all its dependencies with others, without the need to share individual files.</p
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#cd2828;font-weight:bold">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span style="color:#6ab825;font-weight:bold">&lt;menuDocument&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;menu&gt;</span>
-        <span style="color:#6ab825;font-weight:bold">&lt;subMenu</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;aitools&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
-        <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>AI Tools<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
-
-        <span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_1&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
-            <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Print debug text<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
-            <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
-                <span style="color:#999;font-style:italic">&lt;!-- CODE OF FIRST TOOL GOES HERE! --&gt;</span>
-            <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
-        <span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
-
-        <span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_2&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
-            <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Comment code<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
-            <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
-                <span style="color:#999;font-style:italic">&lt;!-- CODE OF THE SECOND TOOL GOES HERE! --&gt;</span>
-            <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
-        <span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
-
-        <span style="color:#6ab825;font-weight:bold">&lt;/subMenu&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;/menu&gt;</span>
-<span style="color:#6ab825;font-weight:bold">&lt;/menuDocument&gt;</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">&lt;menuDocument&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;menu&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&lt;subMenu</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;aitools&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>AI Tools<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_1&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Print debug text<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#999;font-style:italic">&lt;!-- CODE OF FIRST TOOL GOES HERE! --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_2&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Comment code<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#999;font-style:italic">&lt;!-- CODE OF THE SECOND TOOL GOES HERE! --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">&lt;/subMenu&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;/menu&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">&lt;/menuDocument&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -221,63 +758,63 @@ all its dependencies with others, without the need to share individual files.</p
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">...
-
-<span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_1&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Print debug text<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
-        <span style="color:#cd2828;font-weight:bold">&lt;![CDATA[
-</span><span style="color:#cd2828;font-weight:bold">import AITool
-</span><span style="color:#cd2828;font-weight:bold">result = AITool.print_debug_text()
-</span><span style="color:#cd2828;font-weight:bold">        ]]&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
-<span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
-
-<span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_2&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Comment code<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
-        <span style="color:#cd2828;font-weight:bold">&lt;![CDATA[
-</span><span style="color:#cd2828;font-weight:bold">import AITool
-</span><span style="color:#cd2828;font-weight:bold">parm = kwargs[&#34;parms&#34;][0]
-</span><span style="color:#cd2828;font-weight:bold">code_field_contents = parm.rawValue()
-</span><span style="color:#cd2828;font-weight:bold">result = AITool.read_code_from_parameter_and_comment_it(code_field_contents)
-</span><span style="color:#cd2828;font-weight:bold">parm.set(result)
-</span><span style="color:#cd2828;font-weight:bold">        ]]&gt;</span>
-    <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
-<span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
-
-...</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_1&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Print debug text<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cd2828;font-weight:bold">&lt;![CDATA[
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">import AITool
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">result = AITool.print_debug_text()
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">        ]]&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">&lt;scriptItem</span> <span style="color:#bbb">id=</span><span style="color:#ed9d13">&#34;h.aitool_2&#34;</span><span style="color:#6ab825;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;label&gt;</span>Comment code<span style="color:#6ab825;font-weight:bold">&lt;/label&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cd2828;font-weight:bold">&lt;![CDATA[
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">import AITool
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">parm = kwargs[&#34;parms&#34;][0]
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">code_field_contents = parm.rawValue()
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">result = AITool.read_code_from_parameter_and_comment_it(code_field_contents)
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">parm.set(result)
+</span></span></span><span style="display:flex;"><span><span style="color:#cd2828;font-weight:bold">        ]]&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">&lt;/scriptCode&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">&lt;/scriptItem&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -331,15 +868,15 @@ inside it.</strong></p>
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">print_debug_text</span>():
-    <span style="color:#24909d">print</span>(<span style="color:#ed9d13">&#34;Hello from AI Tool!&#34;</span>)</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">print_debug_text</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#24909d">print</span>(<span style="color:#ed9d13">&#34;Hello from AI Tool!&#34;</span>)</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -356,7 +893,7 @@ inside it.</strong></p>
 
 <div style="margin-bottom: 15px;">
     
-        
+         
         <p style="
             margin: 0; 
             font-size: 14px; 
@@ -365,7 +902,7 @@ inside it.</strong></p>
             padding: 5px 10px 6px 10px; 
             display:inline-block; 
             border-radius: 8px 8px 0px 0px;
-            transform: translateY(16px);
+            transform: translateY(6px);
         "> AITool.py </p>
         
     
@@ -373,30 +910,59 @@ inside it.</strong></p>
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">openai</span>
-
-...
-
-<span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">read_code_from_parameter_and_comment_it</span>(code_field_contents):
-    openai.api_key = <span style="color:#ed9d13">&#34;&lt;OPENAI_API_KEY&gt;&#34;</span>
-
-    prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
-</span><span style="color:#ed9d13">    Analyze the following VEX code from SideFX Houdini and add comments to explain it.
-</span><span style="color:#ed9d13">    Don&#39;t change the code, return the same code with comments above.
-</span><span style="color:#ed9d13">    I only need the script body, do NOT explain the code body.
-</span><span style="color:#ed9d13">    The code: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
-</span><span style="color:#ed9d13">    &#34;&#34;&#34;</span>
-    prompt = prompt.format(code_field_contents)
-
-    completion = openai.ChatCompletion.create(
-        model=<span style="color:#ed9d13">&#34;gpt-3.5-turbo&#34;</span>,
-        messages=[ {<span style="color:#ed9d13">&#34;role&#34;</span>: <span style="color:#ed9d13">&#34;user&#34;</span>, <span style="color:#ed9d13">&#34;content&#34;</span>: <span style="color:#ed9d13">&#34;</span><span style="color:#ed9d13">{prompt}</span><span style="color:#ed9d13">&#34;</span>} ],
-        temperature=<span style="color:#3677a9">1.0</span>,
-        n=<span style="color:#3677a9">1</span>
-    )
-
-    <span style="color:#6ab825;font-weight:bold">return</span> completion.choices[<span style="color:#3677a9">0</span>].message.content</code></pre></div>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">openai</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">read_code_from_parameter_and_comment_it</span>(code_field_contents):
+</span></span><span style="display:flex;"><span>    openai.api_key = <span style="color:#ed9d13">&#34;&lt;OPENAI_API_KEY&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    Analyze the following VEX code from SideFX Houdini and add comments to explain it.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    Don&#39;t change the code, return the same code with comments above.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    I only need the script body, do NOT explain the code body.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    The code: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    prompt = prompt.format(code_field_contents)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    completion = openai.ChatCompletion.create(
+</span></span><span style="display:flex;"><span>        model=<span style="color:#ed9d13">&#34;gpt-3.5-turbo&#34;</span>,
+</span></span><span style="display:flex;"><span>        messages=[ {<span style="color:#ed9d13">&#34;role&#34;</span>: <span style="color:#ed9d13">&#34;user&#34;</span>, <span style="color:#ed9d13">&#34;content&#34;</span>: <span style="color:#ed9d13">&#34;</span><span style="color:#ed9d13">{prompt}</span><span style="color:#ed9d13">&#34;</span>} ],
+</span></span><span style="display:flex;"><span>        temperature=<span style="color:#3677a9">1.0</span>,
+</span></span><span style="display:flex;"><span>        n=<span style="color:#3677a9">1</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">return</span> completion.choices[<span style="color:#3677a9">0</span>].message.content</span></span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 </div>
 
@@ -415,7 +981,7 @@ You can grab it here: <a href="https://platform.openai.com/login" target="_blank
 
 <div style="margin-bottom: 15px;">
     
-        
+         
         <p style="
             margin: 0; 
             font-size: 14px; 
@@ -424,7 +990,7 @@ You can grab it here: <a href="https://platform.openai.com/login" target="_blank
             padding: 5px 10px 6px 10px; 
             display:inline-block; 
             border-radius: 8px 8px 0px 0px;
-            transform: translateY(16px);
+            transform: translateY(6px);
         "> AITool.py </p>
         
     
@@ -432,45 +998,89 @@ You can grab it here: <a href="https://platform.openai.com/login" target="_blank
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
-
-...
-
-<span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">read_code_from_parameter_and_comment_it</span>(code_field_contents):
-    prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
-</span><span style="color:#ed9d13">    Analyze the following VEX code from SideFX Houdini and add comments to explain it.
-</span><span style="color:#ed9d13">    Don&#39;t change the code, return the same code with comments above.
-</span><span style="color:#ed9d13">    I only need the script body, do NOT explain the code body.
-</span><span style="color:#ed9d13">    The code: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
-</span><span style="color:#ed9d13">    &#34;&#34;&#34;</span>
-    prompt = prompt.format(code_field_contents)
-
-    <span style="color:#999;font-style:italic"># Creating HTML request components</span>
-    request_body = {
-        <span style="color:#ed9d13">&#34;prompt&#34;</span>: prompt,
-    }
-
-    request_headers = {
-        <span style="color:#ed9d13">&#34;Content-type&#34;</span>: <span style="color:#ed9d13">&#34;application/json&#34;</span>,
-        <span style="color:#ed9d13">&#34;API-KEY&#34;</span>: <span style="color:#ed9d13">&#34;&lt;API_KEY&gt;&#34;</span>
-    }
-
-    <span style="color:#999;font-style:italic"># Sending HTML POST request to the endpoint</span>
-    response = requests.post(
-        url=<span style="color:#ed9d13">&#34;&lt;URL&gt;&#34;</span>,
-        headers=request_headers,
-        json=request_body,
-        timeout=<span style="color:#3677a9">50</span>)
-
-    <span style="color:#999;font-style:italic"># Analysing the response</span>
-    <span style="color:#6ab825;font-weight:bold">if</span> response.status_code == <span style="color:#3677a9">200</span>:
-        <span style="color:#6ab825;font-weight:bold">if</span> response.json()[<span style="color:#ed9d13">&#34;status&#34;</span>] == <span style="color:#ed9d13">&#34;Success&#34;</span>:
-            <span style="color:#6ab825;font-weight:bold">return</span> response.json()[<span style="color:#ed9d13">&#34;answer&#34;</span>]
-        <span style="color:#6ab825;font-weight:bold">else</span>:
-            <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#ed9d13">&#34;Request failed with &#34;</span> + response.json()[<span style="color:#ed9d13">&#39;status&#39;</span>]
-    <span style="color:#6ab825;font-weight:bold">else</span>:
-        <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#ed9d13">&#34;Request failed with status code: &#34;</span> + response.status_code</code></pre></div>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">38
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">read_code_from_parameter_and_comment_it</span>(code_field_contents):
+</span></span><span style="display:flex;"><span>    prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    Analyze the following VEX code from SideFX Houdini and add comments to explain it.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    Don&#39;t change the code, return the same code with comments above.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    I only need the script body, do NOT explain the code body.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    The code: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    prompt = prompt.format(code_field_contents)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#999;font-style:italic"># Creating HTML request components</span>
+</span></span><span style="display:flex;"><span>    request_body = {
+</span></span><span style="display:flex;"><span>        <span style="color:#ed9d13">&#34;prompt&#34;</span>: prompt,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    request_headers = {
+</span></span><span style="display:flex;"><span>        <span style="color:#ed9d13">&#34;Content-type&#34;</span>: <span style="color:#ed9d13">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ed9d13">&#34;API-KEY&#34;</span>: <span style="color:#ed9d13">&#34;&lt;API_KEY&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#999;font-style:italic"># Sending HTML POST request to the endpoint</span>
+</span></span><span style="display:flex;"><span>    response = requests.post(
+</span></span><span style="display:flex;"><span>        url=<span style="color:#ed9d13">&#34;&lt;URL&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>        headers=request_headers,
+</span></span><span style="display:flex;"><span>        json=request_body,
+</span></span><span style="display:flex;"><span>        timeout=<span style="color:#3677a9">50</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#999;font-style:italic"># Analysing the response</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">if</span> response.status_code == <span style="color:#3677a9">200</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">if</span> response.json()[<span style="color:#ed9d13">&#34;status&#34;</span>] == <span style="color:#ed9d13">&#34;Success&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">return</span> response.json()[<span style="color:#ed9d13">&#34;answer&#34;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#ed9d13">&#34;Request failed with &#34;</span> + response.json()[<span style="color:#ed9d13">&#39;status&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#6ab825;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#ed9d13">&#34;Request failed with status code: &#34;</span> + response.status_code</span></span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 </div>
 
@@ -494,14 +1104,14 @@ Everything except that should be more or less universal and work with every mode
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
-</span><span style="color:#ed9d13">Write VEX code from SideFX Houdini that will: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
-</span><span style="color:#ed9d13">Additionally add comments explaining it.
-</span><span style="color:#ed9d13">Give me just the code and the comments, nothing else.
-</span><span style="color:#ed9d13">I only need the script body, do NOT explain the code body.
-</span><span style="color:#ed9d13">&#34;&#34;&#34;</span>
-prompt = prompt.format(code_field_contents)</code></pre></div>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>prompt = <span style="color:#ed9d13">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">Write VEX code from SideFX Houdini that will: </span><span style="color:#ed9d13">{0}</span><span style="color:#ed9d13">
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">Additionally add comments explaining it.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">Give me just the code and the comments, nothing else.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">I only need the script body, do NOT explain the code body.
+</span></span></span><span style="display:flex;"><span><span style="color:#ed9d13">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>prompt = prompt.format(code_field_contents)</span></span></code></pre></div>
     </div>
 </div>
 
@@ -556,18 +1166,18 @@ This is required because packages are loaded on the program start.</p>
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">vector color = rand(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum);
-<span style="color:#6ab825;font-weight:bold">if</span>(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum % <span style="color:#3677a9">2</span> == <span style="color:#3677a9">0</span>)
-{
-    color.x = rand(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum);
-    <span style="color:#a61717;background-color:#e3d2d2">@</span>Cd = color;
-}
-<span style="color:#6ab825;font-weight:bold">else</span>
-{
-    <span style="color:#a61717;background-color:#e3d2d2">@</span>Cd = (<span style="color:#3677a9">0.5</span>, <span style="color:#3677a9">0.5</span>, <span style="color:#3677a9">0.5</span>);
-}
-printf(<span style="color:#ed9d13">&#34;%f&#34;</span>, <span style="color:#a61717;background-color:#e3d2d2">@</span>Cd.x);</code></pre></div>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>vector color = <span style="color:#447fcf">rand</span>(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum);
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">if</span>(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum % <span style="color:#3677a9">2</span> == <span style="color:#3677a9">0</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    color.x = <span style="color:#447fcf">rand</span>(<span style="color:#a61717;background-color:#e3d2d2">@</span>ptnum);
+</span></span><span style="display:flex;"><span>    <span style="color:#a61717;background-color:#e3d2d2">@</span>Cd = color;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a61717;background-color:#e3d2d2">@</span>Cd = (<span style="color:#3677a9">0.5</span>, <span style="color:#3677a9">0.5</span>, <span style="color:#3677a9">0.5</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#447fcf">printf</span>(<span style="color:#ed9d13">&#34;%f&#34;</span>, <span style="color:#a61717;background-color:#e3d2d2">@</span>Cd.x);</span></span></code></pre></div>
     </div>
 </div>
 
@@ -607,33 +1217,33 @@ printf(<span style="color:#ed9d13">&#34;%f&#34;</span>, <span style="color:#a617
         .code div { border-radius: 8px; }  
         .code { ::-webkit-scrollbar { border-radius: 8px; height: 10px; }; }
     </style>
-    <div class="code">
-        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
-
-node = hou.pwd()
-geo = node.geometry()
-
-<span style="color:#999;font-style:italic"># Creating HTML request components</span>
-request_body = {
-    <span style="color:#ed9d13">&#34;prompt&#34;</span>: <span style="color:#ed9d13">&#34;Tell me a good joke about birds&#34;</span>,
-}
-
-request_headers = {
-    <span style="color:#ed9d13">&#34;Content-type&#34;</span>: <span style="color:#ed9d13">&#34;application/json&#34;</span>,
-    <span style="color:#ed9d13">&#34;API-KEY&#34;</span>: <span style="color:#ed9d13">&#34;&lt;API_KEY&gt;&#34;</span>
-}
-
-<span style="color:#999;font-style:italic"># Sending HTML POST request to the endpoint</span>
-response = requests.post(
-    url=<span style="color:#ed9d13">&#34;&lt;URL&gt;&#34;</span>,
-    headers=request_headers,
-    json=request_body,
-    timeout=<span style="color:#3677a9">50</span>)
-
-<span style="color:#999;font-style:italic"># Analysing the response and adding detail attribute with the joke</span>
-<span style="color:#6ab825;font-weight:bold">if</span> response.status_code == <span style="color:#3677a9">200</span> <span style="color:#6ab825;font-weight:bold">and</span> response.json()[<span style="color:#ed9d13">&#34;status&#34;</span>] == <span style="color:#ed9d13">&#34;Success&#34;</span>:
-    geo.addAttrib(hou.attribType.Global, <span style="color:#ed9d13">&#34;joke&#34;</span>, <span style="color:#ed9d13">&#34;&#34;</span>) <span style="color:#999;font-style:italic"># Add detail attribute</span>
-    geo.setGlobalAttribValue(<span style="color:#ed9d13">&#34;joke&#34;</span>, response.json()[<span style="color:#ed9d13">&#34;answer&#34;</span>]) <span style="color:#999;font-style:italic"># Set its value</span></code></pre></div>
+    <div style="overflow-x: auto; border-radius: 8px;">
+        <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">requests</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>node = hou.pwd()
+</span></span><span style="display:flex;"><span>geo = node.geometry()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#999;font-style:italic"># Creating HTML request components</span>
+</span></span><span style="display:flex;"><span>request_body = {
+</span></span><span style="display:flex;"><span>    <span style="color:#ed9d13">&#34;prompt&#34;</span>: <span style="color:#ed9d13">&#34;Tell me a good joke about birds&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>request_headers = {
+</span></span><span style="display:flex;"><span>    <span style="color:#ed9d13">&#34;Content-type&#34;</span>: <span style="color:#ed9d13">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ed9d13">&#34;API-KEY&#34;</span>: <span style="color:#ed9d13">&#34;&lt;API_KEY&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#999;font-style:italic"># Sending HTML POST request to the endpoint</span>
+</span></span><span style="display:flex;"><span>response = requests.post(
+</span></span><span style="display:flex;"><span>    url=<span style="color:#ed9d13">&#34;&lt;URL&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>    headers=request_headers,
+</span></span><span style="display:flex;"><span>    json=request_body,
+</span></span><span style="display:flex;"><span>    timeout=<span style="color:#3677a9">50</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#999;font-style:italic"># Analysing the response and adding detail attribute with the joke</span>
+</span></span><span style="display:flex;"><span><span style="color:#6ab825;font-weight:bold">if</span> response.status_code == <span style="color:#3677a9">200</span> <span style="color:#6ab825;font-weight:bold">and</span> response.json()[<span style="color:#ed9d13">&#34;status&#34;</span>] == <span style="color:#ed9d13">&#34;Success&#34;</span>:
+</span></span><span style="display:flex;"><span>    geo.addAttrib(hou.attribType.Global, <span style="color:#ed9d13">&#34;joke&#34;</span>, <span style="color:#ed9d13">&#34;&#34;</span>) <span style="color:#999;font-style:italic"># Add detail attribute</span>
+</span></span><span style="display:flex;"><span>    geo.setGlobalAttribValue(<span style="color:#ed9d13">&#34;joke&#34;</span>, response.json()[<span style="color:#ed9d13">&#34;answer&#34;</span>]) <span style="color:#999;font-style:italic"># Set its value</span></span></span></code></pre></div>
     </div>
 </div>
 
