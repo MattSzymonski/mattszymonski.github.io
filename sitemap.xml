@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mattszymonski.com/</loc>
+    <lastmod>2025-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/posts/</loc>
+    <lastmod>2025-06-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mattszymonski.com/tags/cross-compilation/</loc>
     <lastmod>2025-05-31T00:00:00+00:00</lastmod>
   </url><url>
@@ -12,12 +18,6 @@
     <lastmod>2025-05-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/tags/linux/</loc>
-    <lastmod>2025-05-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mattszymonski.com/</loc>
-    <lastmod>2025-05-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mattszymonski.com/posts/</loc>
     <lastmod>2025-05-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/tags/programming/</loc>

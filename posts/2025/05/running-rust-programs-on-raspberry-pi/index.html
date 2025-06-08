@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="map[name:Mateusz Szymoński]">
-<meta name="description" content=" Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.
+<meta name="description" content=" Introduction Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.
 And yes, this is possible - but there are two significant problems with this approach:
 " />
 <meta name="keywords" content=", Programming, Rust, Raspberry Pi, Cross-compilation, Linux, GPIO, LED" />
@@ -27,7 +27,7 @@ And yes, this is possible - but there are two significant problems with this app
 
 
 
-<link rel="stylesheet" href="https://mattszymonski.com/main.min.adb922d91a37b9fe2ac3211acb9081959309d177e030be3c0fca190677fa24ab.css">
+<link rel="stylesheet" href="https://mattszymonski.com/main.min.94e5d82153af6039bf4697b2df94e29737c66a2cef579e302370f906ccc70a31.css">
 
 
 
@@ -44,17 +44,15 @@ And yes, this is possible - but there are two significant problems with this app
 
 
   <meta itemprop="name" content="Running Rust programs on Raspberry Pi">
-  <meta itemprop="description" content="Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.
-And yes, this is possible - but there are two significant problems with this approach:">
+  <meta itemprop="description" content="A practical guide to cross-compiling and running Rust programs on Raspberry Pi, including toolchain setup, configuration, SSH deployment, and a GPIO LED blinking example.">
   <meta itemprop="datePublished" content="2025-05-31T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-05-31T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1095">
+  <meta itemprop="wordCount" content="1096">
   <meta itemprop="keywords" content="Programming,Rust,Raspberry Pi,Cross-Compilation,Linux,GPIO,LED">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Running Rust programs on Raspberry Pi">
-  <meta name="twitter:description" content="Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.
-And yes, this is possible - but there are two significant problems with this approach:">
+  <meta name="twitter:description" content="A practical guide to cross-compiling and running Rust programs on Raspberry Pi, including toolchain setup, configuration, SSH deployment, and a GPIO LED blinking example.">
 
 
 
@@ -152,7 +150,7 @@ And yes, this is possible - but there are two significant problems with this app
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://mattszymonski.com/tags/programming">Programming</a></span><span class="tag"><a href="https://mattszymonski.com/tags/rust">Rust</a></span><span class="tag"><a href="https://mattszymonski.com/tags/raspberry-pi">Raspberry Pi</a></span><span class="tag"><a href="https://mattszymonski.com/tags/cross-compilation">Cross-compilation</a></span><span class="tag"><a href="https://mattszymonski.com/tags/linux">Linux</a></span><span class="tag"><a href="https://mattszymonski.com/tags/gpio">GPIO</a></span><span class="tag"><a href="https://mattszymonski.com/tags/led">LED</a></span>
                     </p>
 
-                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1095 Words</p>
+                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1096 Words</p>
 
                 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2025-05-31</p>
 
@@ -171,11 +169,13 @@ And yes, this is possible - but there are two significant problems with this app
                 
 
                 <div class="post-content">
-                    
+                    <hr>
+
     <img src="https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png"  class="center"  style="border-radius: 8px;"  />
 
 
-<p>Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to develop, and compile your Rust program directly on the Pi, just like on a regular PC.</p>
+<h2 id="introduction">Introduction</h2>
+<p>Since the Raspberry Pi can run a full Linux operating system that provides a graphical user interface - so you can open a desktop, create files and folders, install programs, browse the web, write code, compile and run it - your first instinct might be to  develop, and compile your Rust program directly on the Pi, just like on a regular PC.</p>
 <p>And yes, this is possible - but there are two significant problems with this approach:</p>
 <ul>
 <li>
@@ -723,12 +723,15 @@ Below is a minimal example of a Rust program that blinks an LED connected to the
             </div>
         </main>
         
-    <aside class="lg:block toc" id="toc">
-        <h3 style="padding-left: 10px;">TL;DR</h3>
-        <nav id="TableOfContents">
+    <aside class="lg:block">
+        <h3 style="padding-left: 30px; margin-top: 10px; margin-bottom: 40px">TL;DR</h3>
+        <div class="toc-fades">
+        <div class="toc" id="toc">
+            <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
+        <li><a href="#introduction">Introduction</a></li>
         <li><a href="#cross-compilation">Cross-compilation</a>
           <ul>
             <li><a href="#workflow-compile-send-and-run">Workflow: compile, send, and run</a></li>
@@ -750,8 +753,8 @@ Below is a minimal example of a Rust program that blinks an LED connected to the
     </li>
   </ul>
 </nav>
+        </div></div>
     </aside>
-
     </div>
 
             </div>
@@ -779,7 +782,8 @@ Below is a minimal example of a Rust program that blinks an LED connected to the
 
 
 
-<script type="text/javascript" src="https://mattszymonski.com/bundle.min.bde6d841dff780bb3447a748d7f4436e05f6de94a4797173c2a8bcc894c3e004890f679db2ff47487274a51b97d9a006f3844ed7063651de6b47dfde9f4e6437.js" integrity="sha512-vebYQd/3gLs0R6dI1/RDbgX23pSkeXFzwqi8yJTD4ASJD2edsv9HSHJ0pRuX2aAG84RO1wY2Ud5rR9/en05kNw=="></script>
+
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.a77920e7a8aa850941ee82cd9c8a6418aab5162095e04c426c293b0c3a6298c95c6af1675de735884ced0ed3f0716cead628383446067469fab4f11368ca12e7.js" integrity="sha512-p3kg56iqhQlB7oLNnIpkGKq1FiCV4ExCbCk7DDpimMlcavFnXec1iEztDtPwcWzq1ig4NEYGdGn6tPETaMoS5w=="></script>
 
 
 

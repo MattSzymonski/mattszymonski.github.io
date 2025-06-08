@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="map[name:Mateusz Szymoński]">
-<meta name="description" content="This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
+<meta name="description" content=" Introduction This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
 It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
 Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)
 " />
@@ -28,7 +28,7 @@ Tool description We will create and add custom context menu buttons that will ap
 
 
 
-<link rel="stylesheet" href="https://mattszymonski.com/main.min.adb922d91a37b9fe2ac3211acb9081959309d177e030be3c0fca190677fa24ab.css">
+<link rel="stylesheet" href="https://mattszymonski.com/main.min.94e5d82153af6039bf4697b2df94e29737c66a2cef579e302370f906ccc70a31.css">
 
 
 
@@ -45,19 +45,15 @@ Tool description We will create and add custom context menu buttons that will ap
 
 
   <meta itemprop="name" content="Building AI Tools in Houdini">
-  <meta itemprop="description" content="This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
-It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
-Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool’s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)">
+  <meta itemprop="description" content="A step-by-step guide to building AI-powered tools inside Houdini using Python and OpenAI, including context menu integration, code analysis, and generative workflows.">
   <meta itemprop="datePublished" content="2023-05-16T00:00:00+00:00">
   <meta itemprop="dateModified" content="2023-05-16T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1752">
+  <meta itemprop="wordCount" content="1753">
   <meta itemprop="keywords" content="Technical Art,Tools,Houdini,AI,OpenAI,Python">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Building AI Tools in Houdini">
-  <meta name="twitter:description" content="This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
-It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
-Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool’s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)">
+  <meta name="twitter:description" content="A step-by-step guide to building AI-powered tools inside Houdini using Python and OpenAI, including context menu integration, code analysis, and generative workflows.">
 
 
 
@@ -155,7 +151,7 @@ Tool description We will create and add custom context menu buttons that will ap
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://mattszymonski.com/tags/technical-art">Technical Art</a></span><span class="tag"><a href="https://mattszymonski.com/tags/tools">Tools</a></span><span class="tag"><a href="https://mattszymonski.com/tags/houdini">Houdini</a></span><span class="tag"><a href="https://mattszymonski.com/tags/ai">AI</a></span><span class="tag"><a href="https://mattszymonski.com/tags/openai">OpenAI</a></span><span class="tag"><a href="https://mattszymonski.com/tags/python">Python</a></span>
                     </p>
 
-                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1752 Words</p>
+                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1753 Words</p>
 
                 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2023-05-16</p>
 
@@ -174,7 +170,9 @@ Tool description We will create and add custom context menu buttons that will ap
                 
 
                 <div class="post-content">
-                    <p>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.</p>
+                    <hr>
+<h2 id="introduction">Introduction</h2>
+<p>This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.</p>
 <p>It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.</p>
 <h2 id="tool-description">Tool description</h2>
 <p>We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)</p>
@@ -927,12 +925,15 @@ This is required because packages are loaded on the program start.</p>
             </div>
         </main>
         
-    <aside class="lg:block toc" id="toc">
-        <h3 style="padding-left: 10px;">TL;DR</h3>
-        <nav id="TableOfContents">
+    <aside class="lg:block">
+        <h3 style="padding-left: 30px; margin-top: 10px; margin-bottom: 40px">TL;DR</h3>
+        <div class="toc-fades">
+        <div class="toc" id="toc">
+            <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
+        <li><a href="#introduction">Introduction</a></li>
         <li><a href="#tool-description">Tool description</a></li>
         <li><a href="#1-creating-a-houdini-package-for-our-tool">1. Creating a Houdini package for our tool</a></li>
         <li><a href="#2-extending-houdini-context-menus">2. Extending Houdini context menus</a></li>
@@ -950,8 +951,8 @@ This is required because packages are loaded on the program start.</p>
     </li>
   </ul>
 </nav>
+        </div></div>
     </aside>
-
     </div>
 
             </div>
@@ -979,7 +980,8 @@ This is required because packages are loaded on the program start.</p>
 
 
 
-<script type="text/javascript" src="https://mattszymonski.com/bundle.min.bde6d841dff780bb3447a748d7f4436e05f6de94a4797173c2a8bcc894c3e004890f679db2ff47487274a51b97d9a006f3844ed7063651de6b47dfde9f4e6437.js" integrity="sha512-vebYQd/3gLs0R6dI1/RDbgX23pSkeXFzwqi8yJTD4ASJD2edsv9HSHJ0pRuX2aAG84RO1wY2Ud5rR9/en05kNw=="></script>
+
+<script type="text/javascript" src="https://mattszymonski.com/bundle.min.a77920e7a8aa850941ee82cd9c8a6418aab5162095e04c426c293b0c3a6298c95c6af1675de735884ced0ed3f0716cead628383446067469fab4f11368ca12e7.js" integrity="sha512-p3kg56iqhQlB7oLNnIpkGKq1FiCV4ExCbCk7DDpimMlcavFnXec1iEztDtPwcWzq1ig4NEYGdGn6tPETaMoS5w=="></script>
 
 
 
