@@ -10,10 +10,10 @@
         
         <item>
             <title>Running Rust programs on Raspberry Pi</title>
-            <link>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</link>
+            <link>https://mattszymonski.com/posts/running-rust-programs-on-raspberry-pi/</link>
             <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
             
-            <guid>https://mattszymonski.com/posts/2025/05/running-rust-programs-on-raspberry-pi/</guid>
+            <guid>https://mattszymonski.com/posts/running-rust-programs-on-raspberry-pi/</guid>
             <description>&lt;hr&gt;
 
     &lt;img src=&#34;https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;
@@ -550,10 +550,10 @@ Below is a minimal example of a Rust program that blinks an LED connected to the
         
         <item>
             <title>Building AI Tools in Houdini</title>
-            <link>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</link>
+            <link>https://mattszymonski.com/posts/building-ai-tools-in-houdini/</link>
             <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
             
-            <guid>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</guid>
+            <guid>https://mattszymonski.com/posts/building-ai-tools-in-houdini/</guid>
             <description>&lt;hr&gt;
 &lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.&lt;/p&gt;

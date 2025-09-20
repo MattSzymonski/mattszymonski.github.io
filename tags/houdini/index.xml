@@ -10,9 +10,9 @@
     <atom:link href="https://mattszymonski.com/tags/houdini/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Building AI Tools in Houdini</title>
-      <link>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</link>
+      <link>https://mattszymonski.com/posts/building-ai-tools-in-houdini/</link>
       <pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/posts/2023/05/building-ai-tools-in-houdini/</guid>
+      <guid>https://mattszymonski.com/posts/building-ai-tools-in-houdini/</guid>
       <description>&lt;hr&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.&lt;/p&gt;&#xA;&lt;p&gt;It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.&lt;/p&gt;&#xA;&lt;h2 id=&#34;tool-description&#34;&gt;Tool description&lt;/h2&gt;&#xA;&lt;p&gt;We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&amp;rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)&lt;/p&gt;</description>
     </item>
   </channel>
