@@ -4,22 +4,25 @@
         <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="map[name:Mateusz Szymoński]">
-<meta name="description" content=" Introduction This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
+<meta name="author"
+    content="map[name:Mateusz Szymoński]">
+<meta name="description"
+    content=" Introduction This tutorial presents how to create an extension for Houdini that uses AI to analyze and document code, as well as generate it from the prompt. It also shows how to communicate with AI chat models (LLMs) endpoints in general.
 It is inspired by the workshop conducted by Paul Ambrosiussen during EPC23.
 Tool description We will create and add custom context menu buttons that will appear when we right-click on VEXpression and Python code fields in Houdini nodes. Pushing these buttons will trigger different actions defined in the tool&rsquo;s Python code. (Contents of fields will be sent to the model as a prompt and the model’s answer will be put back into the fields)
 " />
-<meta name="keywords" content=", Technical Art, Tools, Houdini, AI, OpenAI, Python" />
+<meta name="keywords"
+    content=", Technical Art, Tools, Houdini, AI, OpenAI, Python" />
 <meta name="robots" content="noodp" />
-<meta name="theme-color" content="#252627" />
+<meta name="theme-color" content="#fafafa" />
 <link rel="canonical" href="https://mattszymonski.com/posts/building-ai-tools-in-houdini/" />
 
 
-    <title>
-        
-            Building AI Tools in Houdini :: Mateusz Matt Szymoński 
-        
-    </title>
+<title>
+    
+    Building AI Tools in Houdini :: Mateusz Matt Szymoński 
+    
+</title>
 
 
 
@@ -61,7 +64,7 @@ Tool description We will create and add custom context menu buttons that will ap
 
 
 
-    <meta property="article:published_time" content="2023-05-16 00:00:00 &#43;0000 UTC" />
+<meta property="article:published_time" content="2023-05-16 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -69,21 +72,43 @@ Tool description We will create and add custom context menu buttons that will ap
 
 
 
-
-<!-- Global Site Tag (gtag.js) - Google Tag Manager -->
+<script>
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYYC2BRP5S"></script>
-    <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
+
+    
+    gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+    });
+</script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BYYC2BRP5S"></script>
+
+<script>
     gtag('js', new Date());
-    gtag('config', "G-BYYC2BRP5S");
-    </script>
+
+    
+    gtag('config', 'G-BYYC2BRP5S', {
+        'allow_google_signals': false,          
+        'allow_ad_personalization_signals': false,
+        'anonymize_ip': true,                   
+        'ads_data_redaction': true,             
+        'debug_mode': false,                    
+        'transport_type': 'beacon',             
+        'cookie_flags': 'SameSite=None;Secure'  
+    });
+</script>
+
+
 
 
 
 <script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
-
     </head>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
