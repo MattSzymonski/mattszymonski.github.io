@@ -76,6 +76,56 @@ Tool description We will create and add custom context menu buttons that will ap
     data-website-id="101c1062-943d-4b8b-9336-64b96ac3ce7b"></script>
 
 
+<style>
+    .text-black {
+        color: #000;
+    }
+
+    .text-dark-gray {
+        color: #1d1d1d;
+    }
+
+     
+    .table-scroll {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+     
+    .table-scroll table th,
+    .table-scroll table td {
+        padding: 8px;
+        vertical-align: top;
+    }
+
+     
+    .style-table.dark-theme th,
+    .style-table.dark-theme td {
+        border-color: #8a8b91;
+    }
+
+     
+    .style-table.dark-theme thead tr {
+        background-color: #3b3d42;
+    }
+
+     
+    .table-scroll-top {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .table-scroll-top-spacer {
+        height: 1px;
+        min-width: 100%;
+    }
+</style>
+
+
+<script src="https://mattszymonski.com/js/table-top-scrollbar.js" defer></script>
+
+
 <script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
     </head>
 
@@ -441,7 +491,15 @@ all its dependencies with others, without the need to share individual files.</p
 inside it.</strong></p>
 <p>The folder structure should look as follows:</p>
 
-    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/folder_structure.png"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/folder_structure.png"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p>Houdini automatically loads Python modules if they are located in the following paths:</p>
@@ -731,14 +789,30 @@ Everything except that should be more or less universal and work with every mode
 
 <h2 id="4-lets-try-it-its-showtime">4. Let’s try it. It&rsquo;s showtime!</h2>
 
-    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/showtime.jpg"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/showtime.jpg"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p><strong>⚡️ Restart Houdini if you have it opened.</strong>
 This is required because packages are loaded on the program start.</p>
 <p>You can check if the package has been detected correctly. To do this click the “Help” button in the navmenu at the top, then “About”, tick the “Show Details” checkbox, and scroll down to the “Loaded Packages” section. The tool should appear there.</p>
 
-    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/help.gif"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/help.gif"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <br />
@@ -746,7 +820,15 @@ This is required because packages are loaded on the program start.</p>
 <p>First test the basic functionality which is debug message printing.<br>
 <strong>⚡️ In network view create a geometry node and then attribute wrangle node in it.</strong></p>
 
-    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/first.gif"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/first.gif"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p>Yey!</p>
@@ -797,7 +879,15 @@ This is required because packages are loaded on the program start.</p>
 </p>
 <p><strong>⚡️ Ok, so let&rsquo;s click the button and wait for a few seconds.</strong></p>
 
-    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/comment.gif"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/comment.gif"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p>… and there you have it! The same code as before but analyzed and commented for you. Crazy, right?</p>
@@ -864,7 +954,15 @@ This is required because packages are loaded on the program start.</p>
 <p>You can use OpenAI module for this too</p>
 <p>The rest of the node tree should look like this:</p>
 <p>
-    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/jokes.png"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/jokes.png"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 (Font node is referencing Python node using spare input. It has to be added to the font node by clicking the cog button next to its name and choosing &ldquo;Add spare input&rdquo;. Then it will appear in the parameters below. Just drag and drop Python node to assign it)</p>
@@ -873,7 +971,15 @@ This is required because packages are loaded on the program start.</p>
 <p>💡 Perhaps a more useful idea: Create parameterized NPC creator for the video game and ask AI to “play” with different parameters, as well as come up with some personal details and character descriptions. In this way, we can easily generate meaningful characters.
 (Next step would be to convert them to something more &ldquo;physical&rdquo;. Eg. Nothing stops us from deploying an army of 3D-printed, AI-equiped replicants to the streets. Welcome to the future!)</p>
 
-    <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/units.jpg"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/building_ai_tools_in_houdini/units.jpg"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <br />

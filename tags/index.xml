@@ -6,8 +6,64 @@
     <description>Recent content in Tags on Mateusz Matt Szymoński</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 31 May 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://mattszymonski.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C#</title>
+      <link>https://mattszymonski.com/tags/c%23/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/c%23/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ECS</title>
+      <link>https://mattszymonski.com/tags/ecs/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/ecs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Game Development</title>
+      <link>https://mattszymonski.com/tags/game-development/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/game-development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Game Engine</title>
+      <link>https://mattszymonski.com/tags/game-engine/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/game-engine/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Open Source</title>
+      <link>https://mattszymonski.com/tags/open-source/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/open-source/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Performance</title>
+      <link>https://mattszymonski.com/tags/performance/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/performance/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pill Engine</title>
+      <link>https://mattszymonski.com/tags/pill-engine/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/pill-engine/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rust</title>
+      <link>https://mattszymonski.com/tags/rust/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/tags/rust/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Cross-Compilation</title>
       <link>https://mattszymonski.com/tags/cross-compilation/</link>
@@ -20,62 +76,6 @@
       <link>https://mattszymonski.com/tags/gpio/</link>
       <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
       <guid>https://mattszymonski.com/tags/gpio/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>LED</title>
-      <link>https://mattszymonski.com/tags/led/</link>
-      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/led/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>https://mattszymonski.com/tags/linux/</link>
-      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Programming</title>
-      <link>https://mattszymonski.com/tags/programming/</link>
-      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/programming/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Raspberry Pi</title>
-      <link>https://mattszymonski.com/tags/raspberry-pi/</link>
-      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/raspberry-pi/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Rust</title>
-      <link>https://mattszymonski.com/tags/rust/</link>
-      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/rust/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>ASP.NET</title>
-      <link>https://mattszymonski.com/tags/asp.net/</link>
-      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/asp.net/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Backend</title>
-      <link>https://mattszymonski.com/tags/backend/</link>
-      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/backend/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Docker</title>
-      <link>https://mattszymonski.com/tags/docker/</link>
-      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://mattszymonski.com/tags/docker/</guid>
       <description></description>
     </item>
   </channel>

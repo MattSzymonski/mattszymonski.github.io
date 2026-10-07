@@ -2,11 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mattszymonski.com/tags/c%23/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/ecs/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/game-development/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/game-engine/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mattszymonski.com/</loc>
-    <lastmod>2026-05-10T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/open-source/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/performance/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/pill-engine/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/posts/pill-engine-rethinking-the-game-engine/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/posts/</loc>
-    <lastmod>2026-05-10T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/rust/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mattszymonski.com/tags/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/tags/cross-compilation/</loc>
     <lastmod>2025-05-31T00:00:00+00:00</lastmod>
@@ -27,12 +57,6 @@
     <lastmod>2025-05-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/posts/running-rust-programs-on-raspberry-pi/</loc>
-    <lastmod>2025-05-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mattszymonski.com/tags/rust/</loc>
-    <lastmod>2025-05-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mattszymonski.com/tags/</loc>
     <lastmod>2025-05-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mattszymonski.com/tags/asp.net/</loc>

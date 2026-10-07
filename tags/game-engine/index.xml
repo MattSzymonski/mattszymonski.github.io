@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Game Engine on Mateusz Matt Szymoński</title>
+    <link>https://mattszymonski.com/tags/game-engine/</link>
+    <description>Recent content in Game Engine on Mateusz Matt Szymoński</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 05 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mattszymonski.com/tags/game-engine/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pill Engine: Rethinking the Game Engine</title>
+      <link>https://mattszymonski.com/posts/pill-engine-rethinking-the-game-engine/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mattszymonski.com/posts/pill-engine-rethinking-the-game-engine/</guid>
+      <description>&lt;hr&gt;&#xA;&#xD;&#xA;    &#xD;&#xA;    &#xD;&#xA;    &#xD;&#xA;    &#xD;&#xA;    &#xD;&#xA;    &#xD;&#xA;    &#xD;&#xA;        &lt;img src=&#34;https://mattszymonski.com/media/images/posts/introducing_pill_engine/pill_banner.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;&#xD;&#xA;    &#xD;&#xA;&#xD;&#xA;&#xA;&lt;p&gt;Links:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://pillengine.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Pill Engine Home&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://discord.gg/VUKNQrctms&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Pill Engine Discord&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;It is time to reveal my greatest endeavour - &lt;strong&gt;Pill Engine&lt;/strong&gt;, aka &lt;strong&gt;Pill&lt;/strong&gt; - a modern, free and blazingly fast game engine that I have been designing and developing for many years now.&lt;/p&gt;&#xA;&lt;p&gt;I have been working with game engines for over 10 years. I have been through the trenches of AAA, AA, indie, dozens of game jams, the demoscene, the hackerscene - oh boy, I have seen a lot. Along the way I have made a ton of extremely valuable connections and gained even more valuable knowledge, experience and perspectives.&#xA;Currently, I work as a Technical Artist at CD PROJEKT RED 🐦, developing and maintaining huge-scale game production pipelines used by hundreds of amazing content creators.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

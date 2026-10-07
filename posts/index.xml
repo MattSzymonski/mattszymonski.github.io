@@ -5,8 +5,557 @@
         <description>Recent content in Posts on Mateusz Matt Szymoński</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 05 Oct 2026 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://mattszymonski.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Pill Engine: Rethinking the Game Engine</title>
+            <link>https://mattszymonski.com/posts/pill-engine-rethinking-the-game-engine/</link>
+            <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+            
+            <guid>https://mattszymonski.com/posts/pill-engine-rethinking-the-game-engine/</guid>
+            <description>&lt;hr&gt;
+
+    
+    
+    
+    
+    
+    
+    
+        &lt;img src=&#34;https://mattszymonski.com/media/images/posts/introducing_pill_engine/pill_banner.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+
+
+&lt;p&gt;Links:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://pillengine.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Pill Engine Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://discord.gg/VUKNQrctms&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Pill Engine Discord&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;It is time to reveal my greatest endeavour - &lt;strong&gt;Pill Engine&lt;/strong&gt;, aka &lt;strong&gt;Pill&lt;/strong&gt; - a modern, free and blazingly fast game engine that I have been designing and developing for many years now.&lt;/p&gt;
+&lt;p&gt;I have been working with game engines for over 10 years. I have been through the trenches of AAA, AA, indie, dozens of game jams, the demoscene, the hackerscene - oh boy, I have seen a lot. Along the way I have made a ton of extremely valuable connections and gained even more valuable knowledge, experience and perspectives.
+Currently, I work as a Technical Artist at CD PROJEKT RED 🐦, developing and maintaining huge-scale game production pipelines used by hundreds of amazing content creators.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<hr>
+
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/introducing_pill_engine/pill_banner.png"  class="center"  style="border-radius: 8px;"  />
+    
+
+
+<p>Links:</p>
+<ul>
+<li><a href="https://pillengine.org/" target="_blank" rel="noopener">Pill Engine Home</a></li>
+<li><a href="https://discord.gg/VUKNQrctms" target="_blank" rel="noopener">Pill Engine Discord</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>It is time to reveal my greatest endeavour - <strong>Pill Engine</strong>, aka <strong>Pill</strong> - a modern, free and blazingly fast game engine that I have been designing and developing for many years now.</p>
+<p>I have been working with game engines for over 10 years. I have been through the trenches of AAA, AA, indie, dozens of game jams, the demoscene, the hackerscene - oh boy, I have seen a lot. Along the way I have made a ton of extremely valuable connections and gained even more valuable knowledge, experience and perspectives.
+Currently, I work as a Technical Artist at CD PROJEKT RED 🐦, developing and maintaining huge-scale game production pipelines used by hundreds of amazing content creators.</p>
+<p>With all this experience, and with all the talented people I met, I decided to embark on the endeavour of making a new engine from scratch.
+An engine that avoids the weaknesses, limitations and mistakes I have seen in existing engines, while taking the best ideas from all of them - features, workflows, architecture, tooling, developer quality-of-life improvements and all the small things that make working with an engine simply feel good.
+Then add some unique flavour to the mixture and put everything together into a single&hellip; <strong>Pill</strong> 💊</p>
+<p>I know this may sound utopian and pretty vague for now, but bear with me :)</p>
+<p>In this post I would like to introduce Pill, the idea behind it, the story of how it came to be, and its goals.</p>
+<h2 id="what-is-pill-engine">What is Pill Engine?</h2>
+<p>Pill Engine is an advanced game engine written in Rust.</p>
+<p>This is not a random &ldquo;yet another game engine&rdquo; project. Pill is designed around a small set of very specific core values, shaped by years of experience, observations and feedback from highly experienced game developers and engineers.</p>
+<figure class="center" style="width: 100%;">
+    <video src="https://pillengine.org/images/xenium_30fps_4k.mp4" style="display: block; width: 100%; height: auto; border-radius: 8px;" controls autoplay muted playsinline preload="metadata"></video>
+    <figcaption class="center">Pill Engine teaser made for Xenium 2026 (in-engine footage of course)</figcaption>
+</figure>
+<h3 id="core-values">Core values</h3>
+<ul>
+<li><strong>Anti-bloat, modular architecture philosophy</strong> - Pill is built to stay general-purpose without turning into a bloated, heavy or difficult-to-maintain engine. Its architecture is split into independent modules, so you include only what your project actually needs. That keeps the engine easier to extend, easier to reason about and significantly leaner at runtime. It also helps keep final builds extremely small - in some cases even below 1 MB. This lightweight foundation directly supports the next point.</li>
+<li><strong>Zero-friction developer experience</strong> - Pill is meant to feel as snappy as possible. Runtime performance matters a lot, but so do iteration speed, responsiveness, developer quality of life, and the simple enjoyment of building things. Hot reloading, project sandboxing that prevents crashes from taking down the editor, fast startup and loading times, and instant feedback are treated as core engine features rather than secondary conveniences. The goal is to remove as much friction as possible between making a change and seeing the result.</li>
+<li><strong>No-compromise performance</strong> - Pill is designed to support both small indie games and huge AAA-scale projects while offering extremely high performance to all of them. Its core is data-oriented and powered by a unique hybrid, archetype-based ECS architecture that aligns precisely to the way modern hardware actually works. Performance-critical code is optimized down to the assembly level, making it possible to simulate hundreds of thousands - and in some cases millions - of objects efficiently on the CPU. Importantly, this is not smoke and mirrors. Performance is continuously measured by automated benchmarks and development pipelines, so regressions can be detected instead of guessed.</li>
+</ul>
+<h3 id="concrete-goals-aka-flagship-features">Concrete goals aka flagship features</h3>
+<p>The ambitious goal is simple: fix the bad stuff and make the good stuff even better.</p>
+<p>Of course, &ldquo;all&rdquo; is too big of a word. And everyone has their own opinion on what is good, what is bad, and what actually matters.
+Pill&rsquo;s definition of those things comes from years of observations, discussions and feedback across gamedev, demoscene, hackerspaces, embedded systems and communication industries - backed where possible by research, measurements and real-world experience.</p>
+<style type="text/css">
+    .notice{
+        --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;
+        --warning-title:#eda411;--warning-content:#d19f38;
+        --info-title:#698496;--info-content:#8ba0ad;
+        --note-title:#069;--note-content:#023;
+        --tip-title:#363;--tip-content:#121;
+
+        .dark-theme & {
+            --root-color:#ddd; --info-title:#445a69; --info-content:#668091; 
+        }
+        
+        padding:18px; line-height:24px; margin-bottom:24px; border-radius: 7px; color: var(--root-color); background: var(--root-background);
+    }
+
+    .notice p:last-child{margin-bottom:0}
+    .notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:7px 7px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}
+    .notice.warning .notice-title{background:var(--warning-title)}
+    .notice.warning{background:var(--warning-content)}
+    .notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}
+    .notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}
+    .notice.tip .notice-title{background:var(--tip-title)}
+    .notice.tip{background:var(--tip-content)}
+    .icon-notice{display:inline-flex;align-self:center;margin-right:8px}
+    .icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}
+    .icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}
+</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol>
+    <symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol>
+    <symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol>
+    <symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol>
+</svg></div><div class="notice warning" >
+<p class="first notice-title">
+    <span class="icon-notice baseline">
+        <svg><use href="#warning-notice"></use></svg>
+    </span></p>
+    <p><span class="text-dark-gray">It&rsquo;s about to get really hot in here - watch out! 🔥</span></p>
+</div>
+<p>To make that ambition concrete, here is a clearly defined list of goals:</p>
+<ul>
+<li><strong>100% free and open source</strong> - The whole idea is to empower people to make amazing stuff. Out of passion. For the community, by the community.</li>
+<li><strong>C# and Rust scripting languages</strong> - You get a real choice between convenience and maximum control. Pick C# when you want to move fast, iterate quickly and just get things done. Pick Rust when you want full low-level control, predictable performance and maximum efficiency. Both are first-class citizens.</li>
+<li><strong>Hot reloading pushed to the max</strong> - Edit your code and see the changes running in around 1-2 seconds. When only functions change, reloads can be even faster - less than a single second. The goal is simple: keep the feedback loop short so everything feels instant.</li>
+<li><strong>Crash-resistant with full project sandboxing</strong> - Your code has an error or crashes? The engine and editor don&rsquo;t. Project code is isolated, so failures stay inside the project instead of taking the whole engine down with them. You get a clear error, fix the code, and keep going without restarting everything and waiting for the entire project to load again. Pill itself is written in Rust, adding strong memory-safety guarantees on top.</li>
+<li><strong>Hybrid Entity Component System architecture</strong> - Pill is built around a high-performance, archetype-based ECS designed for cache locality, parallelism and raw throughput. Simulating hundreds of thousands of objects on the CPU should not be an issue. What is more, Pill&rsquo;s ECS is hybrid. You are not forced to program in a data-oriented way. You can put logic directly into components to use a classic object-oriented style when needed, or freely mix both approaches. Underneath, the data stays packed, predictable and automatically optimized by the engine.</li>
+<li><strong>Proven performance</strong> - Pill does not just say &ldquo;I&rsquo;m fast&rdquo;, it proves it with real numbers. Each update to the engine goes through automated continuous integration and benchmarking systems. The <strong>Pill Labs</strong> initiative is in charge of benchmarks and researching dark-arts performance improvements.</li>
+<li><strong>Anti-bloat, modular architecture</strong> -  The engine core is intentionally tiny - holding mostly lifecycle and infrastructure logic. Everything else is a module. Rendering, physics, audio, networking, tooling. Just plug in what you need and leave out what you don&rsquo;t. You can even remove the renderer completely and run Pill headless. This way we can keep the bloat and technical debt in check.</li>
+<li><strong>Next-level error logs</strong> - Finally useful errors instead of cryptic walls of text. Deep, descriptive and configurable call stacks with enough context to understand what went wrong, and even with the tips on what to do in order to fix the issue.</li>
+<li><strong>JSON asset format</strong> - Pill uses JSON for all the assets&rsquo; data, making them easy to read, edit, and version control. No more binary blobs that you can&rsquo;t understand or modify.</li>
+<li><strong>Live game + scene editing workflow</strong> - Run your game in one viewport while continuing to inspect and edit the scene in another. Changes can be made while the project is running, without constantly switching between play and edit modes. Project code is fully sandboxed, so crashes stay contained and do not take down the editor. Super convenient.</li>
+<li><strong>Tiny build sizes</strong> - In the era of monstrous bloated games, builds produced by Pill can be as small as roughly 1.0 MB - that is around 1,000 times smaller than 1 GB! Small binaries mean faster downloads, faster deployment, less storage and access to platforms where traditional engines simply do not fit.</li>
+<li><strong>Absolute streaming beast</strong> - It is often a case that not everything fits in memory, especially for large projects. Pill is designed to very efficiently stream huge amounts of assets, scenes and world data only when it is actually needed.</li>
+<li><strong>Blazing startup times</strong> - Huge project? The editor should still open in seconds, not minutes. The target is to keep startup times in a relatively sane and healthy range even as projects become large and complex.</li>
+<li><strong>Embedded device support</strong> - Pill is designed to scale far beyond desktop PCs. The goal is to run Pill projects even on constrained hardware such as ESP32-class microcontrollers with just 0.5 MB of RAM.</li>
+<li><strong>Secret ingredient</strong> - There is also a meta-level advantage that cannot be revealed publicly yet. Maybe someday. Who knows?</li>
+</ul>
+<h3 id="the-community">The community</h3>
+<p>Yet, Pill is not just a software. It is a vibrant community of passionate people that want to participate in something special, learn from each other, share knowledge, build things, and simply have fun doing it.</p>
+<p>Things do not always have to be about business.
+Pill engine is free and opensource. Fueled solely by passion.</p>
+<p>Rendering engineers trying to push computer graphics domain forward? Indie developers building weird games during a weekend jam? Demosceners squeezing the binaries to unbelivable memory sizes? Everyone is welcome</p>
+<p>Come join us on Discord and shape the future of Pill!
+Invitation link: <a href="https://discord.gg/VUKNQrctms" target="_blank" rel="noopener">Discord Pill Community</a></p>
+<h2 id="are-we-there-yet">Are we there yet?</h2>
+<p>This section is updated to reflect the current state of the project.</p>
+<p>I won&rsquo;t lie - the current version of Pill does not meet all these promises yet.
+However, the very good news is that there is already a research project proving that the core ideas work (proof of concept). It is called &ldquo;Project Golden Pill&rdquo;.</p>
+<p>Current development is focused on transferring its architecture, design and concepts into the main Pill codebase.
+Once that work is complete, Pill will be released as version 1.0.
+The targeted release date is Q1 2027.</p>
+<p><em>(Future me, please put the link to the Pill v1.0 post-mortem article here)</em></p>
+<p>A huge advantage of Pill is that it was started from scratch.
+There is no need to carry years of technical debt or work around architectural decisions made a long time ago.
+The idea from the very beginning was to avoid mistakes and limitations that can be observed in existing game engines by defining the architecture in a very specific and clear way before building everything on top of it.</p>
+<p>For now, development is focused on establishing strong foundations. The shiny features will come after that.</p>
+<p>You can find the roadmap and follow the progress here: <a href="https://pillengine.org/#roadmap" target="_blank" rel="noopener">Pill Roadmap</a></p>
+
+    
+    
+    
+    
+    
+    
+    
+        <figure class="center">
+            <img src="/media/images/posts/introducing_pill_engine/ancient_pills.gif"  class="center"  style="border-radius: 8px;"  />
+            <figcaption class="center">100k separately animated entities in 60FPS on CPU - Performance test</figcaption>
+        </figure>
+    
+
+
+<h2 id="motivation">Motivation</h2>
+<p>Interestingly, my motivation behind developing Pill has changed several times over the years, and with each change, the vision for the project was reshaped as well. It first started as a student project, then became a pet project I worked on for fun, and eventually evolved into something much more ambitious - an attempt to address the problems I have seen in existing game engines.</p>
+<h3 id="student-project">Student project</h3>
+<p>Originally, Pill started as my Bachelor&rsquo;s thesis project. It is also a spiritual successor to PolyEngine which was an engine I was co-developing in the &ldquo;Polygon&rdquo; Students&rsquo; Association of Game Developers at my Warsaw University of Technology.
+If you want to learn more about those ancient times, you will have to read &ldquo;<a href="#origins-of-pill">Origins of Pill</a>&rdquo; section at the end of this page.
+Pill served its original purpose (I graduated 🎓) and then, for a few years, it was left sitting in a drawer.</p>
+<h3 id="pet-projects">Pet projects</h3>
+<p>It is especially common among engineers to have a pet project that you work on in your free time.
+The same is true for me. I really enjoy using my skills to build something cool, so every now and then I would come back to Pill and implement a feature, experiment with an idea or change something here and there.</p>
+<p>To be honest, at some point I realized that game engines are perfect candidates for pet projects in general.
+They are basically infinite playgrounds for experimentation and learning. You can explore rendering, architecture, low-level optimization, tooling, asset pipelines, networking, physics, scripting, you name it.</p>
+<p>And what makes them different from other software pet projects, they can display nice graphics (assuming you can make nice graphics).
+Graphics are also something you can actually show to other people! You can show them code too, of course, but that tends to be a little more painful.</p>
+<p>Then I realized there are even more advantages to homemade game engines projects. They are never-ending, living projects that do not have to be developed solo. They can attract a community of passionate people who share similar interests - people you can learn from, grow with, build things with and become friends with.</p>
+<p>In general, the more I thought about it, the closer I was to the conclusion that custom game engines are the promised land of pet projects.
+I found this topic interesting enough that I even gave an hour-long talk about exactly that at the GDD conference in Budapest in 2025.</p>
+<p>Someday I will link the written version of this talk here.</p>
+<!-- If you are curious, there is also a written version of that talk :) -->
+<p>But yeah, I have to admit that one of the biggest reasons I develop Pill is simply because I enjoy it.
+It is fun. Simple as that.</p>
+<h3 id="the-pain">The pain</h3>
+<p>That gave me exposure to a LOT of different domains, workflows and problems, and just as many opportunities to observe what people struggle with and what they actually need.
+And not only in game engines.
+I worked and seen people working with custom renderers, web development hot-reloading pipelines, hydration mechanisms, 3D printing, embedded systems, and huge production pipelines built around Blender, Maya, MotionBuilder, Substance Painter and Designer, Photoshop, Illustrator and many other tools.
+Pretty much all of these areas have some frameworks always used.</p>
+<p>All of that gave me a pretty broad perspective on tooling, iteration speed and the way users think in general.
+And when it comes to game engines, I used them a lot, tried a lot of them. I was never fully satisfied.
+There was always something missing, something awkward, something too slow, something too rigid, or some tiny detail that kept annoying me.</p>
+<p>I will not lie - I am a perfectionist. That can be both a blessing and a curse.
+In every engine I had the opportunity to use, I eventually found something I was unhappy with.</p>
+<p>Sometimes these are really small things. For example:</p>
+<ul>
+<li>I love when my code crashes but the editor itself stays alive and I do not have to restart everything.</li>
+<li>I love when asset files are human-readable and I can just open them in a text editor, understand what is inside and change them manually if I want to.</li>
+<li>I love that Unity has a separate Scene view where you can comfortably keep editing the world while the game is running in the Game view. It sounds almost negligible, but for me it makes a huge difference.</li>
+<li>I love hot reloading that prevents me from constant context-switching.</li>
+<li>I love fast startup times (like everyone I guess).</li>
+<li>I love responsive, tactile tools where pressing a button feels instant and iteration does not constantly get in your way.</li>
+</ul>
+<p>There are so many things like this. The problem is that I have never found a single engine that has all the things I am looking for.
+And there is an even bigger problem. Many existing engines cannot simply add features like these or fix some of their deeper issues, because those issues are often rooted in architectural decisions made years ago. At some point, changing those becomes enormously expensive.
+You have compatibility to preserve, projects already depending on existing behavior, tooling built around it, pipelines built around it, and years of code sitting on top of it.</p>
+<p>Sometimes it can genuinely be easier to build something new than to replace the foundations underneath an existing engine.</p>
+<p>This is also why maintaining proprietary engines can become incredibly expensive over time. Studios can reach a point where paying for another engine is simply cheaper than fighting years of accumulated technical debt, rebuilding entire systems or introducing something fundamental like proper hot reloading into an architecture that was never designed for it.</p>
+<p>And this is not really specific to game engines.
+Any large piece of software that is developed continuously for long enough will accumulate technical debt and there are no exceptions to that.</p>
+<p>Every engine started somewhere, with some initial assumptions, constraints and priorities. Years later, those assumptions may no longer match what developers actually want from the tool.</p>
+<p>That is one of the biggest advantages Pill has: it started from scratch.
+There is no need to preserve decades of legacy decisions. No need to work around architecture designed for a completely different era.
+It gives me the chance to look at all these problems, all these little quality-of-life things, all the architectural pain points, and ask a very simple question:
+What would I do if I could design this again from the beginning?</p>
+<p>A lot of these thoughts come from my own experience, but definitely not only from it. They are also the result of hundreds of conversations about engines, tools, rendering, pipelines and production with many extremely talented and experienced developers I was lucky enough to meet throughout my career.
+Still, these are my observations, my conclusions and, at the end of the day, my personal opinions.</p>
+<p>It is very tempting to use this section to vent a little and start pointing fingers.</p>
+<p>But I will not do that.</p>
+
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/introducing_pill_engine/crash.jpg"  class="center"  style="border-radius: 8px;"  />
+    
+
+
+<h2 id="pill-vs-other-engines">Pill vs other engines</h2>
+<p>Note: Pill currently in heavy development, and some features in this comparison are currently targets rather than completed implementations.</p>
+<p>Note: This comparison reflects my own research, experience and interpretation of each engine’s architecture and workflows. Some ratings are inherently subjective and may change as the engines evolve. I have tried to keep the comparison as fair and factual as possible.</p>
+<ul>
+<li>🔥 Standout strength / core design focus</li>
+<li>✅ Strong support</li>
+<li>⚠️ Supported with trade-offs</li>
+<li>❌ Not meaningfully supported
+<br/>
+<br/></li>
+</ul>
+<div class="table-scroll">
+<table>
+  <thead>
+      <tr>
+          <th>Feature</th>
+          <th>Pill</th>
+          <th>Unity</th>
+          <th>Unreal Engine</th>
+          <th>Godot</th>
+          <th>Bevy</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>License / cost</td>
+          <td>🔥 Free &amp; open source, MIT or Apache-2.0</td>
+          <td>⚠️ Proprietary; Personal is free below the eligibility threshold, paid tiers required above it</td>
+          <td>⚠️ Source-available; free in many cases, with royalties or seat licensing depending on use</td>
+          <td>🔥 Free &amp; open source, MIT</td>
+          <td>🔥 Free &amp; open source, MIT or Apache-2.0</td>
+      </tr>
+      <tr>
+          <td>Primary programming languages</td>
+          <td>C#, Rust</td>
+          <td>C#</td>
+          <td>C++, Blueprints</td>
+          <td>GDScript, C#; native extensions through GDExtension</td>
+          <td>Rust</td>
+      </tr>
+      <tr>
+          <td>Low-level native control</td>
+          <td>🔥 First-class Rust for low-level control; C# for higher-level productivity</td>
+          <td>⚠️ Gameplay development is primarily managed C#; native engine internals are not generally part of the normal workflow</td>
+          <td>✅ Excellent C++ access with engine source available</td>
+          <td>✅ Strong native extension support through GDExtension; full engine source available</td>
+          <td>🔥 Excellent; application and engine are Rust with direct access to the full stack</td>
+      </tr>
+      <tr>
+          <td>Runtime code iteration</td>
+          <td>🔥 Designed around extremely fast hot reload; ~1-2 s target, with sub-second function-only reloads targeted</td>
+          <td>✅ Strong C# iteration; Domain Reload and Scene Reload can be disabled to reduce iteration time</td>
+          <td>✅ Live Coding can rebuild and patch C++ while the editor/game is running</td>
+          <td>✅ Very fast scripting iteration, especially with GDScript</td>
+          <td>⚠️ Asset hot reload and development tooling exist, but Rust recompilation remains part of normal code iteration</td>
+      </tr>
+      <tr>
+          <td>Game/project crash isolation</td>
+          <td>🔥 Project and module code isolated from the editor/engine so project crashes do not take down the editor</td>
+          <td>❌ Play Mode normally runs inside the editor process; no general-purpose project sandbox</td>
+          <td>❌ Project/native code generally shares the editor/runtime environment; native failures can terminate the process</td>
+          <td>🔥 Game runs in a separate process, so a game crash does not normally crash the editor</td>
+          <td>❌ No separate traditional editor/runtime process architecture</td>
+      </tr>
+      <tr>
+          <td>Core implementation / memory-safety model</td>
+          <td>🔥 Rust-based core with strong memory-safety guarantees</td>
+          <td>⚠️ Managed C# gameplay over substantial native engine internals</td>
+          <td>⚠️ Primarily C++; memory safety depends on code correctness and engine abstractions</td>
+          <td>⚠️ Primarily C++</td>
+          <td>🔥 Rust-based memory-safety model</td>
+      </tr>
+      <tr>
+          <td>Default architecture</td>
+          <td>🔥 Archetype-based ECS at the core</td>
+          <td>⚠️ GameObject/Component architecture; Entities ECS is an additional framework</td>
+          <td>⚠️ Actor/Component architecture; Mass provides a separate data-oriented entity framework</td>
+          <td>⚠️ SceneTree / Node architecture</td>
+          <td>🔥 ECS-first architecture</td>
+      </tr>
+      <tr>
+          <td>Hybrid OOP + ECS workflow</td>
+          <td>🔥 Component-local logic and data-oriented systems can coexist without abandoning packed ECS storage</td>
+          <td>✅ GameObjects and Entities/DOTS can coexist in the same project</td>
+          <td>✅ Actors/Components and Mass can coexist, though they are distinct programming models</td>
+          <td>⚠️ Primarily node-oriented; ECS requires custom or third-party solutions</td>
+          <td>⚠️ Primarily ECS/data-oriented rather than hybrid OOP + ECS</td>
+      </tr>
+      <tr>
+          <td>Multithreading model</td>
+          <td>🔥 Automatic dependency-aware ECS scheduling with optimized parallel execution</td>
+          <td>✅ C# Job System + Burst; explicit jobs and DOTS/ECS scheduling support parallel workloads</td>
+          <td>⚠️ Tasks/Task Graph provide explicit asynchronous work; Mass adds parallel entity processing, but gameplay parallelism is not automatically derived engine-wide</td>
+          <td>⚠️ Threads, WorkerThreadPool and threaded subsystems are available, but gameplay parallelism is largely explicit</td>
+          <td>🔥 Dependency-aware ECS scheduler automatically runs non-conflicting systems in parallel based on data access</td>
+      </tr>
+      <tr>
+          <td>Large CPU-side simulations</td>
+          <td>🔥 Explicit design target for hundreds of thousands to potentially millions of entities, workload-dependent</td>
+          <td>✅ Entities/DOTS is specifically designed for high-throughput data-oriented workloads</td>
+          <td>✅ Mass is specifically designed for large-scale data-oriented entity simulation</td>
+          <td>⚠️ Possible with careful architecture, but not the engine’s primary design model</td>
+          <td>🔥 Excellent fit; ECS and automatic system parallelism are central to the architecture</td>
+      </tr>
+      <tr>
+          <td>Modular engine architecture</td>
+          <td>🔥 Tiny core; rendering, physics, audio, networking and tooling are separate modules</td>
+          <td>⚠️ Extensive package system, but the engine/editor/runtime baseline remains substantial</td>
+          <td>⚠️ Extensive module/plugin system, but the overall engine and editor remain very large and tightly integrated</td>
+          <td>✅ Fully open and extensible, though major systems ship together</td>
+          <td>⚠️ Feature-gated and plugin-oriented, but not strictly modular in the same sense as other engines here</td>
+      </tr>
+      <tr>
+          <td>Headless / renderer-free operation</td>
+          <td>🔥 Renderer can be omitted entirely; headless operation is a first-class architectural goal</td>
+          <td>✅ Dedicated Server and headless workflows are supported</td>
+          <td>✅ Dedicated-server and command-line/headless workflows are supported</td>
+          <td>✅ First-class headless mode and dedicated-server exports</td>
+          <td>🔥 Renderer is optional; explicit headless/custom-renderer configurations are supported</td>
+      </tr>
+      <tr>
+          <td>Error diagnostics</td>
+          <td>🔥 Designed around contextual call stacks, readable explanations and fix suggestions</td>
+          <td>✅ Mature console, debugger integrations, profiling and diagnostics</td>
+          <td>✅ Extensive logging, debugging, profiling and crash-analysis tooling</td>
+          <td>✅ Integrated debugger, stack traces, profiler and accessible error reporting</td>
+          <td>✅ Excellent Rust compiler diagnostics; runtime diagnostics depend more on application/tooling</td>
+      </tr>
+      <tr>
+          <td>Human-readable scene / asset metadata</td>
+          <td>🔥 JSON-based asset data designed for readability, manual editing and version control</td>
+          <td>✅ Scenes, prefabs and many serialized project assets use text/YAML-style serialization</td>
+          <td>❌ Core <code>.uasset</code> / <code>.umap</code> content is binary rather than ordinary text-mergeable data</td>
+          <td>🔥 Text-based <code>.tscn</code> / <code>.tres</code> formats are highly version-control friendly</td>
+          <td>⚠️ Flexible and application-dependent rather than one standardized human-readable project format</td>
+      </tr>
+      <tr>
+          <td>Integrated visual editor</td>
+          <td>✅ Yes; full visual editor is part of the engine</td>
+          <td>🔥 Very mature and feature-rich editor</td>
+          <td>🔥 Extremely mature and comprehensive editor</td>
+          <td>✅ Mature full visual editor</td>
+          <td>❌ No first-party traditional scene/editor environment comparable to Unity, Unreal or Godot</td>
+      </tr>
+      <tr>
+          <td>Live game + scene editing workflow</td>
+          <td>🔥 Simultaneous Game + Scene viewports, live editing, and full crash isolation</td>
+          <td>🔥 Excellent simultaneous Scene + Game views with live Play Mode editing</td>
+          <td>⚠️ Strong PIE/Simulate editing, but less seamless and not fully crash-isolated</td>
+          <td>⚠️ Separate-process game view with crash isolation, but less convenient for side-by-side editing</td>
+          <td>❌ No first-party visual editor with simultaneous Game + Scene views</td>
+      </tr>
+      <tr>
+          <td>Minimum build size</td>
+          <td>🔥 Explicit target of ~1 MB-class minimal builds</td>
+          <td>❌ Not designed for ~1 MB-class minimal builds; runtime/player overhead is substantially larger</td>
+          <td>❌ Not designed for tiny binaries; packaged projects have substantial engine/runtime overhead</td>
+          <td>⚠️ Relatively lightweight, but not designed around ~1 MB-class exports</td>
+          <td>✅ Highly configurable through Cargo features and stripping, though not inherently a ~1 MB-class engine</td>
+      </tr>
+      <tr>
+          <td>Large-world / asset streaming</td>
+          <td>🔥 Core architectural priority for efficiently streaming large volumes of world and asset data</td>
+          <td>✅ Addressables, AssetBundles and asynchronous loading provide mature asset-streaming workflows</td>
+          <td>🔥 Major strength: mature large-world stack including World Partition, Data Layers and HLOD</td>
+          <td>⚠️ On-demand loading and large-world techniques are possible, but there is no equally comprehensive built-in world-streaming stack</td>
+          <td>⚠️ Possible and extensible, but largely application/plugin dependent rather than a mature built-in world-streaming stack</td>
+      </tr>
+      <tr>
+          <td>Large-project editor startup</td>
+          <td>🔥 Explicit goal to keep editor startup within seconds where practical, even for large projects</td>
+          <td>⚠️ Asset imports, domain reloads, package initialization and large project state can create substantial startup/iteration costs</td>
+          <td>⚠️ Large projects can incur substantial startup, indexing, asset discovery and shader-related costs</td>
+          <td>✅ Generally lightweight and quick to launch</td>
+          <td>N/A - no comparable heavyweight first-party visual editor; compile/link iteration is the more relevant cost</td>
+      </tr>
+      <tr>
+          <td>Embedded / constrained hardware</td>
+          <td>🔥 Explicit target, including ESP32-class devices with very limited memory</td>
+          <td>❌ Not designed for MCU-class hardware such as ESP32 devices</td>
+          <td>❌ Not a target for MCU/ESP32-class hardware</td>
+          <td>⚠️ Not an official MCU-class target; custom/community ports are possible</td>
+          <td>✅ Explicit <code>no_std</code> configurations exist, though full Bevy is less MCU-focused than Pill’s stated target</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<h2 id="origins-of-pill">Origins of Pill</h2>
+<p>Here, I would like to tell how Pill actually started.</p>
+<p>This section probably belongs somewhere at the very beginning of this post. But I wanted to first introduce what Pill actually is and catch your attention, instead of immediately forcing you through somike to present here how Pill actually ste long, passionate story about its beginnings.</p>
+<p>This section is mostly here for the sentiment.</p>
+<p>Generally, it didn&rsquo;t happen in a way where one afternoon I suddenly got an idea to develop a game engine, sat down at my PC and just started building it.
+Things in life usually don&rsquo;t work this way.</p>
+<h3 id="studies-and-bachelors-thesis">Studies and Bachelor&rsquo;s thesis</h3>
+<p>It was the fall of AD 2021, and the last thing standing between me and earning my Bachelor&rsquo;s degree in Computer Science at my alma mater, Warsaw University of Technology, was the Bachelor&rsquo;s thesis. There were tons of topics to choose from, and some of them were actually pretty feasible - a few weeks of work and the thesis could be done. But for some reason I have always been rather ambitious. I&rsquo;m not quite sure why to be honest. So I thought that instead of killing two birds with one stone, I would go on a rampage and take down four of them:</p>
+<ul>
+<li>I would write my Bachelor&rsquo;s thesis.</li>
+<li>I would make a project about something I was genuinely interested in.</li>
+<li>I would learn the Rust programming language.</li>
+<li>I would have a nice project for my portfolio.</li>
+</ul>
+<p>All these things required a lot of motivation - especially learning Rust, as at the time it felt like a truly tough beast. Sometimes it still feels like that. It is hard to tame it.</p>
+<p>However, I had discovered that I could trick myself a bit
+The plan was simple: declare a project with no easy way back, no possibility to change the topic halfway through, and - most importantly - a deadline, and deadlines work especially well for me.
+So instead of picking something like <em>&ldquo;make a small lamp that reacts to something&rdquo;</em>, I challenged myself with: <em>&ldquo;Design and Implementation of a Computer Game Engine in the Rust Programming Language&rdquo;</em>. I had worked on custom game engines and renderer projects before, so I already had some knowledge.
+It is also worth mentioning that Łukasz Zalewski was helping me with the project.</p>
+<p>&hellip;aaand after five months the thesis was completed and I had something that could be called a game engine - and more importantly - something I was genuinely proud of.</p>
+
+    
+    
+    
+    
+    
+    
+    
+        <figure class="center">
+            <img src="/media/images/posts/introducing_pill_engine/pill_bachelor_thesis.gif"  class="center"  style="border-radius: 8px;"  />
+            <figcaption class="center">Demo made in the final version of the bachelor thesis engine</figcaption>
+        </figure>
+    
+
+
+<p>Well&hellip; it definitely does not look impressive. But try to achieve it&hellip; back in the days before coding agents - ECS, meshes, textures, materials, shaders, a rendering pipeline, sound, input and window handling - all combined into a single architecture.</p>
+<p>In projects like this, the code itself is only one part of the work.
+There was also an actual multi-page paper describing all the technical details, architecture, design decisions, explanations of why certain things were done the way they were, and so on.
+A lot of what was behind the engine came from the unique architectural ideas I had learned while helping with the development of <strong>PolyEngine</strong> in the &ldquo;Polygon&rdquo; Students&rsquo; Association of Game Developers.</p>
+
+    
+    
+    
+    
+    
+    
+    
+        <figure class="center">
+            <img src="/media/images/posts/introducing_pill_engine/polygon.png"  class="center"  style="border-radius: 8px;"  />
+            <figcaption class="center">Amazing and truly life-changing Polygon community &lt;3</figcaption>
+        </figure>
+    
+
+
+<p>And then there is one number from this whole story that still sounds a bit ridiculous:
+This thesis took me roughly 1,400 hours of work over five months.
+(Yes, I really counted it. Pretty precisely, actually. With an estimated error margin of around 10%.)
+It turned out that it was too much for one human organism and I had a pretty serious mental crash after that whole marathon, so I definitely do not recommend such
+hardcore endeavours.</p>
+
+    
+    
+    
+    
+    
+    
+    
+        <figure class="center">
+            <img src="/media/images/posts/introducing_pill_engine/tired.png"  class="center"  style="border-radius: 8px;"  />
+            <figcaption class="center">Just a bit tired</figcaption>
+        </figure>
+    
+
+
+<p>After handing in the thesis and earning my degree 🎓, quiet times came for Pill. I focused on professional work, personal life, etc. Building a game engine is a huge investment of time and focus after all, and at that point I simply could not afford it.
+But I always felt this urge. I felt like I was missing a proper pet project, and I kept seeing all these issues and inconveniences of the engines available on the market. So eventually I carefully dug Pill out from the pile of things and shyly implemented some features here and there, just for fun.</p>
+<h3 id="slavic-game-jam-2025">Slavic Game Jam 2025</h3>
+<p>Nevertheless, fast forward to Slavic Game Jam 2025.</p>
+<p>(You need to know that I&rsquo;m a huge fan of game jams. I have attended over 25 of them, but that is a story for another article.)</p>
+<p>I once again joined my game jam forces with Jakub &ldquo;Celeborth&rdquo; Duchniewicz.
+We are both huge enthusiasts of tinkering with custom tech, and we still very sentimental for PolyEngine, so I proposed that we make a game using Pill - almost the exact same version I had left untouched around three years earlier.</p>
+<p>Over a single sleepless night (the day was sleepless too, BTW), we implemented centralized server networking in Pill and built a multiplayer &ldquo;racing game&rdquo; we called Tiny Trucks.</p>
+<p>The moment when three instances of Pill finally connected in a multiplayer session, with the sun rising outside at around 6 AM, was purely magical.
+The whole atmosphere, the exhaustion, the overwhelming dopamine hit - all of it just confirmed for me that Pill was a project I wanted to keep developing. Even if only for my own satisfaction.</p>
+
+    
+    
+    
+    
+    
+    
+    
+        <figure class="center">
+            <img src="/media/images/posts/introducing_pill_engine/slavic_game_jam.gif"  class="center"  style="border-radius: 8px;"  />
+            <figcaption class="center">Multiplayer implemented over a single night started working!</figcaption>
+        </figure>
+    
+
+
+<h3 id="eurorust-2025">EuroRust 2025</h3>
+<p>Around two months later, Celeborth and I attended the EuroRust conference in Paris and came back even more hyped about the vision for Pill.
+At that point I knew we needed to bring more talented people into the project, so I reached out to Michał &ldquo;Sp0lsh&rdquo; Kłoś - another PolyEngine veteran and a very talented rendering engineer with a great artistic eye - and asked if he would like to contribute to Pill as well.
+And he gladly agreed!</p>
+<p>This marked the moment when things started to get serious.
+I would say this is where the development of Pill as an official project really began.</p>
+
+    
+    
+    
+    
+    
+    
+    
+        <figure class="center">
+            <img src="/media/images/posts/introducing_pill_engine/euro_rust_2025.png"  class="center"  style="border-radius: 8px;"  />
+            <figcaption class="center">Me with Ferris at EuroRust 2025</figcaption>
+        </figure>
+    
+
+
+<p>A few months after that, the bigger idea for Pill started to mature in my head.
+Over the previous 10 years, both professionally and as a hobbyist, I had worked with many different game engines and repeatedly run into the same kinds of problems, limitations and frustrations. So I thought: why not challenge them? Why not take all those issues I had experienced over the years and try to fix them in Pill?</p>
+<p>That changed the project significantly. Pill was no longer just a fun engine I wanted to develop for myself. It became something much more serious.</p>
+<h3 id="fall-of-2026">Fall of 2026</h3>
+<p>And now we are here.</p>
+<p>Fall of 2026.</p>
+<p>A new chapter for Pill begins.</p>
+<p>💊</p>
+]]></content>
+        </item>
         
         <item>
             <title>Running Rust programs on Raspberry Pi</title>
@@ -16,7 +565,15 @@
             <guid>https://mattszymonski.com/posts/running-rust-programs-on-raspberry-pi/</guid>
             <description>&lt;hr&gt;
 
-    &lt;img src=&#34;https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+    
+    
+    
+    
+    
+    
+        &lt;img src=&#34;https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;
+    
 
 
 &lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
@@ -24,7 +581,15 @@
 &lt;p&gt;And yes, this is possible - but there are two significant problems with this approach:&lt;/p&gt;</description>
             <content type="html"><![CDATA[<hr>
 
-    <img src="/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <h2 id="introduction">Introduction</h2>
@@ -137,7 +702,7 @@ Cargo will automatically use the linker assigned to this target in your config f
 <style type="text/css">
     .notice{
         --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;
-        --warning-title:#800;--warning-content:#400;
+        --warning-title:#eda411;--warning-content:#d19f38;
         --info-title:#698496;--info-content:#8ba0ad;
         --note-title:#069;--note-content:#023;
         --tip-title:#363;--tip-content:#121;
@@ -838,7 +1403,15 @@ all its dependencies with others, without the need to share individual files.</p
 inside it.</strong></p>
 <p>The folder structure should look as follows:</p>
 
-    <img src="/media/images/posts/building_ai_tools_in_houdini/folder_structure.png"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/building_ai_tools_in_houdini/folder_structure.png"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p>Houdini automatically loads Python modules if they are located in the following paths:</p>
@@ -1128,14 +1701,30 @@ Everything except that should be more or less universal and work with every mode
 
 <h2 id="4-lets-try-it-its-showtime">4. Let’s try it. It&rsquo;s showtime!</h2>
 
-    <img src="/media/images/posts/building_ai_tools_in_houdini/showtime.jpg"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/building_ai_tools_in_houdini/showtime.jpg"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p><strong>⚡️ Restart Houdini if you have it opened.</strong>
 This is required because packages are loaded on the program start.</p>
 <p>You can check if the package has been detected correctly. To do this click the “Help” button in the navmenu at the top, then “About”, tick the “Show Details” checkbox, and scroll down to the “Loaded Packages” section. The tool should appear there.</p>
 
-    <img src="/media/images/posts/building_ai_tools_in_houdini/help.gif"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/building_ai_tools_in_houdini/help.gif"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <br />
@@ -1143,7 +1732,15 @@ This is required because packages are loaded on the program start.</p>
 <p>First test the basic functionality which is debug message printing.<br>
 <strong>⚡️ In network view create a geometry node and then attribute wrangle node in it.</strong></p>
 
-    <img src="/media/images/posts/building_ai_tools_in_houdini/first.gif"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/building_ai_tools_in_houdini/first.gif"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p>Yey!</p>
@@ -1194,7 +1791,15 @@ This is required because packages are loaded on the program start.</p>
 </p>
 <p><strong>⚡️ Ok, so let&rsquo;s click the button and wait for a few seconds.</strong></p>
 
-    <img src="/media/images/posts/building_ai_tools_in_houdini/comment.gif"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/building_ai_tools_in_houdini/comment.gif"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <p>… and there you have it! The same code as before but analyzed and commented for you. Crazy, right?</p>
@@ -1261,7 +1866,15 @@ This is required because packages are loaded on the program start.</p>
 <p>You can use OpenAI module for this too</p>
 <p>The rest of the node tree should look like this:</p>
 <p>
-    <img src="/media/images/posts/building_ai_tools_in_houdini/jokes.png"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/building_ai_tools_in_houdini/jokes.png"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 (Font node is referencing Python node using spare input. It has to be added to the font node by clicking the cog button next to its name and choosing &ldquo;Add spare input&rdquo;. Then it will appear in the parameters below. Just drag and drop Python node to assign it)</p>
@@ -1270,7 +1883,15 @@ This is required because packages are loaded on the program start.</p>
 <p>💡 Perhaps a more useful idea: Create parameterized NPC creator for the video game and ask AI to “play” with different parameters, as well as come up with some personal details and character descriptions. In this way, we can easily generate meaningful characters.
 (Next step would be to convert them to something more &ldquo;physical&rdquo;. Eg. Nothing stops us from deploying an army of 3D-printed, AI-equiped replicants to the streets. Welcome to the future!)</p>
 
-    <img src="/media/images/posts/building_ai_tools_in_houdini/units.jpg"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="/media/images/posts/building_ai_tools_in_houdini/units.jpg"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <br />

@@ -75,6 +75,56 @@ And yes, this is possible - but there are two significant problems with this app
     data-website-id="101c1062-943d-4b8b-9336-64b96ac3ce7b"></script>
 
 
+<style>
+    .text-black {
+        color: #000;
+    }
+
+    .text-dark-gray {
+        color: #1d1d1d;
+    }
+
+     
+    .table-scroll {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+     
+    .table-scroll table th,
+    .table-scroll table td {
+        padding: 8px;
+        vertical-align: top;
+    }
+
+     
+    .style-table.dark-theme th,
+    .style-table.dark-theme td {
+        border-color: #8a8b91;
+    }
+
+     
+    .style-table.dark-theme thead tr {
+        background-color: #3b3d42;
+    }
+
+     
+    .table-scroll-top {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .table-scroll-top-spacer {
+        height: 1px;
+        min-width: 100%;
+    }
+</style>
+
+
+<script src="https://mattszymonski.com/js/table-top-scrollbar.js" defer></script>
+
+
 <script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
     </head>
 
@@ -164,7 +214,15 @@ And yes, this is possible - but there are two significant problems with this app
                 <div class="post-content">
                     <hr>
 
-    <img src="https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png"  class="center"  style="border-radius: 8px;"  />
+    
+    
+    
+    
+    
+    
+    
+        <img src="https://mattszymonski.com/media/images/posts/running_rust_programs_on_raspberry_pi/crates.png"  class="center"  style="border-radius: 8px;"  />
+    
 
 
 <h2 id="introduction">Introduction</h2>
@@ -277,7 +335,7 @@ Cargo will automatically use the linker assigned to this target in your config f
 <style type="text/css">
     .notice{
         --root-color:#333;--root-background:#eff;--title-color:#fff;--title-background:#7bd;
-        --warning-title:#800;--warning-content:#400;
+        --warning-title:#eda411;--warning-content:#d19f38;
         --info-title:#698496;--info-content:#8ba0ad;
         --note-title:#069;--note-content:#023;
         --tip-title:#363;--tip-content:#121;
@@ -698,6 +756,13 @@ Below is a minimal example of a Rust program that blinks an LED connected to the
                     </div>
 
                     <div class="pagination__buttons">
+                        
+                            <span class="button previous">
+                                <a href="https://mattszymonski.com/posts/pill-engine-rethinking-the-game-engine/">
+                                    <span class="button__icon">←</span>
+                                    <span class="button__text">Pill Engine: Rethinking the Game Engine</span>
+                                </a>
+                            </span>
                         
 
                         
