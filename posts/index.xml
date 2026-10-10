@@ -468,7 +468,7 @@ It&rsquo;s also worth mentioning that Łukasz Zalewski was helping me with the p
 <p>Well&hellip; it definitely doesn&rsquo;t look impressive. But try to achieve it&hellip; back in the days before coding agents - ECS, meshes, textures, materials, shaders, a rendering pipeline, sound, input and window handling - all combined into a single architecture.</p>
 <p>In projects like this, the code itself is only one part of the work.
 There was also an actual multi-page paper describing all the technical details, architecture, design decisions, explanations of why certain things were done the way they were, and so on.
-A lot of what was behind the engine came from the unique architectural ideas I had learned while helping with the development of <strong>PolyEngine</strong> in the &ldquo;Polygon&rdquo; Students&rsquo; Association of Game Developers.</p>
+A lot of what was behind the engine came from the unique architectural ideas I had learned while helping with the development of <em>PolyEngine</em> in the &ldquo;Polygon&rdquo; Students&rsquo; Association of Game Developers.</p>
 
     
     
@@ -485,8 +485,8 @@ A lot of what was behind the engine came from the unique architectural ideas I h
 
 
 <p>And then there&rsquo;s one number from this whole story that still sounds a bit ridiculous:
-This thesis took me roughly 1,400 hours of work over five months.
-(Yes, I really counted it. Pretty precisely, actually. With an estimated error margin of around 10%.)
+This thesis took me roughly 1400 hours of work over five months.
+(Yes, I really counted it. Pretty precisely, actually. With an estimated error margin of around 10%)
 It turned out that it was too much for one human organism and I had a pretty serious mental crash after that whole marathon, so I definitely don&rsquo;t recommend such
 hardcore endeavours.</p>
 
@@ -504,8 +504,8 @@ hardcore endeavours.</p>
     
 
 
-<p>After handing in the thesis and earning my degree 🎓, quiet times came for Pill. I focused on professional work, personal life, etc. Building a game engine is a huge investment of time and focus after all, and at that point I simply could not afford it.
-But I always felt this urge. I felt like I was missing a proper pet project, and I kept seeing all these issues and inconveniences of the engines available on the market. So eventually I carefully dug Pill out from the pile of things and shyly implemented some features here and there, just for fun.</p>
+<p>After handing in the thesis and earning my degree, quiet times came for Pill. I focused on professional work, personal life, etc. Building a game engine is a huge investment of time and focus after all, and at that point I simply could not afford it.
+But I always felt this urge. I felt like I was missing a proper pet project, and I kept seeing all these issues and inconveniences of the engines available on the market. So eventually I carefully dug Pill out from the pile of things and shyly implemented some features here and there, for fun.</p>
 <h3 id="slavic-game-jam-2025">Slavic Game Jam 2025</h3>
 <p>Nevertheless, fast forward to Slavic Game Jam 2025.</p>
 <p>(You need to know that I&rsquo;m a huge fan of game jams. I&rsquo;ve attended over 25 of them, but that&rsquo;s a story for another article.)</p>
@@ -546,7 +546,7 @@ I&rsquo;d say this is where the development of Pill as an official project reall
     
         <figure class="center">
             <img src="/media/images/posts/introducing_pill_engine/euro_rust_2025.png"  class="center"  style="border-radius: 8px;"  />
-            <figcaption class="center">Me with Ferris at EuroRust 2025</figcaption>
+            <figcaption class="center">Me with Ferris at EuroRust 2025 (these normals look crazy, but it really looked like that IRL!)</figcaption>
         </figure>
     
 
